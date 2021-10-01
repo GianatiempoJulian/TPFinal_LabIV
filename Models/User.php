@@ -1,6 +1,9 @@
 <?php
 
-abstract class User{
+namespace Models;
+require_once ("Config/Autoload.php");
+
+class User{
 
     private $mail;
     private $password;

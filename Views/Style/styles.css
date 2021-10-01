@@ -1,0 +1,231 @@
+/* General */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+html,
+body {
+    width: 100%;
+    background-color: #DEF2F1;
+}
+
+
+/* Nav bar */
+
+nav {
+    display: flex;
+    background-color: #3AAFA9;
+    height: 3rem;
+}
+
+nav ul {
+    display: inline;
+    padding: 5px;
+    position: relative;
+    top: 9px;
+    left: 1px;
+}
+
+nav ul li {
+    display: inline;
+    margin: 1rem;
+    font-size: 90%;
+    transition: ease-in 0.3s;
+}
+
+.nav_option {
+    color: #FEFFFF;
+}
+
+.nav_option:hover {
+    color: #2B7A78;
+    transition: ease 0.5s;
+}
+
+nav img {
+    margin: 12px;
+    width: 25px;
+    height: 25px;
+}
+
+
+/* Perfil */
+
+#profile_section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#profile_box {
+    width: 100%;
+    background-image: url("../img/background_Example.jpg");
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#profile_name,
+#profile_career {
+    color: #ffffff;
+    display: block;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 10px black;
+}
+
+#profile_box img {
+    margin: 1rem;
+    border-radius: 50%;
+    width: 30%;
+    height: 100%;
+    border-style: solid;
+    border-color: #f1f1f1;
+    border-width: 5px;
+    display: flex;
+    right: 30%;
+}
+
+#profile_options {
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+
+#profile_options ul {
+    display: inline;
+    position: relative;
+    font-size: 12px;
+}
+
+#profile_options a {
+    padding: 12px;
+    color: #869291;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #c0cbcf;
+}
+
+#profile_section ul {
+    margin: 1rem;
+    padding: 1rem;
+    text-align: center;
+    list-style-type: none;
+}
+
+#profile_section ul li {
+    padding: 3px;
+}
+
+
+/* company list */
+
+#comp_list {
+    width: 300px;
+    vertical-align: middle;
+    white-space: nowrap;
+    position: relative;
+}
+
+#search_icon {
+    position: absolute;
+    left: 18%;
+    bottom: 66%;
+    width: 30px;
+    height: 30px;
+}
+
+.search_bar {
+    display: flex;
+    width: 300px;
+    height: 40px;
+    margin: 40px 0px 20px 40px;
+    border-style: none;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 1px 5px 20px rgba(90, 90, 90, 0.4);
+}
+
+.search_bar::placeholder {
+    color: #a1a1a1;
+}
+
+#comp_table {
+    width: 100%;
+    margin: 20px;
+    padding: 50px;
+    align-items: center;
+}
+
+.th_box {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 15px;
+    padding: 25px;
+    text-align: center;
+    margin: 0px 0px 20px 0px;
+    background-color: rgb(200, 200, 200);
+    border-radius: 10px;
+}
+
+
+/* login */
+
+#front_text {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 1rem;
+}
+
+#login_section {
+    margin-top: 250px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login_form {
+    align-items: center;
+    padding: 10px;
+}
+
+.login_form input {
+    width: 250px;
+    height: 40px;
+    display: flex;
+    border-style: none;
+    text-align: center;
+    box-shadow: 1px 5px 20px rgba(90, 90, 90, 0.4);
+    border-radius: 2px;
+}
+
+.submit_button {
+    background-color: #7a90ff;
+    padding: 5px;
+    position: relative;
+    left: 5.5rem;
+    margin-top: 1rem;
+    color: #ffffff;
+    border-style: none;
+    border-radius: 2px;
+}
+
+
+/* footer */
+
+footer {
+    position: static;
+    text-align: center;
+    bottom: 1%;
+    right: 45%;
+}
+
+footer h1 {
+    font-size: smaller;
+}
