@@ -1,7 +1,7 @@
 <?php
 
 namespace Models;
-require_once ("Config/Autoload.php");
+//require_once ("Config/Autoload.php");
 
 class User{
 

@@ -10,7 +10,7 @@
 html,
 body {
     width: 100%;
-    background-color: #DEF2F1;
+    background-color: #FAF9F6;
 }
 
 
@@ -18,7 +18,7 @@ body {
 
 nav {
     display: flex;
-    background-color: #3AAFA9;
+    background-color: #5D3FD3;
     height: 3rem;
 }
 
@@ -71,7 +71,8 @@ nav img {
 }
 
 #profile_name,
-#profile_career {
+#profile_career,
+#profile_type {
     color: #ffffff;
     display: block;
     margin-bottom: 1rem;
@@ -100,14 +101,21 @@ nav img {
     display: inline;
     position: relative;
     font-size: 12px;
+    width: 100%;
 }
 
 #profile_options a {
+    display: flex;
+    width: 100%;
     padding: 12px;
     color: #869291;
     border-style: solid;
     border-width: 1px;
     border-color: #c0cbcf;
+    text-align: center;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
 }
 
 #profile_section ul {
@@ -144,14 +152,14 @@ nav img {
     width: 300px;
     height: 40px;
     margin: 40px 0px 20px 40px;
-    border-style: none;
+    border-style: solid;
     border-radius: 20px;
     text-align: center;
-    box-shadow: 1px 5px 20px rgba(90, 90, 90, 0.4);
+    border-color: #5D3FD3;
 }
 
 .search_bar::placeholder {
-    color: #a1a1a1;
+    color: #5D3FD3;
 }
 
 #comp_table {
@@ -169,8 +177,12 @@ nav img {
     padding: 25px;
     text-align: center;
     margin: 0px 0px 20px 0px;
-    background-color: rgb(200, 200, 200);
+    background-color: #5D3FD3;
     border-radius: 10px;
+}
+
+.th_box a {
+    color: #FAF9F6;
 }
 
 
@@ -199,14 +211,18 @@ nav img {
     width: 250px;
     height: 40px;
     display: flex;
-    border-style: none;
+    border-style: solid;
+    border-color: #5D3FD3;
     text-align: center;
-    box-shadow: 1px 5px 20px rgba(90, 90, 90, 0.4);
     border-radius: 2px;
 }
 
+.login_form input::placeholder {
+    color: #5D3FD3;
+}
+
 .submit_button {
-    background-color: #7a90ff;
+    background-color: #5D3FD3;
     padding: 5px;
     position: relative;
     left: 5.5rem;
