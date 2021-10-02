@@ -39,6 +39,7 @@ $comp_list = $comp_repository->GetAll();
 ?>
 
 <main>
+     <form action="login.php" method="post"></form>
      <section id="comp_list">
           <div>
                
@@ -50,7 +51,7 @@ $comp_list = $comp_repository->GetAll();
                               foreach($comp_list as $company){
                          ?>
                               
-                              <th class="th_box"><a href="company_profile.php"><?php echo $company->getComp_name()?> <br> <?php echo $company->getComp_type()?></a></th>
+                              <th class="th_box"><a id = "comp_select" href="company_profile.php"><?php echo $company->getComp_name()?> <br> <?php echo $company->getComp_type()?></a></th>
                              
                          </tr>
                          <?php
