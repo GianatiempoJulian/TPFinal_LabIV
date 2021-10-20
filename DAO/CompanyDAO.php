@@ -26,7 +26,7 @@
 
         public function Remove($comp_id){
 
-            $this->retrieveData();
+            $this->RetrieveData();
 		    $newList = array();
 
 		    foreach ($this->companyList as $company) {
@@ -35,15 +35,67 @@
 			    }
 		}
 
-		$this->researchList = $newList;
-		$this->saveData();
+		$this->companyList = $newList;
+		$this->SaveData();
+       
         }
 
-    
+        public function ModifyName($comp_id,$dato){
+
+            $this->RetrieveData();
+		   
+
+		    foreach ($this->companyList as $company) {
+			    if($company->getComp_id()== $comp_id){
+                    $company->setComp_name($dato);
+			    }
+		}
+
+		
+		$this->SaveData();
+       
+        }
+
+        public function ModifyType($comp_id,$dato){
+
+            $this->RetrieveData();
+		   
+            echo "el valor de datoe s" . $dato;
+		    foreach ($this->companyList as $company) {
+			    if($company->getComp_id()== $comp_id){
+                    $company->setComp_type($dato);
+			    }
+		}
+
+		
+		$this->SaveData();
+       
+        }
+
+        
+
+        
+        
+
+        
 
         public function GetAll(){
             $this->RetrieveData();
             return $this->companyList;
+        }
+
+        public function GetById($id){
+            
+            $this->RetrieveData();
+            $aux;
+            foreach($companyList as $company)
+            {
+                if ($company->getComp_id() == $id)
+                {
+                    $aux = $company;
+                }
+            }
+            return $aux;
         }
 
         private function SaveData(){

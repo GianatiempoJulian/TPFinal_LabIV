@@ -42,7 +42,7 @@ nav ul li {
 }
 
 .nav_option:hover {
-    color: #2B7A78;
+    color: #2f1f6e;
     transition: ease 0.5s;
 }
 
@@ -64,7 +64,8 @@ nav img {
 
 #profile_box {
     width: 100%;
-    background-image: url("../img/background_Example.jpg");
+    background: rgb(41, 25, 120);
+    background: linear-gradient(90deg, rgba(41, 25, 120, 1) 0%, rgba(75, 58, 143, 1) 38%, rgba(121, 103, 193, 1) 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -232,6 +233,10 @@ nav img {
     border-radius: 2px;
 }
 
+.not_visible {
+    visibility: collapse;
+}
+
 
 /* footer */
 
@@ -244,4 +249,71 @@ footer {
 
 footer h1 {
     font-size: smaller;
+}
+
+@media screen and (min-width: 800px) {
+    /* Nav bar */
+    nav ul {
+        text-align: center;
+        width: 100%;
+    }
+    /* Perfil */
+    #profile_box img {
+        margin: 1rem;
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+        border-style: solid;
+        border-color: #f1f1f1;
+        border-width: 5px;
+        display: flex;
+        right: 30%;
+    }
+    /* company list */
+    #comp_list {
+        width: 100%;
+        align-items: center;
+        white-space: nowrap;
+        display: flex;
+        justify-content: center;
+    }
+    #search_icon {
+        position: absolute;
+        left: 18%;
+        bottom: 66%;
+        width: 30px;
+        height: 30px;
+    }
+    .search_bar {
+        display: flex;
+        width: 300px;
+        height: 40px;
+        margin: 40px 0px 20px 40px;
+        border-style: solid;
+        border-radius: 20px;
+        text-align: center;
+        border-color: #5D3FD3;
+    }
+    .search_bar::placeholder {
+        color: #5D3FD3;
+    }
+    #comp_table {
+        width: 100%;
+        margin: 20px;
+        padding: 50px;
+        align-items: center;
+    }
+    .th_box {
+        display: flex;
+        flex-direction: column;
+        left: 15px;
+        padding: 25px;
+        text-align: center;
+        margin: 0px 0px 20px 0px;
+        background-color: #5D3FD3;
+        border-radius: 10px;
+    }
+    .th_box a {
+        color: #FAF9F6;
+    }
 }

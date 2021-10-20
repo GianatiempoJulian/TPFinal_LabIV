@@ -8,7 +8,7 @@
      }
      else
      {
-          header("location:index.php?msg=without_session");
+          header("location:login.php?msg=without_session");
      }
 
 ?>

@@ -1,11 +1,12 @@
-[{
-        "companyId": 1,
-        "companyName": "Queen",
-        "companyType": "true"
+[
+    {
+        "companyId": "1",
+        "companyName": "Sacoa",
+        "companyType": "Tienda de juegos"
     },
     {
-        "companyId": 12,
-        "companyName": "Qu2222een",
-        "companyType": "t2222rue"
+        "companyId": "2",
+        "companyName": "Ebay",
+        "companyType": "Tienda Digital"
     }
 ]
