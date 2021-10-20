@@ -25,6 +25,11 @@ Class Student extends User{
     /**
      * Get the value of studentId
      */ 
+   
+
+    /**
+     * Get the value of studentId
+     */ 
     public function getStudentId()
     {
         return $this->studentId;
@@ -202,7 +207,6 @@ Class Student extends User{
         return $this;
     }
 
-
     /**
      * Get the value of phoneNumber
      */ 
@@ -219,6 +223,26 @@ Class Student extends User{
     public function setPhoneNumber($phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of active
+     */ 
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set the value of active
+     *
+     * @return  self
+     */ 
+    public function setActive($active)
+    {
+        $this->active = $active;
 
         return $this;
     }

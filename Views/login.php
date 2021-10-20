@@ -1,14 +1,12 @@
 <?php include('header.php'); ?>
 
-<?php ?>
-
 <?php
 
      session_start();
 
-     if(isset($_SESSION["username"]))
+     if(isset($_SESSION["user_mail"]))
      {
-          header("location:nav.php"); ///si la sesion esta iniciada te manda de una al nav.
+          header("location:student_profile.php"); ///si la sesion esta iniciada te manda de una al profile
      }
      
 ?>
