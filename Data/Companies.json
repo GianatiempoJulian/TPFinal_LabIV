@@ -1,12 +1,7 @@
 [
     {
-        "companyId": "1",
-        "companyName": "Sacoa",
-        "companyType": "Tienda de juegos"
-    },
-    {
-        "companyId": "2",
-        "companyName": "Ebay",
-        "companyType": "Tienda Digital"
+        "companyId": 2,
+        "companyName": "Mercadolibre",
+        "companyType": "Software"
     }
 ]

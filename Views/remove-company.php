@@ -20,7 +20,7 @@
     <article id="add-company_article">
         <section id="add-company_secton">
             <header id="front_text">Elimina una empresa</header>
-            <form action="company_rm-form.php" method= "post">
+            <form action="<?php echo FRONT_ROOT ?>Company/Remove" method= "post">
                <div class="add-company_form">
                     <input type="number" name="comp_id" placeholder="Ingresar ID para eliminar" required>
                </div>

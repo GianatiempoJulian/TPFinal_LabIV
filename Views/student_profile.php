@@ -1,49 +1,45 @@
+<?php namespace Views; ?>
 <?php include('header.php'); ?>
 <?php include('nav.php'); ?>
 
-<?php
-
-
-
-?>
-
 <?php 
 
-   require_once ("../DAO/StudentDAO.php");
-   require_once ("../DAO/IStudentDAO.php");
-   require_once("../Models/Student.php");
+require_once("Config/Autoload.php");
 
+
+   use Config\Autoload as Autoload;
    use DAO\StudentDAO as StudentDAO;
    use DAO\IStudentDAO as IStudentDAO;
    use Models\Student as Student;
 
-if(session_start()) {
+   use DAO\CareerDAO as CareerDAO;
+   use DAO\ICareerDAO as ICareerDAO;
+   use Models\Career as Career;
+
+   Autoload::Start();
+
+//if(session_start()) {
 
 
-$mail = $_SESSION['user_mail'];
+ foreach($studentList as $student)
+ {
 
-$studentList = new StudentDAO();
-$api_students = $studentList->GetAll();
-
-
-$studentInUse = new Student();
-
-foreach($api_students as $student)
-{
-    if(strcmp($mail,$student->getEmail()) == 0)
-        {
-            $studentInUse = $student;
-        }
-}
-  }
-
+   if($student->getEmail() == $_SESSION['email'])
+   {
+    foreach($api_career as $career)
+    {
+        if($student->getCareerId() == $career->getCareerId())
+            {
+                $career_from_student = $career;
+            }
+    }
 ?>
 <article>
     <section id="profile_section">
         <div id="profile_box">
-             <img src="img/diabloamarllo.png" alt="profile_picture">
-             <h1 id="profile_name"><?php  echo $studentInUse->getFirstName() . " " .  $studentInUse->getLastName()?></h1>
-             <h5 id="profile_career"><?php echo $studentInUse->getCareerId() ?></h5>
+             <img src="<?php echo IMG_PATH ?>diabloamarllo.png" alt="profile_picture">
+             <h1 id="profile_name"><?php  echo $student->getFirstName() . " " .  $student->getLastName()?></h1>
+             <h5 id="profile_career"><?php echo $career_from_student->getDescription() ?></h5>
         </div>
         <div id="profile_options">
             <a href="#">Editar Perfil</a>
@@ -52,17 +48,23 @@ foreach($api_students as $student)
         </div>
         
         <ul>
-            <li><?php echo $studentInUse->getStudentId() ?></li>
-            <li><?php echo $studentInUse->getDni() ?></li>
-            <li><?php echo $studentInUse->getFileNumber() ?></li>
-            <li><?php echo $studentInUse->getGender() ?></li>
-            <li><?php echo $studentInUse->getBirthDate() ?></li>
-            <li><?php echo $studentInUse->getEmail() ?></li>
-            <li><?php echo $studentInUse->getPhoneNumber() ?></li>
-            <li><?php echo $studentInUse->getActive() ?></li>
+            <li><?php echo $student->getStudentId() ?></li>
+            <li><?php echo $student->getType_user() ?></li>
+            <li><?php echo $student->getDni() ?></li>
+            <li><?php echo $student->getFileNumber() ?></li>
+            <li><?php echo $student->getGender() ?></li>
+            <li><?php echo $student->getBirthDate() ?></li>
+            <li><?php echo $student->getEmail() ?></li>
+            <li><?php echo $student->getPhoneNumber() ?></li>
+            <li><?php echo $student->getActive() ?></li>
             <li></li>
         </ul>
     </section>
 </article>
+<?php
+    }
+   }
+
+?>
 
 <?php include('footer.php'); ?>

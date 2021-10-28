@@ -1,11 +1,19 @@
-<nav>
-    <img src="img/logo_placeholder.png" alt="logo">
-        <ul>
-            <li><a href="student_profile.php" class="nav_option">Mi Perfil</a></li>
-            <li><a href="company_list.php" class="nav_option">Empleos</a></li>
-            <li><a href="admin-functions.php" class="nav_option"> Administrador</a></li>
-            <li><a href="logout.php" class="nav_option">Cerrar Sesión</a></li>
-          
-            
-        </ul>
-    </nav>
+<?php
+
+
+	if(isset($_SESSION['type'])){
+		switch($_SESSION['type']){
+
+			case 0:
+               
+				require_once "nav-student.php";
+				break;
+
+			case 1:
+				require_once "nav-admin.php";
+				break;
+
+		}
+	}
+
+ ?>

@@ -3,12 +3,15 @@
     namespace DAO;
 
     
-    
+    require_once("Config/Autoload.php");
+
+    use Config\Autoload as Autoload;
     use DAO\ICompanyDAO as ICompanyDAO;
     use Models\Company as Company;
   
-    require_once("ICompanyDAO.php");
-    
+   
+    Autoload::Start();
+
     Class CompanyDAO implements ICompanyDAO{
         private $companyList = array();
         private $fileName;
@@ -60,7 +63,7 @@
 
             $this->RetrieveData();
 		   
-            echo "el valor de datoe s" . $dato;
+            echo "el valor de dato es" . $dato;
 		    foreach ($this->companyList as $company) {
 			    if($company->getComp_id()== $comp_id){
                     $company->setComp_type($dato);
@@ -87,8 +90,8 @@
         public function GetById($id){
             
             $this->RetrieveData();
-            $aux;
-            foreach($companyList as $company)
+            $aux = new Company();
+            foreach($this->companyList as $company)
             {
                 if ($company->getComp_id() == $id)
                 {
@@ -96,6 +99,29 @@
                 }
             }
             return $aux;
+        }
+
+        public function SearchCompanyByName($name)
+        {
+            $this->RetrieveData();
+            $company_found = null;
+
+            foreach($this->companyList as $company)
+            {
+                if($company->getComp_name() == $name)
+                {
+                    $company_found = $company;
+                }
+            }
+
+            return $company_found;
+        }
+
+        public function CountCompanies()
+        {
+            $this->RetrieveData();
+
+            return count($this->companyList);
         }
 
         private function SaveData(){
