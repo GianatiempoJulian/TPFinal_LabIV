@@ -1,14 +1,14 @@
 <?php
     namespace Controllers;
 
-require_once("../DAO/CompanyDAO.php");
-require_once("../Models/Company.php");
-require_once("../DAO/ICompanyDAO.php");
-//require_once("../Config/Config.php");
+    require_once("Config/Autoload.php");
 
+    use Config\Autoload as Autoload;
     use DAO\CompanyDAO as CompanyDAO;
     use Models\Company as Company;
-  //  use Config\Config as Config;
+    use Config\Config as Config;
+
+    Autoload::Start();
 
     class CompanyController
     {
@@ -21,10 +21,13 @@ require_once("../DAO/ICompanyDAO.php");
 
         public function ShowAddView()
         {
-            echo "4";
-           // require_once("Views/add-company.php");
-           header ("location: add-company.php?msg=ingreso");
-            echo "5";
+           require_once(VIEWS_PATH. "add-company.php");
+          
+        }
+
+        public function ShowRemoveView()
+        {
+            require_once(VIEWS_PATH. "remove-company.php");
         }
 
         public function ShowListView()
@@ -34,32 +37,84 @@ require_once("../DAO/ICompanyDAO.php");
             require_once(VIEWS_PATH."company_list.php");
         }
 
-        public function Add($id, $name, $type)
+        public function ShowComp()
         {
+            require_once(VIEWS_PATH . "company_profile.php");
+        }
+
+        public function ShowCompanyProfileView($id)
+        {
+            //require_once ($this->ShowComp(). "/?id=$id");
+           // include(VIEWS_PATH. "company_profile.php?id=$id");
             
-            $company = new Company();
-            $company->setComp_Id($id);
-            $company->setComp_name($name);
-            $company->setComp_type($type);
-            $this->companyDAO->Add($company);
-           $this->ShowAddView();
-           
         }
 
         
 
-        ///hacer remove
+        public function Add($comp_name, $comp_type)
+        {
 
-        ///hacer edit
+            if(isset($_POST))
+            {
+                if($this->companyDAO->SearchCompanyByName($comp_name) == NULL)
+                {
+                    $id = $this->companyDAO->CountCompanies() + 1;
 
-        
-        public function X ($company){
-            $string_saved = "company_profile.php?comp_id=";
-            $string_id =  strval($company->getComp_id());
-            $x = $string_saved.$string_id . ".php";
+                    $company = new Company();
 
-            return $x;
+                    $company->setComp_Id($id);
+                    $company->setComp_name($comp_name);
+                    $company->setComp_type($comp_type);
+
+                    $this->companyDAO->Add($company);
+
+                    $this->ShowAddView();
+                }
+                else
+                {
+                    $this->ShowAddView();
+                }
+            }
+         
+        }
+      
+        public function Remove($comp_id)
+        {
+
+            $this->companyDAO->Remove($comp_id);
+            $this->ShowListView();
+         
+        }
+
+        public function Modify()
+        {
+
+        }
+
+
+
+        public function ShowCompanyById($id)
+        {
+            $comp = $this->companyDAO->GetById($id);
+            require_once(VIEWS_PATH. "company_profile.php");
+
+        }
+
+        public function SearchCompany(){
             
-       }
+        }
+
+        /*public function RemoveForm()
+        {
+            require_once(VIEWS_PATH."remove-company.php");
+        }
+
+        public function Remove($id)
+        {
+            
+            $this->companyDAO->Remove($id);
+            require_once(VIEWS_PATH."remove-company.php");
+        }*/
+
     }
 ?>

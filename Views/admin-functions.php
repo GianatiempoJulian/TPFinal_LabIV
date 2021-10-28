@@ -6,9 +6,9 @@
 
 
 <ul>
-            <li><a href="add-company.php" >Agregar Empresa</a></li>
-            <li><a href="remove-company.php" >Eliminar Empresa</a></li>
-            <li><a href="edit-company.php" >Modificar Empresa</a></li>
+            <li><a href="<?php echo FRONT_ROOT ?>Company/ShowAddView">Agregar Empresa</a></li>
+            <li><a href="<?php echo FRONT_ROOT ?>Company/ShowRemoveView" >Eliminar Empresa</a></li>
+            <li><a href="<?php echo FRONT_ROOT ?>Company/ShowModifyView" >Modificar Empresa</a></li>
     
         
 </ul>

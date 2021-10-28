@@ -12,11 +12,12 @@
 
 <?php
 
+/*
 require_once("../DAO/CompanyDAO.php");
 require_once("../Models/Company.php");
 require_once("../DAO/ICompanyDAO.php");
 require_once("../Controllers/CompanyController.php");
-
+*/
 
 
 
@@ -24,12 +25,10 @@ require_once("../Controllers/CompanyController.php");
 
 
 
+require_once("Config/Autoload.php");
+use Config\Autoload as Autoload;
 
-//require_once("../Config/Autoload.php");
-//use Config\Autoload as Autoload;
-
-
-
+Autoload::Start();
 
 use DAO\CompanyDAO as CompanyDAO;
 use Models\Company as Company;
@@ -61,11 +60,12 @@ $cc = new CompanyController();
                          <tr>
                          <?php 
                               foreach($comp_list as $company){
-                                   $x=$company->getComp_id();
+                                   $id=$company->getComp_id();
                                  
                          ?>
                             
-                             <th class="th_box"><?php echo $company->getComp_name()?> <br> <?php echo $company->getComp_type()?><a name ="comp_select" <?php echo "<a href='company_profile.php?comp_id=$x'>Ver info. completa</a>"?></a></th>
+                              
+                             <th class="th_box"><?php echo $company->getComp_name()?> <br> <?php echo $company->getComp_type()?><a name ="comp_select" href="<?php echo FRONT_ROOT?>Company/ShowCompanyById/<?php echo $id?>">Ver Info Completa</a></th>
                          </tr>
                         
                          <?php

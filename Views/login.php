@@ -2,8 +2,7 @@
 
 <?php
 
-     session_start();
-
+    
      if(isset($_SESSION["user_mail"]))
      {
           header("location:student_profile.php"); ///si la sesion esta iniciada te manda de una al profile
@@ -34,7 +33,7 @@
     <article id="login_article">
         <section id="login_section">
             <header id="front_text">Iniciar sesión en PLACEHOLDER</header>
-            <form action="session.php" method="post">
+            <form action="<?php echo FRONT_ROOT?>Login/Verify" method="post">
                <div class="login_form">
                     <input type="email" name="user_mail" placeholder="Ingresar correo" required>
                </div>

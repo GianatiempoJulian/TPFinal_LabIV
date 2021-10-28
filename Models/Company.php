@@ -3,11 +3,7 @@
 
 namespace Models;
 
-//require_once ("Config/Autoload.php");
 
-//Use Autoload as Autoload;
-
-//Autoload::Start();
 
 Class Company{
 

@@ -20,10 +20,7 @@
     <article id="add-company_article">
         <section id="add-company_secton">
             <header id="front_text">Agrega una empresa</header>
-            <form action="company-form.php" method= "post">
-               <div class="add-company_form">
-                    <input type="number" name="comp_id" placeholder="Ingresar ID" required>
-               </div>
+            <form action="<?php echo FRONT_ROOT ?>Company/Add" method= "post">
                <div class="add-company_form">
                     <input type="text" name="comp_name" placeholder="Ingresar nombre" required>
                </div>
