@@ -37,20 +37,6 @@
             require_once(VIEWS_PATH."company_list.php");
         }
 
-        public function ShowComp()
-        {
-            require_once(VIEWS_PATH . "company_profile.php");
-        }
-
-        public function ShowCompanyProfileView($id)
-        {
-            //require_once ($this->ShowComp(). "/?id=$id");
-           // include(VIEWS_PATH. "company_profile.php?id=$id");
-            
-        }
-
-        
-
         public function Add($comp_name, $comp_type)
         {
 
@@ -92,6 +78,10 @@
         }
 
 
+        public function ShowModifyView()
+        {
+            require_once(VIEWS_PATH. "add-student.php");
+        }
 
         public function ShowCompanyById($id)
         {
