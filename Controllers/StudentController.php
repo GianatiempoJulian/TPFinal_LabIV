@@ -23,9 +23,7 @@
 
         public function ShowAddView()
         {
-           
-           require_once(VIEWS_PATH. ".php");
-          //header ("location: add-company.php?msg=ingreso");  
+           require_once(VIEWS_PATH. "add-student.php");
         }
 
         public function ShowStudentProfile()
@@ -40,24 +38,36 @@
             require_once(VIEWS_PATH. "student_profile.php");
         }
 
-       /* public function ShowListView()
+        public function ShowListView()
         {
-            $companyList = $this->companyDAO->GetAll();
+  
+            $studentList = $this->studentDAO->GetAll();
+  
+            require_once(VIEWS_PATH."student-list.php");
+        }
 
-            require_once(VIEWS_PATH."company_list.php");
-        }*/
-
-        /*public function Add($id, $name, $type)
+        public function Add($firstName, $lastName, $recordId,$email,$careerId,$dni,$fileNumber,$gender,$birthDate,$phoneNumber,)
         {
             
-            $student = new Company();
-            $company->setComp_Id($id);
-            $company->setComp_name($name);
-            $company->setComp_type($type);
-            $this->companyDAO->Add($company);
+            $student = new Student();
+            $student->setStudentId($recordId);
+            $student->setFirstName($firstName);
+            $student->setLastName($lastName);
+            $student->setType_user(1);
+            $student->setEmail($email);
+
+            $student->setCareerId($careerId);
+            $student->setDni($dni);
+            $student->setFileNumber($fileNumber);
+            $student->setGender($gender);
+            $student->setBirthDate($birthDate);
+            $student->setPhoneNumber($phoneNumber);
+            $student->setActive(true);
+
+            $this->studentDAO->Add($student);
             $this->ShowAddView();
            
-        }*/
+        }
 
        
     }

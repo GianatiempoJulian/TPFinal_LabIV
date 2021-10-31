@@ -6,29 +6,95 @@
     require_once("Config/Autoload.php");
   
     use Config\Autoload as Autoload;
+    use \Exception as Exception;
     use DAO\IStudentDAO as IStudentDAO;
     use Models\Student as Student;
+    use DAO\Connection as Connection;
   
-  
-    Autoload::Start();
-  
+   
     
-    Class StudentDAO implements IStudentDAO{
-        private $studentList = array();
-        private $fileName;
+    
+    class StudentDAO implements IStudentDAO{
+
+        private $connection;
+        private $tableName = "students";
       
-        public function __construct()
+      /*  public function __construct()
         {
             $this->fileName = dirname(__DIR__)."/Data/Students.json";
         }
 
-        
+       */
+
         public function Add(Student $student){
-            $this->RetrieveData();
-            array_push($this->studentList,$student);
-            $this->SaveData();
+            try {
+                $query = "INSERT INTO ".$this->tableName." (recordId, firstName, lastName,email,type_us,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active) VALUES (:recordId, :firstName, :lastName, :email, :type_us, :careerId, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active);";
+
+                $parameters["recordId"] = $student->getStudentId();
+                $parameters["firstName"] = $student->getFirstName();
+                $parameters["lastName"] = $student->getLastName();
+                $parameters["email"] = $student->getEmail();
+                $parameters["type_us"] = $student->getType_user();
+
+                $parameters["careerId"] = $student->getCareerId();
+                $parameters["dni"] = $student->getDni();
+                $parameters["fileNumber"] = $student->getFileNumber();
+                $parameters["gender"] = $student->getGender();
+                $parameters["birthDate"] = $student->getBirthDate();
+                $parameters["phoneNumber"] = $student->getPhoneNumber();
+                $parameters["active"] = $student->getActive();
+
+                $this->connection = Connection::GetInstance();
+
+                $this->connection->ExecuteNonQuery($query, $parameters);
+
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
         }
 
+        public function GetAll(){
+            try {
+                $studentList = array();
+
+                $query = " SELECT * FROM ".$this->tableName;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query);
+
+                foreach ($resultSet as $row){
+
+                    $student = new Student();
+                    $student->setStudentId($row["recordId"]);
+                    $student->setFirstName($row["firstName"]);
+                    $student->setLastName($row["lastname"]);
+                    $student->setEmail($row["email"]);
+                    $student->setType_user($row["type_us"]);
+                    $student->getCareerId($row["careerId"]);
+                    $student->setDni($row["dni"]);
+                    $student->setFileNumber($row["fileNumber"]);
+                    $student->setGender($row["gender"]);
+                    $student->setBirthDate($row["birthDate"]);
+                    $student->setPhoneNumber($row["phoneNumber"]);
+                    $student->setActive($row["active"]);
+
+
+                    array_push($studentList, $student);
+
+                }
+                return $studentList;
+            }
+            catch (Exception $ex){
+                throw $ex;
+            }
+        }
+
+
+
+
+        /*
         public function Remove($student_id){
 
             $this->retrieveData();
@@ -46,11 +112,7 @@
 
     
 
-        public function GetAll(){
-            $this->RetrieveData();
-            return $this->studentList;
-        }
-
+       
         private function SaveData(){
             $arrayToEncode = array();
 
@@ -129,6 +191,6 @@
             }
     
             return $student;
-        }
+        }*/
     }
 ?>

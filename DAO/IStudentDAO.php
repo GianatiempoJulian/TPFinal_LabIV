@@ -7,7 +7,7 @@
     interface IStudentDAO{
         function Add(Student $student);
         function getAll();
-        function Remove($student_id);
+        //function Remove($student_id);
     }
 
 ?>

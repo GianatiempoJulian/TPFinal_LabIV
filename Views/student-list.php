@@ -10,18 +10,17 @@ use Config\Autoload as Autoload;
 
 Autoload::Start();
 
-use DAO\CompanyDAO as CompanyDAO;
-use Models\Company as Company;
-use DAO\ICompanyDAO as ICompanyDAO;
-use Controllers\CompanyController as CompanyController;
-
-
-$comp_repository = new CompanyDAO();
-$comp_list = $comp_repository->GetAll();
+use DAO\StudentDAO as StudentDAO;
+use Models\Student as Student;
+use DAO\IStudentDAO as IStudentDAO;
 
 
 
-$cc = new CompanyController();
+$student_repository = new StudentDAO();
+$stun_list = $student_repository->GetAll();
+
+
+
 
 
 ?>
@@ -32,20 +31,21 @@ $cc = new CompanyController();
           
           <div id="comp_container">
                <form action="company-search.php" method="post" >
-               <input type="search" id="comp_search" name="comp_search" class="search_bar" placeholder="Ingrese Empresa" required>
+               <input type="search" id="comp_search" name="comp_search" class="search_bar" placeholder="Ingrese Alumno" required>
                <button type="submit" name="submit"  class="submit_button" id="submit_button_company_search">Buscar</button>
                </form>
                <table id="comp_table">
                     <tbody>
                          <tr>
                          <?php 
-                              foreach($comp_list as $company){
-                                   $id=$company->getComp_id();
+                              foreach($stun_list as $student){
+                                  
+                                 
                                  
                          ?>
                             
                               
-                             <th class="th_box"><?php echo $company->getComp_name()?> <br> <?php echo $company->getComp_type()?><a name ="comp_select" href="<?php echo FRONT_ROOT?>Company/ShowCompanyById/<?php echo $id?>">Ver Info Completa</a></th>
+                             <th class="th_box"> <?php echo $student->getStudentId()?><br> <?php  echo $student->getFirstName()?> <br> <?php echo $student->getLastName()?><a name ="comp_select"></a></th>
                          </tr>
                         
                          <?php
@@ -59,5 +59,3 @@ $cc = new CompanyController();
 </main>
 
 <?php include('footer.php'); ?>
-
-
