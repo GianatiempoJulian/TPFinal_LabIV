@@ -3,25 +3,68 @@
     namespace DAO;
 
     use DAO\ICareerDAO as ICareerDAO;
-    use Models\Career as Career;
+    use Models\Career as Career; 
+    use \Exception as Exception;
+    use DAO\Connection as Connection;
   
     require_once("ICareerDAO.php");
     
     Class CareerDAO implements ICareerDAO{
-        private $careerList = array();
-        private $fileName;
+        private $connection;
+        private $tableName = "careers";
       
-        public function __construct()
-        {
-            $this->fileName = dirname(__DIR__)."/Data/Careers.json";
+    
+        public function Add(Career $career){
+            try {
+                $query = "INSERT INTO ".$this->tableName." (careerId, carrer_description, active) VALUES (:careerId, :carrer_description, :active);";
+
+                $parameters["careerId"] = $career->getCareerId();
+                $parameters["carrer_description"] = $career->getcarrer_description();
+                $parameters["active"] = $career->getActive();
+              
+
+                $this->connection = Connection::GetInstance();
+
+                $this->connection->ExecuteNonQuery($query, $parameters);
+
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
         }
 
-        
-        public function Add(Career $career){
-            $this->RetrieveData();
-            array_push($this->careerList,$studcareerent);
-            $this->SaveData();
+        public function GetAll(){
+            try {
+                $careerList = array();
+
+                $query = " SELECT * FROM ".$this->tableName;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query);
+
+                foreach ($resultSet as $row){
+
+                    $career = new Career();
+                    $career->setCareerId($row["careerId"]);
+                    $career->setcarrer_description($row["carrer_description"]);
+                    $career->setActive($row["active"]);
+                   
+
+
+                    array_push($careerList, $career);
+
+                }
+                return $careerList;
+            }
+            catch (Exception $ex){
+                throw $ex;
+            }
         }
+
+
+
+        /*
 
         public function Remove($career_id){
 
@@ -50,7 +93,7 @@
 
             foreach($this->careerList as $career){
                 $valuesArray["careerId"] = $career->getCareerId();
-                $valuesArray["description"] = $career->getDescription();
+                $valuesArray["carrer_description"] = $career->getcarrer_description();
                 $valuesArray["active"] = $career->getActive();
                 array_push($arrayToEncode,$valuesArray);
             }
@@ -81,11 +124,11 @@
                    
                     $career = new Career();
                     $career->setCareerId($valuesArray["careerId"]);
-                    $career->setDescription($valuesArray["description"]) ;
+                    $career->setcarrer_description($valuesArray["carrer_description"]) ;
                     $career->setActive($valuesArray["active"]);
                     array_push($this->careerList,$career);
                
             }
-        }
+        }*/
     }
 ?>

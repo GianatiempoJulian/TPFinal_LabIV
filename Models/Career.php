@@ -6,7 +6,7 @@ namespace Models;
 
 Class Career {
     private $careerId;
-    private $description;
+    private $carrer_description;
     private $active;
 
     /**
