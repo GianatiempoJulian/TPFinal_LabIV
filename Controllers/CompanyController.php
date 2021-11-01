@@ -42,10 +42,12 @@
 
             if(isset($_POST))
             {
-                if($this->companyDAO->SearchCompanyByName($comp_name) == NULL)
-                {
-                    $id = $this->companyDAO->CountCompanies() + 1;
+              /*  if($this->companyDAO->SearchCompanyByName($comp_name) == NULL)
+                {*/
 
+                    $comp_list = $this->companyDAO->GetAll();
+                    $last = end($comp_list);
+                    $id = $last->getComp_id() + 1;
                     $company = new Company();
 
                     $company->setComp_Id($id);
@@ -55,11 +57,12 @@
                     $this->companyDAO->Add($company);
 
                     $this->ShowAddView();
-                }
+              /*  }*/
+                /*
                 else
                 {
                     $this->ShowAddView();
-                }
+                }*/
             }
          
         }

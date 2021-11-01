@@ -19,12 +19,6 @@
         private $connection;
         private $tableName = "students";
       
-      /*  public function __construct()
-        {
-            $this->fileName = dirname(__DIR__)."/Data/Students.json";
-        }
-
-       */
 
         public function Add(Student $student){
             try {

@@ -8,19 +8,66 @@
     use Config\Autoload as Autoload;
     use DAO\ICompanyDAO as ICompanyDAO;
     use Models\Company as Company;
-  
+    use \Exception as Exception;
+    use DAO\Connection as Connection;
    
     Autoload::Start();
 
-    Class CompanyDAO implements ICompanyDAO{
-        private $companyList = array();
-        private $fileName;
+    Class CompanyDAO /*implements ICompanyDAO*/{    
+        private $connection;
+        private $tableName = "companies";
+          
+        
+            public function Add(Company $company){
+                try {
+                    $query = "INSERT INTO ".$this->tableName." (comp_id, comp_name, comp_type) VALUES (:comp_id, :comp_name, :comp_type);";
+    
+                    $parameters["comp_id"] = $company->getComp_id();
+                    $parameters["comp_name"] = $company->getComp_name();
+                    $parameters["comp_type"] = $company->getComp_type();
+                  
+    
+                    $this->connection = Connection::GetInstance();
+    
+                    $this->connection->ExecuteNonQuery($query, $parameters);
+    
+                }
+                catch(Exception $ex){
+                    throw $ex;
+                }
+            }
+    
+            public function GetAll(){
+                try {
+                    $companyList = array();
+    
+                    $query = " SELECT * FROM ".$this->tableName;
+    
+                    $this->connection = Connection::GetInstance();
+    
+                    $resultSet = $this->connection->Execute($query);
+    
+                    foreach ($resultSet as $row){
+    
+                        $company = new Company();
+                        $company->setComp_id($row["comp_id"]);
+                        $company->setComp_name($row["comp_name"]);
+                        $company->setComp_type($row["comp_type"]);
+                       
+    
+    
+                        array_push($companyList, $company);
+    
+                    }
+                    return $companyList;
+                }
+                catch (Exception $ex){
+                    throw $ex;
+                }
+            }
+    
       
-        public function __construct()
-        {
-            $this->fileName = dirname(__DIR__)."/Data/Companies.json";
-        }
-
+        /*
         public function Add(Company $company){
             $this->RetrieveData();
             array_push($this->companyList,$company);
@@ -117,6 +164,7 @@
             return $company_found;
         }
 
+
         public function CountCompanies()
         {
             $this->RetrieveData();
@@ -152,6 +200,8 @@
                     array_push($this->companyList,$company);
                 }
             }
-        }
+        }*/
+
+                   
     }
 ?>
