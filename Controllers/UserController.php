@@ -15,7 +15,7 @@
 
         public function ShowAddView()
         {
-            require_once(VIEWS_PATH."register.php");
+            require_once(VIEWS_PATH."add-user.php");
         }
 
         public function ShowListView()
@@ -25,7 +25,7 @@
             require_once(VIEWS_PATH."user-list.php");
         }
 
-        public function Add($firstname,$lastname,$email, $password,$type)
+        public function Add($firstname,$lastname,$email, $password)
         {
             $user = new User();
 
@@ -33,7 +33,7 @@
             $user->setLastName($lastname);
             $user->setEmail($email);
             $user->setPassword($password);
-            $user->setType_user($type);
+            $user->setType_user(1);
 
             ///deberia ponerle una ID al admin
            

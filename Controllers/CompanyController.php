@@ -30,11 +30,16 @@
             require_once(VIEWS_PATH. "remove-company.php");
         }
 
+        public function showAltaView()
+        {
+            require_once(VIEWS_PATH. "alta-company.php");
+        }
+
         public function ShowListView()
         {
             $companyList = $this->companyDAO->GetAll();
-
             require_once(VIEWS_PATH."company_list.php");
+
         }
 
         public function Add($comp_name, $comp_type)
@@ -42,27 +47,28 @@
 
             if(isset($_POST))
             {
-              /*  if($this->companyDAO->SearchCompanyByName($comp_name) == NULL)
-                {*/
+                if($this->companyDAO->SearchCompanyByName($comp_name) == NULL)
+                {
 
                     $comp_list = $this->companyDAO->GetAll();
-                    $last = end($comp_list);
-                    $id = $last->getComp_id() + 1;
+                    $id = $this->companyDAO->CountCompanies()+1;
                     $company = new Company();
-
+                    
                     $company->setComp_Id($id);
                     $company->setComp_name($comp_name);
                     $company->setComp_type($comp_type);
+                    $company->setComp_active(true);
 
                     $this->companyDAO->Add($company);
 
                     $this->ShowAddView();
-              /*  }*/
-                /*
+                }
+                
                 else
                 {
+                    echo "Nombre en uso, intente con otro";
                     $this->ShowAddView();
-                }*/
+                }
             }
          
         }
@@ -71,6 +77,14 @@
         {
 
             $this->companyDAO->Remove($comp_id);
+            $this->ShowListView();
+         
+        }
+
+        public function Alta($comp_id)
+        {
+
+            $this->companyDAO->Alta($comp_id);
             $this->ShowListView();
          
         }
@@ -97,17 +111,7 @@
             
         }
 
-        /*public function RemoveForm()
-        {
-            require_once(VIEWS_PATH."remove-company.php");
-        }
-
-        public function Remove($id)
-        {
-            
-            $this->companyDAO->Remove($id);
-            require_once(VIEWS_PATH."remove-company.php");
-        }*/
+      
 
     }
 ?>

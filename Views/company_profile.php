@@ -24,7 +24,7 @@ Autoload::Start();
 <article>
     <section id="profile_section">
         <div id="profile_box">
-             <img src="img/diabloamarllo.png" alt="profile_picture">
+            <img src="<?php echo IMG_PATH ?>diabloamarllo.png" alt="profile_picture">
              <h1 id="profile_name"><?php echo $comp->getComp_name(); ?></h1>
              <h5 id="profile_type"><?php echo $comp->getComp_type(); ?></h5>
         </div>

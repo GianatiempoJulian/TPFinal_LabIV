@@ -46,26 +46,52 @@
             require_once(VIEWS_PATH."student-list.php");
         }
 
-        public function Add($firstName, $lastName, $recordId,$email,$careerId,$dni,$fileNumber,$gender,$birthDate,$phoneNumber,)
+        public function Add($email)
         {
             
-            $student = new Student();
-            $student->setStudentId($recordId);
-            $student->setFirstName($firstName);
-            $student->setLastName($lastName);
-            $student->setType_user(1);
-            $student->setEmail($email);
+            $flag = 0;
+            $student_api = $this->studentDAO->GetAllFromApi();
 
-            $student->setCareerId($careerId);
-            $student->setDni($dni);
-            $student->setFileNumber($fileNumber);
-            $student->setGender($gender);
-            $student->setBirthDate($birthDate);
-            $student->setPhoneNumber($phoneNumber);
-            $student->setActive(true);
 
-            $this->studentDAO->Add($student);
-            $this->ShowAddView();
+            foreach ($student_api as $student_from_api)
+            {
+                if ($student_from_api->getEmail() == $email)
+                {
+                    $student = new Student();
+                    $student->setStudentId($student_from_api->getStudentId());
+                    $student->setFirstName($student_from_api->getFirstName());
+                    $student->setLastName($student_from_api->getLastName());
+                    $student->setType_user(1);
+                    $student->setEmail($student_from_api->getEmail());
+        
+                    $student->setCareerId($student_from_api->getCareerId());
+                    $student->setDni($student_from_api->getDni());
+                    $student->setFileNumber($student_from_api->getFileNumber());
+                    $student->setGender($student_from_api->getGender());
+                    $student->setBirthDate($student_from_api->getBirthDate());
+                    $student->setPhoneNumber($student_from_api->getPhoneNumber());
+                    $student->setActive(true);
+
+                    $this->studentDAO->Add($student);
+                    header("location:". FRONT_ROOT . "Login/showLoginView");
+                    $flag = 1;
+                   
+                    
+        
+                }
+                
+                
+            }
+            if ($flag == 0)
+            {
+                
+                $this->ShowAddView();
+                
+            }
+          
+
+           
+           
            
         }
 
