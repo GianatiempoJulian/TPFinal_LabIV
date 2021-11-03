@@ -16,83 +16,63 @@ class LoginController
         require_once(VIEWS_PATH . "login.php");
     }
 
-   /* public function Verify($user_mail,$password)
+
+public function toType($type){
+
+    if ($type == 0)
     {
-        
-        if(isset($_POST))
-        {
-            $users = new UserDAO();
-            $flag = $users->exist($user_mail,$password);
-
-            if($flag == 0)
-            {
-                $user_in_session = $users->searchUser($user_mail);
-                $_SESSION['email'] = $user_mail;
-                echo $user_in_session->getType_user();
-                $_SESSION['type_user'] = $user_in_session->getType_user();
-
-                //$_SESSION['logueado'] = 1;
-                
-                if( $_SESSION['type_user'] == 0)
-                {
-                    //require_once(VIEWS_PATH."student_profile.php");
-
-                    //usamos header xq si no, la URL queda en Login/Verify. 
-
-                    header("location:". FRONT_ROOT . "Student/ShowStudentProfile");
-                    
-                }
-                else if($_SESSION['type_user'] == 1)
-                {
-                    header("location:". FRONT_ROOT . "Company/ShowAddView");
-                }
-                
-            }
-            else
-            {
-              
-                echo "no existe";
-                require_once(VIEWS_PATH. "login.php");
-            }
-        }
+        header("location:". FRONT_ROOT . "Student/ShowAddView");
     }
-*/
-
-    public function Verify($user_mail,$password)
+    else if($type == 1)
     {
-        
-        if(isset($_POST))
-        {
-            $users = new UserDAO();
-            $students = new StudentDAO();
-            $flag = $users->exist($user_mail,$password);
-            $user_in_session = null;
-
-            if($flag == 0)
-            {
-
-                $user_in_session = $users->searchUser($user_mail);
-                $_SESSION['email'] = $user_mail;
-                $_SESSION['type'] = $user_in_session->getType_user();
-                header("location:". FRONT_ROOT . "Company/ShowAddView");
-                
-                
-            }
-            else if($flag == 1)
-            {
-                $user_in_session = $students->searchStudent($user_mail);
-                $_SESSION['email'] = $user_mail;
-                $_SESSION['type'] = $user_in_session->getType_user();
-                header("location:". FRONT_ROOT . "Student/ShowStudentProfile");
-            }
-            else
-            {
-              
-                echo "no existe";
-                require_once(VIEWS_PATH. "login.php");
-            }
-        }
+        header("location:". FRONT_ROOT . "User/ShowAddView");
+       
     }
+}
+
+public function Verify($user_mail,$password)
+{
+    
+    if(isset($_POST))
+    {
+        $users = new UserDAO();
+        $students = new StudentDAO();
+
+        $flag = $users->exist($user_mail,$password);
+        $user_in_session = null;
+
+        echo "flag es:" .$flag;
+
+        
+        if($flag == 0)
+        {
+            
+            $user_in_session = $users->searchUser($user_mail);
+            $_SESSION['email'] = $user_mail;
+            $_SESSION['type'] = $user_in_session->getType_user();
+            header("location:". FRONT_ROOT . "Company/ShowAddView");
+            
+         
+        }
+        
+        else if($flag == 1)
+        { 
+            $user_in_session = $students->searchStudent($user_mail);
+            $_SESSION['email'] = $user_mail;
+            $_SESSION['type'] = $user_in_session->getType_user();
+            header("location:". FRONT_ROOT . "Student/ShowStudentProfile");
+            
+        }
+        else
+        {
+          
+            echo "no existe";
+            echo "flag en no existe es:" .$flag;
+            require_once(VIEWS_PATH. "login.php");
+        }
+        
+    }
+}
 
     public function LogOut()
     {    

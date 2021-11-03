@@ -40,7 +40,10 @@ $cc = new CompanyController();
                          <tr>
                          <?php 
                               foreach($comp_list as $company){
+                              if ($company->getComp_active() == true)
+                              {
                                    $id=$company->getComp_id();
+                                  
                                  
                          ?>
                             
@@ -49,7 +52,7 @@ $cc = new CompanyController();
                          </tr>
                         
                          <?php
-                         }
+                         }}
                          ?>
                         
                     </tbody>

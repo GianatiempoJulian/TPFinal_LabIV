@@ -10,6 +10,7 @@ Class Company{
     private $comp_id;
     private $comp_name;
     private $comp_type;
+    private $comp_active;
 
 
     ///CONSTRUCTOR
@@ -76,6 +77,26 @@ Class Company{
     public function setComp_type($comp_type)
     {
         $this->comp_type = $comp_type;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of comp_active
+     */ 
+    public function getComp_active()
+    {
+        return $this->comp_active;
+    }
+
+    /**
+     * Set the value of comp_active
+     *
+     * @return  self
+     */ 
+    public function setComp_active($comp_active)
+    {
+        $this->comp_active = $comp_active;
 
         return $this;
     }

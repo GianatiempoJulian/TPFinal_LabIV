@@ -10,21 +10,47 @@ use DAO\IUserDAO as IUserDAO;
 use DAO\StudentDAO as StudentDAO;
 use DAO\IStudentDAO as IStudentDAO;
 use Models\Student as Student;
+use \Exception as Exception;
+use DAO\Connection as Connection;
 
 Autoload::Start();
 
 Class UserDAO implements IUserDAO {
 
     private $userList = array();
+    private $connection;
+    private $tableName = "users";
 
     
+    /*
     public function Add(User $user){
         $this->RetrieveData();
         array_push($this->userList,$user);
         $this->SaveData();
     }
-    
+    */
 
+    public function Add(User $user){
+        try {
+            $query = "INSERT INTO ".$this->tableName." (firstName, lastName, email, password, type_user) VALUES (:firstName, :lastName, :email, :password, :type_user);";
+
+            $parameters["firstName"] = $user->getFirstName();
+            $parameters["lastName"] = $user->getLastName();
+            $parameters["email"] = $user->getEmail();
+            $parameters["password"] = $user->getPassword();
+            $parameters["type_user"] = $user->getType_user();
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+    }
+   
+    
     public function exist ($email,$pass){
 
        
@@ -34,25 +60,32 @@ Class UserDAO implements IUserDAO {
         $studentDAO = new StudentDAO();
 
         $student_list = $studentDAO->GetAll();
+        
         $flag = -1;
 
+
         foreach ($users as $user)
-    {
+         {
     
-        //if(strcmp($mail,$student->getEmail) == 0 && $password == $student->getPassword)
+     
+        //if(strcmp($mail,$user->getEmail) == 0 && $password == $user->getPassword)
         if(strcmp($email,$user->getEmail()) == 0)
         {
+           
            // session_start();
            // $_SESSION["user_mail"] = $mail;
             //require("location: student_profile.php");
             $flag = 0;
         }
 
+    }
         if ($flag == -1)
         {
-            foreach($student_list as $student)
+            
+            foreach($student_list as $user)
             {
-                if(strcmp($email,$student->getEmail()) == 0)
+               
+                if(strcmp($email,$user->getEmail()) == 0)
                 {
                    // session_start();
                    // $_SESSION["user_mail"] = $mail;
@@ -61,73 +94,54 @@ Class UserDAO implements IUserDAO {
                 }
             }
         }
-        /*
+    /*
         else{
            
            // header("location: login.php?msg=incorrect");
         }
         */
         
-    }
+    
         return $flag;
     }
+    
 
+   
     public function GetAll(){
-        $this->RetrieveData();
-        return $this->userList;
-    }
+        try {
+            $userList = array();
 
+            $query = " SELECT * FROM ".$this->tableName;
 
-    private function SaveData()
-        {
-            $arrayToEncode = array();
+            $this->connection = Connection::GetInstance();
 
-            foreach($this->userList as $user)
-            {
+            $resultSet = $this->connection->Execute($query);
 
+            foreach ($resultSet as $row){
 
-                $valuesArray["firstname"] = $user->getFirstName();
-                $valuesArray["lastname"] = $user->getLastName();
-                $valuesArray["email"] = $user->getEmail();
-                $valuesArray["password"] = $user->getPassword();
-                $valuesArray["type"] = $user->getType_user();
+                $user = new User();
+                $user->setFirstName($row["firstName"]);
+                $user->setLastName($row["lastName"]);
+                $user->setEmail($row["email"]);
+                $user->setPassword($row["password"]);
+                $user->setType_user($row["type_user"]);
 
-                array_push($arrayToEncode, $valuesArray);
+                array_push($userList, $user);
+
             }
-
-            $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-            
-            file_put_contents('Data/Users.json', $jsonContent);
+            return $userList;
         }
-
-    private function RetrieveData()
-    {
-        $this->userList = array();
-
-       
-            $jsonContent = file_get_contents('Data/Users.json');
-
-            $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
-
-            foreach($arrayToDecode as $valuesArray)
-            {
-               $user  = new User();
-                $user->setFirstName($valuesArray["firstname"]);
-                $user->setLastName($valuesArray["lastname"]);
-                $user->setEmail($valuesArray["email"]);
-                $user->setPassword($valuesArray["password"]);
-                $user->setType_user($valuesArray["type"]);
-                array_push($this->userList, $user);
-            }
-        
+        catch (Exception $ex){
+            throw $ex;
+        }
     }
 
     public function searchUser($email)
     {
-        $this->RetrieveData();
+        $userList = $this->GetAll();
         $user = null;
 
-        foreach($this->userList as $us)
+        foreach($userList as $us)
         {
             
             if($us->getEmail() == $email)
@@ -138,6 +152,7 @@ Class UserDAO implements IUserDAO {
 
         return $user;
     }
+    
 }
 
 

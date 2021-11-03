@@ -29,25 +29,7 @@ Class Career {
         return $this;
     }
 
-    /**
-     * Get the value of description
-     */ 
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set the value of description
-     *
-     * @return  self
-     */ 
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
+    
 
     /**
      * Get the value of active
@@ -65,6 +47,26 @@ Class Career {
     public function setActive($active)
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of carrer_description
+     */ 
+    public function getCarrer_description()
+    {
+        return $this->carrer_description;
+    }
+
+    /**
+     * Set the value of carrer_description
+     *
+     * @return  self
+     */ 
+    public function setCarrer_description($carrer_description)
+    {
+        $this->carrer_description = $carrer_description;
 
         return $this;
     }

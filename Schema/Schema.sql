@@ -10,29 +10,45 @@ use University;
 
 }Engine=InnoDB;*/
 
-CREATE TABLE STUDENTS(
-    recordId int not null,
-    firstName varchar(100) not null,
-    lastname varchar(100) not null,
-    type_us int not null,
-    email varchar(100) not null,
-    careerId int not null,
-    dni int not null,
-    fileNumber int not null,
-    gender varchar(50) not null,
-    birthDate date not null,
-    phoneNumber int not null,
-    active boolean not null,
-    CONSTRAINT PK_STUDENTS PRIMARY KEY (recordId)
-);
-
-
 CREATE TABLE CAREERS(
     careerId int not null,
     carrer_description varchar (100) not null,
     active boolean not null,
     CONSTRAINT PK_CAREERS PRIMARY KEY (careerId)
 );
+
+CREATE TABLE USERS(
+    u_firstName varchar(100) not null,
+    u_lastName varchar(100) not null,
+    u_email varchar(50) not null,
+    u_password varchar(50) not null,
+    u_type int not null,
+    CONSTRAINT pk_users_email primary key (u_email)
+);
+
+CREATE TABLE STUDENTS(
+    firstName varchar(100) not null,
+    lastName varchar(100) not null,
+    email varchar(50) not null,
+    type_us int not null,
+    recordId int not null,
+    careerId int not null,
+    dni varchar(50) not null,
+    fileNumber varchar(50) not null,
+    gender varchar(50) not null,
+    birthDate date not null,
+    phoneNumber varchar(50) not null,
+    active boolean not null,
+    
+    CONSTRAINT PK_STUDENTS PRIMARY KEY (recordId),
+    CONSTRAINT FK_CAREER FOREIGN KEY (careerId) REFERENCES CAREERS (careerId)
+   
+    
+   
+);
+ /*CONSTRAINT FK_USER FOREIGN KEY (u_email) REFERENCES USERS (u_email)*/
+
+ 
 
 INSERT INTO CAREERS (careerId,carrer_description, active) VALUES (1,'Naval engineering', true);
 INSERT INTO CAREERS (careerId,carrer_description, active) VALUES (2,'Fishing engineering', false);
@@ -47,5 +63,58 @@ CREATE TABLE COMPANIES(
     comp_id int not null,
     comp_name varchar (100) not null,
     comp_type varchar (100) not null,
+    comp_active boolean not null,
     CONSTRAINT PK_COMPANIES PRIMARY KEY (comp_id)
 );
+
+
+
+
+CREATE TABLE JOB_POSITION(
+        p_id int not null,
+        p_careerId int not null,
+        p_description varchar (100) not null,
+        CONSTRAINT PK_POSITION_ID primary key (p_id),
+        CONSTRAINT fk_position_careerId foreign key (p_careerId) references CAREERS (careerId)
+);
+
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (1,'1', 'Jr naval engineer');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (2,'1', 'Ssr naval engineer');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (3,'1', 'Sr naval engineer');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (4,'2', 'Jr fisheries engineer');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (5,'2', 'Ssr fisheries engineer');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (6,'2', 'Sr fisheries engineer');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (7,'3', 'Java Jr developer');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (8,'3', 'PHP Jr developer');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (9,'3', 'Ssr developer');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (10,'4', 'Full Stack developer');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (11,'4', 'Sr developer');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (12,'4', 'Project manager');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (13,'4', 'Scrum Master');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (14,'5', 'Jr textile operator');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (15,'5', 'Textile production assistant manager');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (16,'5', 'Textile design assistant');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (17,'5', 'Textile production supervisor');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (18,'6', 'Head of administration');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (19,'6', 'Management analyst');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (20,'6', 'Administration intern');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (21,'7', 'Environmental management specialist');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (22,'7', 'Environmental management coordinator');
+INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (23,'8', 'Received technician');
+
+CREATE TABLE JOB_OFFER(
+        o_id int not null,
+        o_idJobPosition int not null,
+        o_idCompany int not null,
+        o_fecha date not null,
+        o_description varchar(100) not null,
+        o_active boolean not null,
+        o_users varchar(100) not null,
+
+        CONSTRAINT pk_offer_id primary key (o_id),
+        CONSTRAINT fk_offer_position foreign key (o_idJobPosition) references JOB_POSITION (p_id),
+        CONSTRAINT fk_offer_company foreign key (o_idCompany) references COMPANIES (comp_id)
+);
+
+
+INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active,o_users) VALUES (12,2,2,"2021-05-10","Diseñador de niveles",true,"Juan");

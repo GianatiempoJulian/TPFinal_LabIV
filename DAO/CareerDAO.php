@@ -9,7 +9,7 @@
   
     require_once("ICareerDAO.php");
     
-    Class CareerDAO implements ICareerDAO{
+    Class CareerDAO /*implements ICareerDAO*/{
         private $connection;
         private $tableName = "careers";
       
@@ -47,7 +47,7 @@
 
                     $career = new Career();
                     $career->setCareerId($row["careerId"]);
-                    $career->setcarrer_description($row["carrer_description"]);
+                    $career->setCarrer_description($row["carrer_description"]);
                     $career->setActive($row["active"]);
                    
 

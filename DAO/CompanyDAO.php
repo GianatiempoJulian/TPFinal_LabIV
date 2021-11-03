@@ -20,11 +20,12 @@
         
             public function Add(Company $company){
                 try {
-                    $query = "INSERT INTO ".$this->tableName." (comp_id, comp_name, comp_type) VALUES (:comp_id, :comp_name, :comp_type);";
+                    $query = "INSERT INTO ".$this->tableName." (comp_id, comp_name, comp_type,comp_active) VALUES (:comp_id, :comp_name, :comp_type,:comp_active);";
     
                     $parameters["comp_id"] = $company->getComp_id();
                     $parameters["comp_name"] = $company->getComp_name();
                     $parameters["comp_type"] = $company->getComp_type();
+                    $parameters["comp_active"] = $company->getComp_active();
                   
     
                     $this->connection = Connection::GetInstance();
@@ -53,6 +54,7 @@
                         $company->setComp_id($row["comp_id"]);
                         $company->setComp_name($row["comp_name"]);
                         $company->setComp_type($row["comp_type"]);
+                        $company->setComp_active($row["comp_active"]);
                        
     
     
@@ -65,95 +67,67 @@
                     throw $ex;
                 }
             }
+
+            public function Remove($id){
+
+                try{
     
-      
-        /*
-        public function Add(Company $company){
-            $this->RetrieveData();
-            array_push($this->companyList,$company);
-            $this->SaveData();
-        }
-
-        public function Remove($comp_id){
-
-            $this->RetrieveData();
-		    $newList = array();
-
-		    foreach ($this->companyList as $company) {
-			    if($company->getComp_id()!= $comp_id){
-				    array_push($newList, $company);
-			    }
-		}
-
-		$this->companyList = $newList;
-		$this->SaveData();
-       
-        }
-
-        public function ModifyName($comp_id,$dato){
-
-            $this->RetrieveData();
-		   
-
-		    foreach ($this->companyList as $company) {
-			    if($company->getComp_id()== $comp_id){
-                    $company->setComp_name($dato);
-			    }
-		}
-
-		
-		$this->SaveData();
-       
-        }
-
-        public function ModifyType($comp_id,$dato){
-
-            $this->RetrieveData();
-		   
-            echo "el valor de dato es" . $dato;
-		    foreach ($this->companyList as $company) {
-			    if($company->getComp_id()== $comp_id){
-                    $company->setComp_type($dato);
-			    }
-		}
-
-		
-		$this->SaveData();
-       
-        }
-
-        
-
-        
-        
-
-        
-
-        public function GetAll(){
-            $this->RetrieveData();
-            return $this->companyList;
-        }
-
-        public function GetById($id){
-            
-            $this->RetrieveData();
-            $aux = new Company();
-            foreach($this->companyList as $company)
-            {
-                if ($company->getComp_id() == $id)
-                {
-                    $aux = $company;
+                    $query = "UPDATE $this->tableName SET comp_active = 0 WHERE comp_id = $id;";
+    
+                    $this->connection = Connection::GetInstance();
+                    $this->connection->ExecuteNonQuery($query);
+                }
+                catch(Exception $ex){
+    
+                    throw $ex;
                 }
             }
-            return $aux;
+
+            public function Alta($id){
+
+                try{
+    
+                    $query = "UPDATE $this->tableName SET comp_active = 1 WHERE comp_id = $id;";
+    
+                    $this->connection = Connection::GetInstance();
+                    $this->connection->ExecuteNonQuery($query);
+                }
+                catch(Exception $ex){
+    
+                    throw $ex;
+                }
+            }
+
+        
+        public function GetById($id)
+        {
+            $companyList = $this->GetAll();
+            $company_aux = new Company();
+
+            foreach($companyList as $company)
+            {
+                if($company->getComp_id() == $id)
+                {
+                    
+                    $company_aux = $company;
+                }
+            }
+            return $company_aux;
+        }
+       
+
+        public function CountCompanies(){
+
+            $list = $this->GetAll();
+            return count($list);
         }
 
         public function SearchCompanyByName($name)
         {
-            $this->RetrieveData();
+            $companyList = $this->GetAll();
             $company_found = null;
 
-            foreach($this->companyList as $company)
+            foreach($companyList as $company)
             {
                 if($company->getComp_name() == $name)
                 {
@@ -163,44 +137,6 @@
 
             return $company_found;
         }
-
-
-        public function CountCompanies()
-        {
-            $this->RetrieveData();
-
-            return count($this->companyList);
-        }
-
-        private function SaveData(){
-            $arrayToEncode = array();
-
-            foreach($this->companyList as $company){
-                $valuesArray["companyId"] = $company->getComp_id();
-                $valuesArray["companyName"] = $company->getComp_name();
-                $valuesArray["companyType"] = $company->getComp_type();
-                array_push($arrayToEncode,$valuesArray);
-            }
-            $jsonContent = json_encode($arrayToEncode,JSON_PRETTY_PRINT);
-            file_put_contents($this->fileName,$jsonContent);
-        }
-
-        private function RetrieveData(){
-            $this->companyList = array();
-
-            if(file_exists($this->fileName)){
-                $jsonContent = file_get_contents($this->fileName);
-                $arrayToDecode = ($jsonContent) ? json_decode($jsonContent,true) : array();
-
-                foreach($arrayToDecode as $valuesArray){
-                    $company = new Company();
-                    $company->setComp_id($valuesArray["companyId"]);
-                    $company->setComp_name($valuesArray["companyName"]);
-                    $company->setComp_type($valuesArray["companyType"]);
-                    array_push($this->companyList,$company);
-                }
-            }
-        }*/
 
                    
     }
