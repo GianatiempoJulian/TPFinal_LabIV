@@ -23,6 +23,11 @@ class JobOfferController
 			$this->jobOfferDAO = new JobOfferDAO();
 		}
 
+		public function ShowAddView()
+		{
+			require_once(VIEWS_PATH. "add-offer.php");
+		}
+
 		public function ShowListView()
         {
 			$jobOffer_repository = new JobOfferDAO();
@@ -39,6 +44,8 @@ class JobOfferController
             require_once(VIEWS_PATH."full-offer-list.php");
         }
 
+	
+
 		public function ShowRemoveView()
         {
             require_once(VIEWS_PATH. "remove-offer.php");
@@ -49,6 +56,7 @@ class JobOfferController
             require_once(VIEWS_PATH. "alta-offer.php");
         }
 
+		
 		public function ApplyForJob($idJob){
 
 			$studentXJobOffer = new StudentXJobOffer();
@@ -96,6 +104,37 @@ class JobOfferController
 
             $this->jobOfferDAO->Alta($job_offer_id);
             $this->ShowListView();
+         
+        }
+
+		public function Add($o_id,$id_jp, $id_com,$fecha,$description)
+        {
+
+            if(isset($_POST))
+            {
+                
+				if($this->jobOfferDAO->SearchOfferById($o_id) == NULL)
+                {
+                    
+					$offer = new JobOffer();
+                    $offer->setId($o_id);
+                    $offer->setIdJobPosition($id_jp);
+                    $offer->setIdCompany($id_com);
+					$offer->setFecha($fecha);
+					$offer->setDescription($description);
+                    $offer->setActive(true);
+
+                    $this->jobOfferDAO->Add($offer);
+
+                    $this->ShowAddView();
+                
+            }
+			else
+			{
+				echo "Nombre en uso, intente con otro";
+				$this->ShowAddView();
+			}
+		}
          
         }
 

@@ -23,9 +23,9 @@
 
         public function Add(JobOffer $jobOffer){
             try {
-                $query = "INSERT INTO ".$this->tableName." (o_idJobPosition, o_idCompany, o_fecha, o_description, o_active) VALUES ( :o_idJobPosition, :o_idCompany, :o_fecha, :o_description, :o_active);";
+                $query = "INSERT INTO ".$this->tableName." (o_id,o_idJobPosition, o_idCompany, o_fecha, o_description, o_active) VALUES ( :o_id,:o_idJobPosition, :o_idCompany, :o_fecha, :o_description, :o_active);";
 
-                
+                $parameters["o_id"] = $jobOffer->getId();
                 $parameters["o_idJobPosition"] = $jobOffer->getIdJobPosition();
                 $parameters["o_idCompany"] = $jobOffer->getIdCompany();
                 $parameters["o_fecha"] = $jobOffer->getFecha();
@@ -121,6 +121,28 @@
 
                 throw $ex;
             }
+        }
+
+        public function CountOffers(){
+
+            $list = $this->GetAll();
+            return count($list);
+        }
+
+        public function SearchOfferById ($o_id)
+        {
+            $offerList = $this->GetAll();
+            $offer_found = null;
+
+            foreach($offerList as $offer)
+            {
+                if($offer->getId() == $o_id)
+                {
+                    $offer_found = $offer;
+                }
+            }
+
+            return $offer_found;
         }
     }
 ?>

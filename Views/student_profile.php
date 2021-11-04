@@ -44,7 +44,7 @@ require_once("Config/Autoload.php");
         </div>
         <div id="profile_options">
             <a href="#">Editar Perfil</a>
-            <a href="#">Empleos Solicitados</a>
+            <a href="<?php echo FRONT_ROOT?>Student/ShowOfferStudent/<?php echo $id?>">Empleos Solicitados</a>
             <a href="#">Favoritos</a>
         </div>
         

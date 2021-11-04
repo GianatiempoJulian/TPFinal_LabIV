@@ -121,7 +121,6 @@
         {
             $comp = $this->companyDAO->GetById($id);
             require_once(VIEWS_PATH. "company_profile.php");
-
         }
 
         public function SearchCompany($comp_name){
