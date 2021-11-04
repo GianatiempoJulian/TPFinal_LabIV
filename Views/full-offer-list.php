@@ -25,7 +25,11 @@ Autoload::Start();
                          foreach($jobPosition_list as $jobPosition)
                          {
                               foreach($jo_list as $job_offer){
+                                  foreach ($company_list as $comp){
+                                    if ($job_offer->getActive() == true)
+                                    {
                                if($job_offer->getIdCompany() == $comp->getComp_id()){
+                                   $company_aux = $comp;
                                 if($job_offer->getIdJobPosition() == $jobPosition->getId())
                                 {
                                 
@@ -40,11 +44,11 @@ Autoload::Start();
                          ?>
                             
                        
-                             <th class="th_box"> <?php echo $job_offer->getId()?><br> <?php $jobPosition_aux->getDescription(); ?> <?php  echo $job_offer->getDescription()?> <br> <?php echo $job_offer->getFecha()?><a name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/ApplyForJob/<?php echo $id_job_offer?>">Postularse</a></th>
+                             <th class="th_box"> <?php echo $job_offer->getId()?><br> <?php $jobPosition_aux->getDescription(); ?> <?php  echo $job_offer->getDescription()?> <br> <?php echo $company_aux->getComp_name()?> <br> <?php echo $job_offer->getFecha()?><a name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/ApplyForJob/<?php echo $id_job_offer?>">Postularse</a></th>
                          </tr>
                         
                          <?php
-                        }} }  }
+                        }} }  }}}
                          ?>
                         
                     </tbody>

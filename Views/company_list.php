@@ -31,9 +31,9 @@ $cc = new CompanyController();
      <section id="comp_list">
           
           <div id="comp_container">
-               <form action="company-search.php" method="post" >
-               <input type="search" id="comp_search" name="comp_search" class="search_bar" placeholder="Ingrese Empresa" required>
-               <button type="submit" name="submit"  class="submit_button" id="submit_button_company_search">Buscar</button>
+               <form action="<?php echo FRONT_ROOT?>Company/SearchCompany" method="post" >
+               <input type="search" id="comp_name" name="comp_name" class="search_bar" placeholder="Ingrese Empresa" required>
+               <button type="submit" class="submit_button">Buscar</button>
                </form>
                <table id="comp_table">
                     <tbody>

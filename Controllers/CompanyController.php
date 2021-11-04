@@ -45,7 +45,6 @@
         {
             $companyList = $this->companyDAO->GetAll();
             require_once(VIEWS_PATH."company_list.php");
-
         }
 
         public function Add($comp_name, $comp_type)
@@ -125,7 +124,11 @@
 
         }
 
-        public function SearchCompany(){
+        public function SearchCompany($comp_name){
+
+           $comp = $this->companyDAO->SearchCompanyByName($comp_name);
+           $this->ShowCompanyById($comp->GetComp_Id());
+
             
         }
 
