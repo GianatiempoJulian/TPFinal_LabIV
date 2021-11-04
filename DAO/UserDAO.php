@@ -19,7 +19,7 @@ Class UserDAO implements IUserDAO {
 
     private $userList = array();
     private $connection;
-    private $tableName = "users";
+    private $tableName = "USERS";
 
     
     /*
@@ -32,13 +32,19 @@ Class UserDAO implements IUserDAO {
 
     public function Add(User $user){
         try {
-            $query = "INSERT INTO ".$this->tableName." (firstName, lastName, email, password, type_user) VALUES (:firstName, :lastName, :email, :password, :type_user);";
+            $query = "INSERT INTO ".$this->tableName." ( u_firstName,  u_lastName,  u_email,  u_password,  u_type) VALUES (: u_firstName, : u_lastName, : u_email, : u_password, : u_type);";
 
-            $parameters["firstName"] = $user->getFirstName();
-            $parameters["lastName"] = $user->getLastName();
-            $parameters["email"] = $user->getEmail();
-            $parameters["password"] = $user->getPassword();
-            $parameters["type_user"] = $user->getType_user();
+            $parameters["u_firstName"] = $user->getFirstName();
+            $parameters["u_lastName"] = $user->getLastName();
+            $parameters["u_email"] = $user->getEmail();
+            $parameters["u_password"] = $user->getPassword();
+            $parameters["u_type"] = $user->getType_user();
+
+            echo "n".$parameters["u_firstName"];
+            echo "a".$parameters["u_lastName"];
+            echo "e".$parameters["u_email"];
+            echo  "p".$parameters["u_password"];
+            echo  "t".$parameters["u_type"];
 
             $this->connection = Connection::GetInstance();
 
@@ -75,7 +81,7 @@ Class UserDAO implements IUserDAO {
            // session_start();
            // $_SESSION["user_mail"] = $mail;
             //require("location: student_profile.php");
-            $flag = 0;
+            $flag = 1;
         }
 
     }
@@ -90,7 +96,7 @@ Class UserDAO implements IUserDAO {
                    // session_start();
                    // $_SESSION["user_mail"] = $mail;
                     //require("location: student_profile.php");
-                    $flag = 1;
+                    $flag = 0;
                 }
             }
         }
@@ -120,11 +126,11 @@ Class UserDAO implements IUserDAO {
             foreach ($resultSet as $row){
 
                 $user = new User();
-                $user->setFirstName($row["firstName"]);
-                $user->setLastName($row["lastName"]);
-                $user->setEmail($row["email"]);
-                $user->setPassword($row["password"]);
-                $user->setType_user($row["type_user"]);
+                $user->setFirstName($row["u_firstName"]);
+                $user->setLastName($row["u_lastName"]);
+                $user->setEmail($row["u_email"]);
+                $user->setPassword($row["u_password"]);
+                $user->setType_user($row["u_type"]);
 
                 array_push($userList, $user);
 

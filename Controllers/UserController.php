@@ -37,8 +37,11 @@
 
             ///deberia ponerle una ID al admin
            
+           
             $this->userDAO->Add($user);
 
+
+            
             $this->ShowAddView();
         }
 

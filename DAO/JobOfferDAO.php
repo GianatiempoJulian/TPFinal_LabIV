@@ -51,7 +51,7 @@
                 $studentXJobList = $studentXJobDAO->GetAll();
 
                 $jobOfferList = array();
-                $userInJobList = array();
+               
 
     
                 $query = " SELECT * FROM ".$this->tableName;
@@ -62,6 +62,7 @@
 
                 foreach ($resultSet as $row){
 
+                    $userInJobList = array();
                     foreach($studentXJobList as $uxj)
                     {
                        
@@ -88,6 +89,36 @@
                 return $jobOfferList;
             }
             catch (Exception $ex){
+                throw $ex;
+            }
+        }
+
+        public function Remove($id){
+
+            try{
+
+                $query = "UPDATE $this->tableName SET o_active = 0 WHERE o_id = $id;";
+
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query);
+            }
+            catch(Exception $ex){
+
+                throw $ex;
+            }
+        }
+
+        public function Alta($id){
+
+            try{
+
+                $query = "UPDATE $this->tableName SET o_active = 1 WHERE o_id = $id;";
+
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query);
+            }
+            catch(Exception $ex){
+
                 throw $ex;
             }
         }

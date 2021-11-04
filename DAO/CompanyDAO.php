@@ -122,14 +122,14 @@
             return count($list);
         }
 
-        public function SearchCompanyByName($name)
+        public function SearchCompanyByName($comp_name)
         {
             $companyList = $this->GetAll();
             $company_found = null;
 
             foreach($companyList as $company)
             {
-                if($company->getComp_name() == $name)
+                if($company->getComp_name() == $comp_name)
                 {
                     $company_found = $company;
                 }

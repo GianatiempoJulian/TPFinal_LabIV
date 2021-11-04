@@ -47,21 +47,22 @@ public function Verify($user_mail,$password)
         if($flag == 0)
         {
             
-            $user_in_session = $users->searchUser($user_mail);
-            $_SESSION['email'] = $user_mail;
-            $_SESSION['type'] = $user_in_session->getType_user();
-            header("location:". FRONT_ROOT . "Company/ShowAddView");
+            $student_in_session = $students->searchStudent($user_mail);
+            $_SESSION['id_student'] = $student_in_session->getStudentId();
+            $_SESSION['type'] = $student_in_session->getType_user();
+            $_SESSION['email'] = $student_in_session->getEmail();;
+            header("location:". FRONT_ROOT . "Student/ShowStudentProfile");
+
             
-         
         }
         
         else if($flag == 1)
         { 
-            $user_in_session = $students->searchStudent($user_mail);
+           
+            $user_in_session = $users->searchUser($user_mail);
             $_SESSION['email'] = $user_mail;
             $_SESSION['type'] = $user_in_session->getType_user();
-            header("location:". FRONT_ROOT . "Student/ShowStudentProfile");
-            
+            header("location:". FRONT_ROOT . "Company/ShowAddView");
         }
         else
         {
@@ -76,7 +77,7 @@ public function Verify($user_mail,$password)
 
     public function LogOut()
     {    
-            session_start();
+         
 
             session_destroy();
 

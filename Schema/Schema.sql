@@ -26,6 +26,8 @@ CREATE TABLE USERS(
     CONSTRAINT pk_users_email primary key (u_email)
 );
 
+  INSERT INTO USERS(u_firstName,u_lastName,u_email,u_password,u_type) VALUES ("ju","lian","g@gmail.com","123",1);
+
 CREATE TABLE STUDENTS(
     firstName varchar(100) not null,
     lastName varchar(100) not null,
@@ -123,7 +125,7 @@ CREATE TABLE STUDENT_X_JOB_OFFER(
      o_id int not null,
      recordId int not null,
      CONSTRAINT pk_jb_x_student primary key (o_id,recordId),
-     CONSTRAINT fk_jb_id foreign key (o_id) references JOB_POSITION (p_id),
+     CONSTRAINT fk_jb_id foreign key (o_id) references JOB_OFFER (o_id),
      CONSTRAINT fk_stu_id foreign key (recordId) references STUDENTS (recordId)
 );
 
@@ -132,3 +134,7 @@ CREATE TABLE STUDENT_X_JOB_OFFER(
  INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (123,22,1,"2021-05-15","Verdulero",true); 
  INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (13,22,1,"2021-05-15","Doctor",true); 
   INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (133,22,3,"2021-05-15","Locutor",true); 
+
+
+  INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (7,15,4,"2021-05-25","Modelado de texturas",true); 
+    INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (777,15,4,"2021-05-25","Modelado de escenarios",true); 
