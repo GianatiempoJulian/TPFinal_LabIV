@@ -29,7 +29,6 @@
         public function ShowStudentProfile()
         {
             $studentList = $this->studentDAO->GetAll();
-            
             $careerList =  new CareerDAO();
             $api_career = $careerList->GetAll();
             $career_from_student = new Career();
@@ -61,7 +60,7 @@
                     $student->setStudentId($student_from_api->getStudentId());
                     $student->setFirstName($student_from_api->getFirstName());
                     $student->setLastName($student_from_api->getLastName());
-                    $student->setType_user(1);
+                    $student->setType_user(0);
                     $student->setEmail($student_from_api->getEmail());
         
                     $student->setCareerId($student_from_api->getCareerId());

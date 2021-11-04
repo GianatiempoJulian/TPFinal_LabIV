@@ -22,11 +22,11 @@
 
         public function Add(JobPosition $jobPosition){
             try {
-                $query = "INSERT INTO ".$this->tableName." (id, carrerId, description) VALUES (:id, :carrerId, :description);";
+                $query = "INSERT INTO ".$this->tableName." (p_id, p_careerId, p_description) VALUES (:p_id, :p_careerId, :p_description);";
 
-                $parameters["id"] = $jobPosition->getId();
-                $parameters["carrerId"] = $jobPosition->getCarrerId();
-                $parameters["description"] = $jobPosition->getDescription();
+                $parameters["p_id"] = $jobPosition->getId();
+                $parameters["p_careerId"] = $jobPosition->getCarrerId();
+                $parameters["p_description"] = $jobPosition->getDescription();
         
 
                 $this->connection = Connection::GetInstance();
@@ -52,9 +52,9 @@
                 foreach ($resultSet as $row){
 
                     $jobPosition = new JobPosition();
-                    $jobPosition->setId($row["id"]);
-                    $jobPosition->setCarrerId($row["carrerId"]);
-                    $jobPosition->setDescription($row["description"]);
+                    $jobPosition->setId($row["p_id"]);
+                    $jobPosition->setCarrerId($row["p_careerId"]);
+                    $jobPosition->setDescription($row["p_description"]);
                     
 
 

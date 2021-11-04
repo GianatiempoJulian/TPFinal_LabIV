@@ -102,6 +102,8 @@ INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (21,'7', 'Envir
 INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (22,'7', 'Environmental management coordinator');
 INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (23,'8', 'Received technician');
 
+
+
 CREATE TABLE JOB_OFFER(
         o_id int not null,
         o_idJobPosition int not null,
@@ -109,12 +111,24 @@ CREATE TABLE JOB_OFFER(
         o_fecha date not null,
         o_description varchar(100) not null,
         o_active boolean not null,
-        o_users varchar(100) not null,
-
+        
         CONSTRAINT pk_offer_id primary key (o_id),
         CONSTRAINT fk_offer_position foreign key (o_idJobPosition) references JOB_POSITION (p_id),
         CONSTRAINT fk_offer_company foreign key (o_idCompany) references COMPANIES (comp_id)
 );
 
 
-INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active,o_users) VALUES (12,2,2,"2021-05-10","Diseñador de niveles",true,"Juan");
+CREATE TABLE STUDENT_X_JOB_OFFER(
+     
+     o_id int not null,
+     recordId int not null,
+     CONSTRAINT pk_jb_x_student primary key (o_id,recordId),
+     CONSTRAINT fk_jb_id foreign key (o_id) references JOB_POSITION (p_id),
+     CONSTRAINT fk_stu_id foreign key (recordId) references STUDENTS (recordId)
+);
+
+ INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (12,2,2,"2021-05-10","Diseñador de niveles",true); 
+ 
+ INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (123,22,1,"2021-05-15","Verdulero",true); 
+ INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (13,22,1,"2021-05-15","Doctor",true); 
+  INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (133,22,3,"2021-05-15","Locutor",true); 

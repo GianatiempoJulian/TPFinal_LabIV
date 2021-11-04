@@ -4,7 +4,7 @@
 
     use Models\JobOffer as JobOffer;
 
-    interface IJobPositionDAO{
+    interface IJobOfferDAO{
         function Add(JobOffer $jobOffer);
         function getAll();
        
