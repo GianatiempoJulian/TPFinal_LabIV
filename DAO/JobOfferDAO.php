@@ -10,6 +10,7 @@
     use DAO\IJobOfferDAO as IJobOfferDAO;
     use Models\JobOffer as JobOffer;
     use DAO\Connection as Connection;
+    use DAO\StudentXJobOfferDAO as StudentXJobOfferDAO;
   
    
     
@@ -22,15 +23,15 @@
 
         public function Add(JobOffer $jobOffer){
             try {
-                $query = "INSERT INTO ".$this->tableName." (id, idJobPosition, idCompany, fecha, description, active, users) VALUES (:id, :idJobPosition, :idCompany, :fecha, :description, :active, :users);";
+                $query = "INSERT INTO ".$this->tableName." (o_idJobPosition, o_idCompany, o_fecha, o_description, o_active) VALUES ( :o_idJobPosition, :o_idCompany, :o_fecha, :o_description, :o_active);";
 
-                $parameters["id"] = $jobOffer->getId();
-                $parameters["idJobPosition"] = $jobOffer->getIdJobPosition();
-                $parameters["idCompany"] = $jobOffer->getIdCompany();
-                $parameters["fecha"] = $jobOffer->getFecha();
-                $parameters["description"] = $jobOffer->getDescription();
-                $parameters["active"] = $jobOffer->getActive();
-                //$parameters["users"] = $jobOffer->getUsers();
+                
+                $parameters["o_idJobPosition"] = $jobOffer->getIdJobPosition();
+                $parameters["o_idCompany"] = $jobOffer->getIdCompany();
+                $parameters["o_fecha"] = $jobOffer->getFecha();
+                $parameters["o_description"] = $jobOffer->getDescription();
+                $parameters["o_active"] = $jobOffer->getActive();
+               
 
                 $this->connection = Connection::GetInstance();
 
@@ -43,9 +44,16 @@
         }
 
         public function GetAll(){
-            try {
-                $jobOfferList = array();
 
+            try {
+
+                $studentXJobDAO = new StudentXJobOfferDAO();
+                $studentXJobList = $studentXJobDAO->GetAll();
+
+                $jobOfferList = array();
+                $userInJobList = array();
+
+    
                 $query = " SELECT * FROM ".$this->tableName;
 
                 $this->connection = Connection::GetInstance();
@@ -54,19 +62,28 @@
 
                 foreach ($resultSet as $row){
 
-                    $jobOffer = new JobOffer();
-                    $jobOffer->setId($row["id"]);
-                    $jobOffer->setIdJobPosition($row["idJobPosition"]);
-                    $jobOffer->setIdCompany($row["idCompany"]);
-                    $jobOffer->setFecha($row["fecha"]);
-                    $jobOffer->setDescription($row["description"]);
-                    $jobOffer->setActive($row["active"]);
-                    $jobOffer->setUsers($row["users"]);
+                    foreach($studentXJobList as $uxj)
+                    {
+                       
+                        if($uxj->getJobOfferId() == $row["o_id"])
+                        {
+                            
+                            array_push($userInJobList,$uxj->getStudentId());
+                        }
                     
+                    }
+                    $jobOffer = new JobOffer();
+                    $jobOffer->setId($row["o_id"]);
+                    $jobOffer->setIdJobPosition($row["o_idJobPosition"]);
+                    $jobOffer->setIdCompany($row["o_idCompany"]);
+                    $jobOffer->setFecha($row["o_fecha"]);
+                    $jobOffer->setDescription($row["o_description"]);
+                    $jobOffer->setActive($row["o_active"]);
 
-
+                    $userInJobList = null;
+                    
                     array_push($jobOfferList, $jobOffer);
-
+                   
                 }
                 return $jobOfferList;
             }

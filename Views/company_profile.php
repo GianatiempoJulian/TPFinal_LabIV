@@ -30,7 +30,7 @@ Autoload::Start();
         </div>
         <div id="profile_options">
             <a href="#">Editar Perfil</a>
-            <a href="#">Empleos Disponibles</a>
+            <a href="<?php echo FRONT_ROOT?>Company/ShowOffers/<?php echo $id?>">Empleos Disponibles</a>
             <a href="#">Favoritos</a>
         </div>
         

@@ -7,6 +7,12 @@
     use DAO\CompanyDAO as CompanyDAO;
     use Models\Company as Company;
     use Config\Config as Config;
+    use DAO\JobOfferDAO as JobOfferDAO;
+    use Models\JobOffer as JobOffer;
+    use DAO\IJobOfferDAO as IJobOfferDAO;
+    use DAO\JobPositionDAO as JobPositionDAO;
+    use Models\JobPosition as JobPosition;
+    use DAO\IJobPositionDAO as IJobPositionDAO;
 
     Autoload::Start();
 
@@ -89,10 +95,22 @@
          
         }
 
-        public function Modify()
-        {
+       public function ShowOffers($id)
+       {
+            $jobOffer_repository = new JobOfferDAO();
+            $jo_list = $jobOffer_repository->GetAll();
+            
+            $jobPosition_repository = new JobPositionDAO();
+            $jobPosition_list = $jobPosition_repository->GetAll();
+            $jobPosition_aux = new JobPosition();
+            
 
-        }
+            $comp = $this->companyDAO->GetById($id);
+
+           
+            
+           require_once(VIEWS_PATH. "offer-list.php");
+       }
 
 
         public function ShowModifyView()
