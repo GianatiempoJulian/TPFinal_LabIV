@@ -105,6 +105,24 @@
             return $student;
         }
 
+        public function searchStudentById($id)
+        {
+            $studentList = $this->GetAll();
+            $student = null;
+    
+            foreach($studentList as $std)
+            {
+                
+                if($std->getStudentId() == $id)
+                {
+                    $student = $std;
+                }
+            }
+    
+            return $student;
+        }
+
+
         public function GetAllFromApi()
         {
             $this->RetrieveDataFromAPI();

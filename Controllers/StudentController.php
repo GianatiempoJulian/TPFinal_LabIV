@@ -9,6 +9,10 @@
     use Models\Student as Student;
     use Models\Career as Career;
     use Config\Config as Config;
+    use DAO\JobOfferDAO as JobOfferDAO;
+    use DAO\JobPositionDAO as JobPositionDAO;
+    use Models\JobPosition as JobPosition;
+    use DAO\StudentXJobOfferDAO as StudentXJobOfferDAO;
 
     Autoload::Start();
 
@@ -33,8 +37,28 @@
             $api_career = $careerList->GetAll();
             $career_from_student = new Career();
 
-
+            $id = $_SESSION['id_student'];
             require_once(VIEWS_PATH. "student_profile.php");
+        }
+
+        public function ShowOfferStudent($id)
+        {
+            $jobOffer_repository = new JobOfferDAO();
+            $jo_list = $jobOffer_repository->GetAll();
+            
+            $jobPosition_repository = new JobPositionDAO();
+            $jobPosition_list = $jobPosition_repository->GetAll();
+
+            $student_x_offer = new StudentXJobOfferDAO();
+            $student_x_offer_list = $student_x_offer->GetAll();
+
+            $jobPosition_aux = new JobPosition();
+            
+
+            $student = $this->studentDAO->searchStudentById($id);
+
+            
+           require_once(VIEWS_PATH. "student-postulations.php");
         }
 
         public function ShowListView()

@@ -81,7 +81,7 @@ public function Verify($user_mail,$password)
 
             session_destroy();
 
-            require_once(VIEWS_PATH. "login.php");
+            require_once(VIEWS_PATH. "zero.php");
 
            // header("location: " . FRONT_ROOT . "Home/Index");
      }
