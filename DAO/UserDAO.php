@@ -78,13 +78,11 @@ Class UserDAO implements IUserDAO {
         if(strcmp($email,$user->getEmail()) == 0)
         {
            
-           // session_start();
-           // $_SESSION["user_mail"] = $mail;
-            //require("location: student_profile.php");
+        
             $flag = 1;
         }
 
-    }
+        }
         if ($flag == -1)
         {
             
@@ -93,20 +91,12 @@ Class UserDAO implements IUserDAO {
                
                 if(strcmp($email,$user->getEmail()) == 0)
                 {
-                   // session_start();
-                   // $_SESSION["user_mail"] = $mail;
-                    //require("location: student_profile.php");
+                
                     $flag = 0;
                 }
             }
         }
-    /*
-        else{
-           
-           // header("location: login.php?msg=incorrect");
-        }
-        */
-        
+
     
         return $flag;
     }

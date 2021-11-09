@@ -121,7 +121,6 @@ CREATE TABLE JOB_OFFER(
 
 
 CREATE TABLE STUDENT_X_JOB_OFFER(
-     
      o_id int not null,
      recordId int not null,
      CONSTRAINT pk_jb_x_student primary key (o_id,recordId),
@@ -129,12 +128,12 @@ CREATE TABLE STUDENT_X_JOB_OFFER(
      CONSTRAINT fk_stu_id foreign key (recordId) references STUDENTS (recordId)
 );
 
- INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (12,2,2,"2021-05-10","Diseñador de niveles",true); 
+INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (12,2,2,"2021-05-10","Diseñador de niveles",true); 
  
- INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (123,22,1,"2021-05-15","Verdulero",true); 
- INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (13,22,1,"2021-05-15","Doctor",true); 
-  INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (133,22,3,"2021-05-15","Locutor",true); 
+INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (123,22,1,"2021-05-15","Verdulero",true); 
+INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (13,22,1,"2021-05-15","Doctor",true); 
+INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (133,22,3,"2021-05-15","Locutor",true); 
 
 
-  INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (7,15,4,"2021-05-25","Modelado de texturas",true); 
-    INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (777,15,4,"2021-05-25","Modelado de escenarios",true); 
+INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (7,15,4,"2021-05-25","Modelado de texturas",true); 
+INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (777,15,4,"2021-05-25","Modelado de escenarios",true); 

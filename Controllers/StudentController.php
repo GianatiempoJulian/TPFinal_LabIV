@@ -43,18 +43,22 @@
 
         public function ShowOfferStudent($id)
         {
+            //Job Offer
             $jobOffer_repository = new JobOfferDAO();
             $jo_list = $jobOffer_repository->GetAll();
             
+            //Job Position para printear nombre posicion
             $jobPosition_repository = new JobPositionDAO();
             $jobPosition_list = $jobPosition_repository->GetAll();
 
+            //SxJO para buscar ID estudiante vinculado a una oferta
             $student_x_offer = new StudentXJobOfferDAO();
             $student_x_offer_list = $student_x_offer->GetAll();
 
+            //JobPosition para guardar el nombre
             $jobPosition_aux = new JobPosition();
-            
 
+            //Student para buscar estudiante con la ID que nos enviaron
             $student = $this->studentDAO->searchStudentById($id);
 
             
@@ -78,7 +82,7 @@
 
             foreach ($student_api as $student_from_api)
             {
-                if ($student_from_api->getEmail() == $email)
+                if ($student_from_api->getEmail() == $email && $student_from_api->getActive() == true)
                 {
                     $student = new Student();
                     $student->setStudentId($student_from_api->getStudentId());

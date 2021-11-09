@@ -33,15 +33,14 @@ public function toType($type){
 public function Verify($user_mail,$password)
 {
     
-    if(isset($_POST))
-    {
+   
         $users = new UserDAO();
         $students = new StudentDAO();
 
         $flag = $users->exist($user_mail,$password);
         $user_in_session = null;
 
-        echo "flag es:" .$flag;
+    
 
         
         if($flag == 0)
@@ -62,17 +61,16 @@ public function Verify($user_mail,$password)
             $user_in_session = $users->searchUser($user_mail);
             $_SESSION['email'] = $user_mail;
             $_SESSION['type'] = $user_in_session->getType_user();
-            header("location:". FRONT_ROOT . "Company/ShowAddView");
+            header("location:". FRONT_ROOT . "User/ShowUserProfile");
         }
         else
         {
           
-            echo "no existe";
-            echo "flag en no existe es:" .$flag;
+            
             require_once(VIEWS_PATH. "login.php");
         }
         
-    }
+    
 }
 
     public function LogOut()
@@ -83,7 +81,7 @@ public function Verify($user_mail,$password)
 
             require_once(VIEWS_PATH. "zero.php");
 
-           // header("location: " . FRONT_ROOT . "Home/Index");
+          
      }
 }
 

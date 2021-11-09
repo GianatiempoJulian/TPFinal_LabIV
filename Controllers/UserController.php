@@ -25,6 +25,13 @@
             require_once(VIEWS_PATH."user-list.php");
         }
 
+        public function ShowUserProfile()
+        {
+            $userList = $this->userDAO->GetAll();
+            $user_mail = $_SESSION['email'];
+            require_once(VIEWS_PATH. "user_profile.php");
+        }
+
         public function Add($firstname,$lastname,$email, $password)
         {
             $user = new User();
