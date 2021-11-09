@@ -41,20 +41,32 @@ class JobOfferController
             $company_list = $company_repository->GetAll();
             $company_aux = new Company();
 
-            require_once(VIEWS_PATH."full-offer-list.php");
+			$type = $_SESSION['type'];
+
+			if ($type == 0)
+			{
+				require_once(VIEWS_PATH."full-offer-list.php");
+			}
+			else if ($type == 1)
+			{
+				require_once(VIEWS_PATH."full-offer-list-admin.php");
+			}
+           
         }
 
 	
 
 		public function ShowRemoveView()
         {
-            require_once(VIEWS_PATH. "remove-offer.php");
+			require_once(VIEWS_PATH. "remove-offer.php");
         }
 
         public function showAltaView()
         {
             require_once(VIEWS_PATH. "alta-offer.php");
         }
+
+	
 
 		
 		public function ApplyForJob($idJob){

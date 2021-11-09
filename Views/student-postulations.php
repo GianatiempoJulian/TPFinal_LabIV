@@ -25,20 +25,22 @@ Autoload::Start();
                          <?php
                          foreach($student_x_offer_list as $sxj)
                          {
-                             
-                           
-                            foreach($jo_list as $job_offer)
-                            {
-                             
-                                 foreach($jobPosition_list as $jobPosition){
-                             
-                                     if($job_offer->getIdJobPosition() == $jobPosition->getId())
-                                    {
-                                
-                                        $jobPosition_aux = $jobPosition;
-                                        $id_job_offer = $job_offer->getId();
-                                            if ($sxj->getStudentId() == $student->getStudentId())
+                              if ($sxj->getStudentId() == $student->getStudentId())
+                              {
+                                  
+                                   foreach($jo_list as $job_offer)
+                                   {
+                                        if( $sxj->getJobOfferId() == $job_offer->getId())
                                         {
+                                        foreach($jobPosition_list as $jobPosition){
+                                   
+                                             if($job_offer->getIdJobPosition() == $jobPosition->getId())
+                                             {
+                                        
+                                                  $jobPosition_aux = $jobPosition;
+                                                  $id_job_offer = $job_offer->getId();
+
+                                           
                               
                          ?>
                             
@@ -47,7 +49,7 @@ Autoload::Start();
                          </tr>
                         
                          <?php
-                         }  }}}}
+                         }}}}}}
                          ?>
                         
                     </tbody>
