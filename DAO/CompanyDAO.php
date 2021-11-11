@@ -98,6 +98,27 @@
                 }
             }
 
+            public function Modify(Company $company){
+
+                try{
+    
+                    $query = "UPDATE $this->tableName SET comp_name = :comp_name , comp_type = :comp_type, comp_active = :comp_active   WHERE comp_id = :comp_id";
+    
+                    $parameters["comp_id"] = $company->getComp_id();
+                    $parameters["comp_name"] = $company->getComp_name();
+                    $parameters["comp_type"] = $company->getComp_type();
+                    $parameters["comp_active"] = $company->getComp_active();
+                  
+    
+                    $this->connection = Connection::GetInstance();
+                    $this->connection->ExecuteNonQuery($query, $parameters);
+                }
+                catch(Exception $ex){
+    
+                    throw $ex;
+                }
+            }
+
         
         public function GetById($id)
         {

@@ -24,13 +24,14 @@
 
         public function Add(Student $student){
             try {
-                $query = "INSERT INTO ".$this->tableName." (recordId, firstName, lastName,email,type_us,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active) VALUES (:recordId, :firstName, :lastName, :email, :type_us, :careerId, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active);";
+                $query = "INSERT INTO ".$this->tableName." (recordId, firstName, lastName,email,type_us,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES (:recordId, :firstName, :lastName, :email, :type_us, :careerId, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active,:s_password);";
 
                 $parameters["recordId"] = $student->getStudentId();
                 $parameters["firstName"] = $student->getFirstName();
                 $parameters["lastName"] = $student->getLastName();
                 $parameters["email"] = $student->getEmail();
                 $parameters["type_us"] = $student->getType_user();
+                $parameters["s_password"] = $student->getPassword();
 
                 $parameters["careerId"] = $student->getCareerId();
                 $parameters["dni"] = $student->getDni();
@@ -68,6 +69,8 @@
                     $student->setLastName($row["lastName"]);
                     $student->setEmail($row["email"]);
                     $student->setType_user($row["type_us"]);
+                    $student->setPassword($row["s_password"]);
+
                     $student->setCareerId($row["careerId"]);
                     $student->setDni($row["dni"]);
                     $student->setFileNumber($row["fileNumber"]);

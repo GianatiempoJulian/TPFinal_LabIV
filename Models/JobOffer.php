@@ -10,7 +10,7 @@
         private $fecha;
         private $description;
         private $active;
-        private $users = array();
+//        private $users = array();
 
         public function __construct(){}
 

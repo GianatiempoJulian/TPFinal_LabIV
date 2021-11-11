@@ -41,6 +41,7 @@ CREATE TABLE STUDENTS(
     birthDate date not null,
     phoneNumber varchar(50) not null,
     active boolean not null,
+    s_password varchar(50) not null,
     
     CONSTRAINT PK_STUDENTS PRIMARY KEY (recordId),
     CONSTRAINT FK_CAREER FOREIGN KEY (careerId) REFERENCES CAREERS (careerId)

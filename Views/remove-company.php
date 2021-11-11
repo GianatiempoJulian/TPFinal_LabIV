@@ -4,17 +4,7 @@
 <?php include('header.php');?>
 <?php include('nav.php'); ?>
 
-<?php
- if($_GET && isset($_GET["msg"])){
-     switch($_GET["msg"]){
-          case "eliminada":
-?>
-<h6>Empresa eliinada con exito.</h6>
-<?php
-               break;      
-     }
-}
-?>
+
 
 <body>
     <article id="add-company_article">

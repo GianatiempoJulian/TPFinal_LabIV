@@ -41,6 +41,24 @@
             require_once(VIEWS_PATH. "alta-company.php");
         }
 
+        public function showModifyView($comp_id)
+        {
+
+            $companyList = $this->companyDAO->GetAll();
+
+            $comp_aux = new Company();
+
+            foreach ($companyList as $comp)
+            {
+                if ($comp->getComp_id() == $comp_id)
+                {
+                    $comp_aux = $comp;
+                }
+            }
+
+            require_once(VIEWS_PATH."edit-company.php");
+        }
+
         public function ShowListView()
         {
             $companyList = $this->companyDAO->GetAll();
@@ -65,13 +83,15 @@
                     $company->setComp_active(true);
 
                     $this->companyDAO->Add($company);
+                    echo "<script>alert('Empresa agregada con exito');</script>";
+
 
                     $this->ShowAddView();
                 }
                 
                 else
                 {
-                    echo "Nombre en uso, intente con otro";
+                    echo "<script>alert('El nombre de esa empresa ya se encuentra en uso');</script>";
                     $this->ShowAddView();
                 }
             }
@@ -82,6 +102,7 @@
         {
 
             $this->companyDAO->Remove($comp_id);
+            echo "<script>alert('Empresa eliminada con exito');</script>";
             $this->ShowListView();
          
         }
@@ -90,8 +111,24 @@
         {
 
             $this->companyDAO->Alta($comp_id);
+            echo "<script>alert('La empresa ha sido dada de alta');</script>";
             $this->ShowListView();
          
+        }
+
+        public function Modify($comp_id,$comp_name,$comp_type)
+        {
+            $comp_modify = new Company();
+
+            $comp_modify->setComp_id($comp_id);
+            $comp_modify->setComp_name($comp_name);
+            $comp_modify->setComp_type($comp_type);
+            $comp_modify->setComp_active(true);
+            
+             $this->companyDAO->Modify($comp_modify);
+
+            $this->ShowCompanyById($comp_id);
+            
         }
 
        public function ShowOffers($id)
@@ -112,10 +149,7 @@
        }
 
 
-        public function ShowModifyView()
-        {
-            require_once(VIEWS_PATH. "add-student.php");
-        }
+       
 
         public function ShowCompanyById($id)
         {

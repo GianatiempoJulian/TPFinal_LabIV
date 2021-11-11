@@ -73,7 +73,7 @@
             require_once(VIEWS_PATH."student-list.php");
         }
 
-        public function Add($email)
+        public function Add($email,$pass)
         {
             
             $flag = 0;
@@ -98,9 +98,12 @@
                     $student->setBirthDate($student_from_api->getBirthDate());
                     $student->setPhoneNumber($student_from_api->getPhoneNumber());
                     $student->setActive(true);
+                    $student->setPassword($pass);
 
                     $this->studentDAO->Add($student);
-                    header("location:". FRONT_ROOT . "Login/showLoginView");
+                    echo "<script>alert('Registro exitoso');</script>";
+                    require_once(VIEWS_PATH. "login.php");
+
                     $flag = 1;
                    
                     
@@ -111,7 +114,7 @@
             }
             if ($flag == 0)
             {
-                
+                 echo "<script>alert('El mail ingresado no perenece a un alumno activo');</script>";
                 $this->ShowAddView();
                 
             }

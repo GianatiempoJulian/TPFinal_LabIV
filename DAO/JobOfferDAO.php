@@ -123,6 +123,30 @@
             }
         }
 
+        public function Modify(JobOffer $jobOffer){
+
+            try{
+
+                $query = "UPDATE $this->tableName SET o_idJobPosition = :o_idJobPosition , o_idCompany = :o_idCompany, o_fecha = :o_fecha, o_description = :o_description, o_active = :o_active   WHERE o_id = :o_id";
+
+                $parameters["o_id"] = $jobOffer->getId();
+                $parameters["o_idJobPosition"] = $jobOffer->getIdJobPosition();
+                $parameters["o_idCompany"] = $jobOffer->getIdCompany();
+                $parameters["o_fecha"] = $jobOffer->getFecha();
+                $parameters["o_description"] = $jobOffer->getDescription();
+                $parameters["o_active"] = $jobOffer->getActive();
+               
+              
+
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex){
+
+                throw $ex;
+            }
+        }
+
         public function CountOffers(){
 
             $list = $this->GetAll();
