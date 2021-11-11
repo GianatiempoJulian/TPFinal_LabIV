@@ -37,11 +37,13 @@ nav ul li {
     transition: ease-in 0.3s;
 }
 
-.nav_option {
+.nav_option,
+.nav_btn_functions {
     color: #FEFFFF;
 }
 
-.nav_option:hover {
+.nav_option:hover,
+.nav_btn_functions:hover {
     color: #2f1f6e;
     transition: ease 0.5s;
 }
@@ -49,6 +51,34 @@ nav ul li {
 nav img {
     margin: 12px;
     height: 25px;
+}
+
+#nav_btn {
+    background-color: #5D3FD3;
+    border: none;
+    color: whitesmoke;
+    transition: transform 0.3s ease-in-out;
+}
+
+#nav_btn.actve {
+    transform: translateY(-200px);
+}
+
+#nav_btn_options {
+    transform: translateY(-300%);
+    transition: transform 0.3s ease-in-out;
+    display: none;
+    opacity: 0;
+    background-color: #5D3FD3;
+    height: 3rem;
+}
+
+#nav_btn_options.active {
+    transform: translateY(1px);
+}
+
+.nav_btn_functions {
+    display: block;
 }
 
 

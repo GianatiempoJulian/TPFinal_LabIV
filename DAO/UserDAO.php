@@ -71,11 +71,11 @@ Class UserDAO implements IUserDAO {
 
 
         foreach ($users as $user)
-         {
+        {
     
      
-        //if(strcmp($mail,$user->getEmail) == 0 && $password == $user->getPassword)
-        if(strcmp($email,$user->getEmail()) == 0)
+        if(strcmp($email,$user->getEmail()) == 0 && $pass == $user->getPassword())
+       // if(strcmp($email,$user->getEmail()) == 0)
         {
            
         
@@ -86,10 +86,10 @@ Class UserDAO implements IUserDAO {
         if ($flag == -1)
         {
             
-            foreach($student_list as $user)
+            foreach($student_list as $stu)
             {
                
-                if(strcmp($email,$user->getEmail()) == 0)
+                if(strcmp($email,$stu->getEmail()) == 0 && $pass == $stu->getPassword())
                 {
                 
                     $flag = 0;

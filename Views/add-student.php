@@ -14,6 +14,9 @@
                <div class="add-company_form">
                     <input type="email" name="email" placeholder="Ingresar email" required>
                </div>
+               <div class="add-company_form">
+                    <input type="password" name="pass" placeholder="Ingresar contraseña" required>
+               </div>
                <button type="submit" class="submit_button">Verificar</button>
              </form>
         </section>

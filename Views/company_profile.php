@@ -29,7 +29,13 @@ Autoload::Start();
              <h5 id="profile_type"><?php echo $comp->getComp_type(); ?></h5>
         </div>
         <div id="profile_options">
-            <a href="#">Editar Perfil</a>
+            <?php 
+            if ($_SESSION['type'] == 1)
+            {?>
+                <a href="<?php echo FRONT_ROOT?>Company/showModifyView/<?php echo $id?>">Editar Empresa</a>
+                <?php
+            }
+            ?>
             <a href="<?php echo FRONT_ROOT?>Company/ShowOffers/<?php echo $id?>">Empleos Disponibles</a>
             <a href="#">Favoritos</a>
         </div>

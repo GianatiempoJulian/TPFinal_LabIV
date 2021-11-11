@@ -49,7 +49,7 @@ public function Verify($user_mail,$password)
             $student_in_session = $students->searchStudent($user_mail);
             $_SESSION['id_student'] = $student_in_session->getStudentId();
             $_SESSION['type'] = $student_in_session->getType_user();
-            $_SESSION['email'] = $student_in_session->getEmail();;
+            $_SESSION['email'] = $student_in_session->getEmail();
             header("location:". FRONT_ROOT . "Student/ShowStudentProfile");
 
             
@@ -66,7 +66,7 @@ public function Verify($user_mail,$password)
         else
         {
           
-            
+            echo "<script>alert('Usuario y/o contraseña incorrecto. Intente nuevamente.');</script>";
             require_once(VIEWS_PATH. "login.php");
         }
         

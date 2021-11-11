@@ -66,7 +66,38 @@ class JobOfferController
             require_once(VIEWS_PATH. "alta-offer.php");
         }
 
-	
+		public function showModifyView($id_job_offer)
+        {
+
+            $jobOfferList = $this->jobOfferDAO->GetAll();
+			$jo_aux = new JobOffer();
+
+			
+			$compDAO = new CompanyDAO();
+			$companyList = $compDAO->GetAll();
+			$comp_aux = new Company();
+
+            
+
+            foreach ($jobOfferList as $jo)
+            {
+                if ($jo->getId() == $id_job_offer)
+                {
+                    $jo_aux = $jo;
+                }
+            }
+
+			foreach($companyList as $co)
+			{
+				if ($jo_aux->getIdCompany() == $co->getComp_id())
+				{
+					$comp_aux = $co;
+				}
+			}
+
+
+            require_once(VIEWS_PATH."edit-jobOffer.php");
+        }
 
 		
 		public function ApplyForJob($idJob){
@@ -92,6 +123,7 @@ class JobOfferController
 			if ($flag == 0)
 			{
 				$studentXJobOfferDAO->Add($studentXJobOffer);
+				echo "<script>alert('Postulacion exitosa');</script>";
 				header("location:". FRONT_ROOT . "Student/ShowStudentProfile");
 			}
 			else
@@ -107,6 +139,7 @@ class JobOfferController
         {
 
             $this->jobOfferDAO->Remove($job_offer_id);
+			echo "<script>alert('Oferta eliminada con exito');</script>";
             $this->ShowListView();
          
         }
@@ -115,8 +148,28 @@ class JobOfferController
         {
 
             $this->jobOfferDAO->Alta($job_offer_id);
+			echo "<script>alert('Oferta dada de alta con exito');</script>";
             $this->ShowListView();
          
+        }
+
+		public function Modify($o_id,$o_idCompany,$o_idJobPosition,$o_fecha,$o_description)
+        {
+		
+            $jo_modify = new JobOffer();
+
+            $jo_modify->setId($o_id);
+            $jo_modify->setIdJobPosition($o_idJobPosition);
+            $jo_modify->setIdCompany($o_idCompany);
+            $jo_modify->setFecha($o_fecha);
+            $jo_modify->setDescription($o_description);
+			$jo_modify->setActive(true);
+
+
+             $this->jobOfferDAO->Modify($jo_modify);
+
+            $this->ShowListView();
+            
         }
 
 		public function Add($o_id,$id_jp, $id_com,$fecha,$description)
@@ -138,12 +191,16 @@ class JobOfferController
 
                     $this->jobOfferDAO->Add($offer);
 
+					echo "<script>alert('Oferta agregada con exito');</script>";
+
+
                     $this->ShowAddView();
                 
             }
 			else
 			{
 				echo "Nombre en uso, intente con otro";
+				echo "<script>alert('Nombre en uso intente con otro');</script>";
 				$this->ShowAddView();
 			}
 		}
