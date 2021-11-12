@@ -52,9 +52,7 @@ public function Verify($user_mail,$password)
             $_SESSION['email'] = $student_in_session->getEmail();
             header("location:". FRONT_ROOT . "Student/ShowStudentProfile");
 
-            
         }
-        
         else if($flag == 1)
         { 
            

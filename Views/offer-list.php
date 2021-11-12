@@ -40,7 +40,7 @@ Autoload::Start();
                          ?>
                             
                        
-                             <th class="th_box"> <?php echo $job_offer->getId()?><br> <?php $jobPosition_aux->getDescription(); ?> <?php  echo $job_offer->getDescription()?> <br> <?php echo $job_offer->getFecha()?><a name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/ApplyForJob/<?php echo $id_job_offer?>">Postularse</a></th>
+                             <th class="th_box"> <?php echo $job_offer->getId()?><br> <?php echo $jobPosition_aux->getDescription(); ?><br> <?php  echo $job_offer->getDescription()?> <br> <?php echo $job_offer->getFecha()?><a name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/ApplyForJob/<?php echo $id_job_offer?>">Postularse</a></th>
                          </tr>
                         
                          <?php

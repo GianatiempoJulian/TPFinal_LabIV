@@ -13,6 +13,7 @@
 	use Models\StudentXJobOffer as StudentXJobOffer;
 	use DAO\UserDAO as UserDAO;
 	use Models\JobPosition as JobPosition;
+	use Models\Student as Student;
 
 class JobOfferController
 	{
@@ -40,6 +41,19 @@ class JobOfferController
 			$company_repository = new CompanyDAO();
             $company_list = $company_repository->GetAll();
             $company_aux = new Company();
+
+
+			$student_repository = new StudentDAO();
+			$student_list = $student_repository->GetAll();
+			$student_aux = new Student();
+
+
+			foreach($student_list as $stu)
+			{
+				if ($stu->getEmail() == $_SESSION['email']){
+					$student_aux = $stu;
+				}
+			}
 
 			$type = $_SESSION['type'];
 
@@ -128,7 +142,7 @@ class JobOfferController
 			}
 			else
 			{
-				echo "Usuario ya esta postulado a un Job Offer";
+				echo "<script>alert('Usuario ya postulado a un Job Offer');</script>";
 				header("location:". FRONT_ROOT . "Company/ShowListView");
 			}
    
