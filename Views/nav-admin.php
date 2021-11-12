@@ -8,6 +8,7 @@
             <li><a href="<?php echo FRONT_ROOT ?>User/ShowAddView" class="nav_option">Agregar Usuario</a></li>
             <li class="nav_option">|</li>
 
+            <li><a href="<?php echo FRONT_ROOT?>Company/ShowListView" class="nav_option">Empresas</a></li>
             <li><a href="<?php echo FRONT_ROOT ?>Company/ShowAddView" class="nav_option">Agregar Empresa</a></li>
             <li><a href="<?php echo FRONT_ROOT ?>Company/ShowRemoveView" class="nav_option">Baja Empresa</a></li>
             <li><a href="<?php echo FRONT_ROOT ?>Company/ShowAltaView" class="nav_option">Alta Empresa</a></li>

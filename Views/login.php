@@ -10,29 +10,13 @@
      
 ?>
 
-<?php
-     if($_GET && isset($_GET["msg"])){
-          switch($_GET["msg"]){
-               case "incorrect":
-?>
-<h6>Username y/o password incorrecto.</h6>
-<?php
-                    break;
-               case "without_session":
-?>
-<h6>Inicia sesión para acceder a este sitio.</h6>
-<?php  
-                    break;  
-                    
-          }
-     }
-?>
+
 
 <body>
     
     <article id="login_article">
         <section id="login_section">
-            <header id="front_text">Iniciar sesión en PLACEHOLDER</header>
+            <header id="front_text">Iniciar sesión en UTNJobs</header>
             <form action="<?php echo FRONT_ROOT?>Login/Verify" method="post">
                <div class="login_form">
                     <input type="email" name="user_mail" placeholder="Ingresar correo" required>
