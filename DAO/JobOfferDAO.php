@@ -106,7 +106,10 @@
 
                 throw $ex;
             }
+
+             
         }
+        
 
         public function Alta($id){
 

@@ -66,6 +66,9 @@ Class UserDAO implements IUserDAO {
         $studentDAO = new StudentDAO();
 
         $student_list = $studentDAO->GetAll();
+
+        $companyDAO = new CompanyDAO();
+        $company_list = $companyDAO->GetAll();
         
         $flag = -1;
 
@@ -95,7 +98,16 @@ Class UserDAO implements IUserDAO {
                     $flag = 0;
                 }
             }
+            foreach($company_list as $comp)
+            {
+                if(strcmp($email,$comp->getComp_email()) == 0 && $pass == $comp->getComp_pass())
+                {
+                
+                    $flag = 2;
+                }
+            }
         }
+        
 
     
         return $flag;

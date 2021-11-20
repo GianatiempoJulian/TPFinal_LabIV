@@ -2,8 +2,10 @@
 
 namespace Controllers;
 
+use DAO\CompanyDAO as CompanyDAO;
 use DAO\UserDao as UserDAO;
 use DAO\StudentDAO as StudentDAO;
+
 
 
 class LoginController
@@ -23,10 +25,13 @@ public function toType($type){
     {
         header("location:". FRONT_ROOT . "Student/ShowAddView");
     }
-    else if($type == 1)
+     if($type == 1)
     {
         header("location:". FRONT_ROOT . "User/ShowAddView");
        
+    }
+    if($type == 2){
+        header("location:". FRONT_ROOT . "Company/ShowAddView");
     }
 }
 
@@ -36,13 +41,17 @@ public function Verify($user_mail,$password)
    
         $users = new UserDAO();
         $students = new StudentDAO();
+        $company = new CompanyDAO();
 
         $flag = $users->exist($user_mail,$password);
         $user_in_session = null;
-
-    
-
         
+    
+        
+       
+       
+
+       
         if($flag == 0)
         {
             
@@ -53,7 +62,7 @@ public function Verify($user_mail,$password)
             header("location:". FRONT_ROOT . "Student/ShowStudentProfile");
 
         }
-        else if($flag == 1)
+        else  if($flag == 1)
         { 
            
             $user_in_session = $users->searchUser($user_mail);
@@ -61,6 +70,23 @@ public function Verify($user_mail,$password)
             $_SESSION['type'] = $user_in_session->getType_user();
             header("location:". FRONT_ROOT . "User/ShowUserProfile");
         }
+        else if ($flag == 2){
+            echo "1";
+            $company_in_session = $company->SearchCompanyByEmail($user_mail);
+            echo "2";
+            $_SESSION['id_comp'] = $company_in_session->getComp_id();
+            echo "3";
+            $_SESSION['email'] = $user_mail;
+            echo "4";
+            $_SESSION['type'] = $company_in_session->getComp_type_int();
+            echo "5";
+            
+            header("location:". FRONT_ROOT . "Company/ShowCompanyProfile");
+        
+        }
+
+
+
         else
         {
           

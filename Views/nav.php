@@ -12,6 +12,9 @@
 			case 1:
 				require_once "nav-admin.php";
 				break;
+			case 2:
+				require_once "nav-admin.php";
+				break;
 
 		}
 	}

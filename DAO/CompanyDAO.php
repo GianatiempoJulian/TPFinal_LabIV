@@ -20,12 +20,16 @@
         
             public function Add(Company $company){
                 try {
-                    $query = "INSERT INTO ".$this->tableName." (comp_id, comp_name, comp_type,comp_active) VALUES (:comp_id, :comp_name, :comp_type,:comp_active);";
+                    $query = "INSERT INTO ".$this->tableName." (comp_id, comp_name, comp_type,comp_active,comp_email,comp_pass,comp_type_int) VALUES (:comp_id, :comp_name, :comp_type,:comp_active,:comp_email,:comp_pass,:comp_type_int);";
     
                     $parameters["comp_id"] = $company->getComp_id();
                     $parameters["comp_name"] = $company->getComp_name();
                     $parameters["comp_type"] = $company->getComp_type();
                     $parameters["comp_active"] = $company->getComp_active();
+                    $parameters["comp_email"] = $company->getComp_email();
+                    $parameters["comp_pass"] = $company->getComp_pass();
+                    $parameters["comp_type_int"] = 2 ;// $company->getComp_type_int();
+
                   
     
                     $this->connection = Connection::GetInstance();
@@ -55,6 +59,9 @@
                         $company->setComp_name($row["comp_name"]);
                         $company->setComp_type($row["comp_type"]);
                         $company->setComp_active($row["comp_active"]);
+                        $company->setComp_email($row["comp_email"]);
+                        $company->setComp_pass($row["comp_pass"]);
+                        $company->setComp_type_int($row["comp_type_int"]);
                        
     
     
@@ -151,6 +158,21 @@
             foreach($companyList as $company)
             {
                 if($company->getComp_name() == $comp_name)
+                {
+                    $company_found = $company;
+                }
+            }
+
+            return $company_found;
+        }
+        public function SearchCompanyByEmail($comp_email)
+        {
+            $companyList = $this->GetAll();
+            $company_found = null;
+
+            foreach($companyList as $company)
+            {
+                if($company->getComp_email() == $comp_email)
                 {
                     $company_found = $company;
                 }

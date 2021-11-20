@@ -3,6 +3,7 @@
 
     use DAO\UserDAO as UserDAO;
     use Models\User as User;
+    use DAO\StudentDAO as StudentDao;
 
     class UserController
     {
@@ -63,13 +64,13 @@
                 if ($student_from_api->getEmail() == $email )
                 {   
                     $flag = 0;
-                    
+                    echo $student_from_api->getEmail();
                 }
                 
                                                                       ///deberia ponerle una ID al admin
              }
              if($flag == 1){
-                 echo "flag 1" ;
+                 
                 $user = new User();
 
                 $user->setFirstName($firstname);

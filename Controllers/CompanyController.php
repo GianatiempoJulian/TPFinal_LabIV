@@ -65,12 +65,12 @@
             require_once(VIEWS_PATH."company_list.php");
         }
 
-        public function Add($comp_name, $comp_type)
+        public function Add($comp_name, $comp_type, $comp_email, $comp_pass)
         {
 
             if(isset($_POST))
             {
-                if($this->companyDAO->SearchCompanyByName($comp_name) == NULL)
+                if($this->companyDAO->SearchCompanyByName($comp_name) == NULL && $this->companyDAO->SearchCompanyByEmail($comp_email) == NULL  )
                 {
 
                     $comp_list = $this->companyDAO->GetAll();
@@ -81,12 +81,16 @@
                     $company->setComp_name($comp_name);
                     $company->setComp_type($comp_type);
                     $company->setComp_active(true);
+                    $company->setComp_email($comp_email);
+                    $company->setComp_pass($comp_pass);
+                    $company->setComp_type_int(2);
+
 
                     $this->companyDAO->Add($company);
                     echo "<script>alert('Empresa agregada con exito');</script>";
 
-
-                    $this->ShowAddView();
+                    require_once(VIEWS_PATH. "login.php");
+                    //$this->ShowAddView();
                 }
                 
                 else
@@ -163,6 +167,13 @@
            $this->ShowCompanyById($comp->GetComp_Id());
 
             
+        }
+        public function ShowCompanyProfile()
+        {
+            $compList = $this->companyDAO->GetAll();
+            $comp_mail = $_SESSION['email'];
+            $comp_type = $_SESSION['type'];
+            require_once(VIEWS_PATH. "company-profile-1.php");
         }
 
       
