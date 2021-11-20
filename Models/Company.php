@@ -11,6 +11,10 @@ Class Company{
     private $comp_name;
     private $comp_type;
     private $comp_active;
+    private $comp_email;
+    private $comp_pas;
+    private $comp_type_int;
+
 
 
     ///CONSTRUCTOR
@@ -97,6 +101,46 @@ Class Company{
     public function setComp_active($comp_active)
     {
         $this->comp_active = $comp_active;
+
+        return $this;
+    }
+
+    public function getComp_email(){
+        return $this->comp_email;
+    }
+
+    public function getComp_pass(){
+        return $this->comp_pass;
+    }
+    public function setComp_email($comp_email)
+    {
+        $this->comp_email = $comp_email;
+
+        return $this;
+    }
+    public function setComp_pass($comp_pass)
+    {
+        $this->comp_pass = $comp_pass;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of comp_type_int
+     */ 
+    public function getComp_type_int()
+    {
+        return $this->comp_type_int;
+    }
+
+    /**
+     * Set the value of comp_type_int
+     *
+     * @return  self
+     */ 
+    public function setComp_type_int($comp_type_int)
+    {
+        $this->comp_type_int = $comp_type_int;
 
         return $this;
     }

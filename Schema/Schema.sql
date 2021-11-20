@@ -67,6 +67,9 @@ CREATE TABLE COMPANIES(
     comp_name varchar (100) not null,
     comp_type varchar (100) not null,
     comp_active boolean not null,
+    comp_email varchar(50) not null,
+    comp_pass varchar(50) not null,
+    comp_type_int int not null,
     CONSTRAINT PK_COMPANIES PRIMARY KEY (comp_id)
 );
 
@@ -138,3 +141,4 @@ INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_
 
 INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (7,15,4,"2021-05-25","Modelado de texturas",true); 
 INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (777,15,4,"2021-05-25","Modelado de escenarios",true); 
+

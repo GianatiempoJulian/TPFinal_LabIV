@@ -18,7 +18,7 @@
             <li><a href="<?php echo FRONT_ROOT ?>JobOffer/ShowRemoveView" class="nav_option">Baja Oferta </a></li>
             <li><a href="<?php echo FRONT_ROOT ?>JobOffer/ShowAltaView" class="nav_option">Alta Oferta </a></li>
             <li class="nav_option">|</li>
-            <li><a href="<?php echo FRONT_ROOT?>JobOffer/ShowListView" class="nav_option">Empleos</a></li>
+            <li><a href="<?php echo FRONT_ROOT?>JobOffer/RemoveDate" class="nav_option">Empleos</a></li>
             <li class="nav_option">|</li>
             <li><a href="<?php echo FRONT_ROOT?>Login/LogOut" class="nav_option">Cerrar Sesión</a></li>
        

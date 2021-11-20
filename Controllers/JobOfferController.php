@@ -75,6 +75,13 @@ class JobOfferController
 			require_once(VIEWS_PATH. "remove-offer.php");
         }
 
+		public function ShowRemoveView2()
+        {
+			$this->RemoveDate();
+			
+        }
+
+
         public function showAltaView()
         {
             require_once(VIEWS_PATH. "alta-offer.php");
@@ -154,6 +161,23 @@ class JobOfferController
 
             $this->jobOfferDAO->Remove($job_offer_id);
 			echo "<script>alert('Oferta eliminada con exito');</script>";
+            $this->ShowListView();
+         
+        }
+
+		public function RemoveDate()
+        {
+			$JOlist=$this->jobOfferDAO->GetAll();
+			
+			foreach ($JOlist as $list){
+				
+					if ($list->getFecha() == date("Y-m-d"))
+					{	
+						
+						$this->jobOfferDAO->Remove($list->getId());
+					}
+			}
+
             $this->ShowListView();
          
         }
