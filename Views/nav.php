@@ -13,7 +13,7 @@
 				require_once "nav-admin.php";
 				break;
 			case 2:
-				require_once "nav-admin.php";
+				require_once "nav-company.php";
 				break;
 
 		}

@@ -81,7 +81,8 @@ public function Verify($user_mail,$password)
             $_SESSION['type'] = $company_in_session->getComp_type_int();
             echo "5";
             
-            header("location:". FRONT_ROOT . "Company/ShowCompanyProfile");
+            $id = $_SESSION['id_comp'];
+            header("location:". FRONT_ROOT . "Company/ShowCompanyById/$id");
         
         }
 
