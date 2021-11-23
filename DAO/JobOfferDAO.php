@@ -12,7 +12,7 @@
     use DAO\Connection as Connection;
     use DAO\StudentXJobOfferDAO as StudentXJobOfferDAO;
   
-   
+
     
     
     class JobOfferDAO implements IJobOfferDAO{
@@ -171,5 +171,7 @@
 
             return $offer_found;
         }
+
+        
     }
 ?>

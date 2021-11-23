@@ -2,6 +2,8 @@
 
 	namespace Controllers;
 
+	
+
 	use DAO\StudentDAO as StudentDAO;
 	use DAO\CareerDAO as CareerDAO;
 	use DAO\JobOfferDAO as JobOfferDAO;
@@ -14,7 +16,21 @@
 	use DAO\UserDAO as UserDAO;
 	use Models\JobPosition as JobPosition;
 	use Models\Student as Student;
+	use Config\Autoload as Autoload;
 
+	use DAO\MailDAO as MailDAO;
+
+
+
+
+	
+
+	
+	/*
+	require 'PHPMailer/Exception.php';
+	require 'PHPMailer/PHPMailer.php';
+	require 'PHPMailer/SMTP.php';
+*/
 class JobOfferController
 	{
 		private $jobOfferDAO;
@@ -47,6 +63,7 @@ class JobOfferController
 			$student_list = $student_repository->GetAll();
 			$student_aux = new Student();
 
+			
 
 			foreach($student_list as $stu)
 			{
@@ -64,9 +81,54 @@ class JobOfferController
 			else if ($type == 1)
 			{
 				require_once(VIEWS_PATH."full-offer-list-admin.php");
-			}
-           
+
+			} 
         }
+
+		public function ShowOffers()
+		{
+			 
+			 $jo_list = $this->jobOfferDAO->GetAll();
+ 
+			 
+			 
+			 $jobPosition_repository = new JobPositionDAO();
+			 $jobPosition_list = $jobPosition_repository->GetAll();
+			 $jobPosition_aux = new JobPosition();
+			 
+			 $company_repository = new CompanyDAO();
+			 $company_list = $company_repository->GetAll();
+			 $company = new Company();
+
+			 $comp = $company_repository->GetById($id);
+
+			
+			 echo $comp->getComp_id();
+
+			 $student_repository = new StudentDAO();
+			 $student_list = $student_repository->GetAll();
+			 $student_aux = new Student();
+ 
+ 
+			 foreach($student_list as $stu)
+			 {
+				 if ($stu->getEmail() == $_SESSION['email']){
+					 $student_aux = $stu;
+				 }
+			 }
+ 
+			 if($_SESSION['type'] == 0)
+			 {
+				 require_once(VIEWS_PATH. "offer-list.php");
+			 }  
+			 else if($_SESSION['type'] == 1)
+			 {
+			   
+				 require_once(VIEWS_PATH. "full-offer-list-admin.php");
+			 }          
+		   
+		}
+ 
 
 	
 
@@ -98,6 +160,13 @@ class JobOfferController
 			$companyList = $compDAO->GetAll();
 			$comp_aux = new Company();
 
+			$jobPosition = new JobPositionDAO();
+			$jobPositionList = $jobPosition->GetAll();
+			$jp_aux = new JobPosition();
+
+
+
+
             
 
             foreach ($jobOfferList as $jo)
@@ -108,6 +177,7 @@ class JobOfferController
                 }
             }
 
+		
 			foreach($companyList as $co)
 			{
 				if ($jo_aux->getIdCompany() == $co->getComp_id())
@@ -115,6 +185,14 @@ class JobOfferController
 					$comp_aux = $co;
 				}
 			}
+
+			foreach ($jobPositionList as $jp)
+            {
+                if ($jo->getIdJobPosition() == $jp->GetId())
+                {
+                    $jp_aux = $jp;
+                }
+            }
 
 
             require_once(VIEWS_PATH."edit-jobOffer.php");
@@ -133,25 +211,13 @@ class JobOfferController
 			$studentXJobOfferList = $studentXJobOfferDAO->GetAll();
 			$flag = 0;
 
-			foreach ($studentXJobOfferList as $sxj)
-			{
-				if ($sxj->getStudentId() == $studentXJobOffer->getStudentId())
-				{
-					$flag = 1;
-				}
-			}
+		
 
-			if ($flag == 0)
-			{
+		
 				$studentXJobOfferDAO->Add($studentXJobOffer);
 				echo "<script>alert('Postulacion exitosa');</script>";
 				header("location:". FRONT_ROOT . "Student/ShowStudentProfile");
-			}
-			else
-			{
-				echo "<script>alert('Usuario ya postulado a un Job Offer');</script>";
-				header("location:". FRONT_ROOT . "Company/ShowListView");
-			}
+			
    
 		
 		}
@@ -165,13 +231,75 @@ class JobOfferController
          
         }
 
+		
+		public function RemoveDateWithEmail()
+        {
+		
+			$JOlist=$this->jobOfferDAO->GetAll();
+			$id_busqueda = null;
+
+			$student_job =  new StudentXJobOfferDAO();
+			$student_job_list = $student_job->GetAll(); /// Obtengo toda la lista de student_x_jobOffer
+
+			$student = new StudentDAO();
+			$studentList = $student->GetAll();
+
+			
+			
+			foreach ($JOlist as $list){
+					if ($list->getFecha() <= date("Y-m-d") && $list->GetActive() == 1)
+					{	
+						
+						
+						$id_busqueda = $list->getId(); // Obtengo la id del job offer que se va a eliminar
+						echo "antes dsexoanal2";
+						foreach ($student_job_list as $list2){   //Recorro la lista de student_x_jobOffer
+						;
+
+							if ($list2->getJobOfferId() == $id_busqueda){ //busco en la lista de student_x_jobOffer, cuando el id del offer sea =
+								
+								$student_id = $list2->getStudentId();  //Obtenemos el id del estudiante que se postulo al jobOffer
+								echo "antes dsexo";
+								foreach ($studentList as $list3){   //Recorremos la lista de estudiantes
+
+									if ($list3->getStudentId() == $student_id){  //busco en la lista de student, cuando el id del student sea =
+										//require_once(VIEWS_PATH. "send-mail.php");
+										$email = $list3->getEmail();
+										//require_once(FRONT_ROOT. "Mail/NewMailView/$email");
+
+
+										$mailrepository = new MailDAO();
+										$mailrepository->SendNewMail($email);
+									
+									}
+								}
+
+							}
+						}
+
+
+						
+						$this->jobOfferDAO->Remove($list->getId());
+
+
+					}
+			}
+
+			
+            $this->ShowListView();
+
+
+         
+        }
+
+		
 		public function RemoveDate()
         {
 			$JOlist=$this->jobOfferDAO->GetAll();
 			
 			foreach ($JOlist as $list){
 				
-					if ($list->getFecha() == date("Y-m-d"))
+					if ($list->getFecha() <= date("Y-m-d"))
 					{	
 						
 						$this->jobOfferDAO->Remove($list->getId());

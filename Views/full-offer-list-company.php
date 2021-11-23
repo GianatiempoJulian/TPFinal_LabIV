@@ -27,7 +27,7 @@ Autoload::Start();
                          {
                               
                               foreach($jo_list as $job_offer){
-                                   foreach($company_list as $comp){
+                                  
                                     if ($job_offer->getActive() == true)
                                     {
                                         if($job_offer->getIdCompany() == $comp->getComp_id()){
@@ -53,7 +53,7 @@ Autoload::Start();
                          </tr>
                         
                          <?php
-                        }} }  }}}
+                        }} }  }}
                          ?>
                         
                     </tbody>

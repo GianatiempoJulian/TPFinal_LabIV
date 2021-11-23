@@ -42,7 +42,9 @@ $cc = new CompanyController();
                               foreach($comp_list as $company){
                               if ($company->getComp_active() == true)
                               {
+                                   
                                    $id=$company->getComp_id();
+                                   
                                   
                                  
                          ?>

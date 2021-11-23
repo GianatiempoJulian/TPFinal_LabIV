@@ -30,7 +30,7 @@ Autoload::Start();
                                   
                                    foreach($jo_list as $job_offer)
                                    {
-                                        if( $sxj->getJobOfferId() == $job_offer->getId())
+                                        if( $sxj->getJobOfferId() == $job_offer->getId() && $job_offer->getActive() == true)
                                         {
                                         foreach($jobPosition_list as $jobPosition){
                                    

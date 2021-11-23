@@ -25,7 +25,7 @@ Autoload::Start();
                          foreach($jobPosition_list as $jobPosition)
                          {
                               foreach($jo_list as $job_offer){
-                               if($job_offer->getIdCompany() == $comp->getComp_id()){
+                               if($job_offer->getIdCompany() == $comp->getComp_id() && $job_offer->getActive() == true){
                                 if($job_offer->getIdJobPosition() == $jobPosition->getId())
                                 {
                                 

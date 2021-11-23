@@ -51,7 +51,15 @@ CREATE TABLE STUDENTS(
 );
  /*CONSTRAINT FK_USER FOREIGN KEY (u_email) REFERENCES USERS (u_email)*/
 
- 
+INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("julian","student","gs@gmail.com",0,999,1,"43456672",12,"masculino",20010530,"223",true,"123");
+INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("julianxxxxx","studentxxxx","gianatiempoattorney@gmail.com",0,1005,1,"43456672",12,"masculino",20010530,"223",true,"123");
+
+INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("goku","nose","gianatiempoattorney@icloud.com",0,1006,1,"43456672",12,"masculino",20010530,"223",true,"123");
+INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("fede","estudiante","federicosoler25@gmail.com",0,1007,1,"43456672",12,"masculino",20010530,"223",true,"123");
+INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("fedelol","estudiante","federicosoler25666@gmail.com",0,1008,1,"43456672",12,"masculino",20010530,"223",true,"123");
+INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("fedeloffl","estudiante","federicosoler256636@gmail.com",0,1009,1,"43456672",12,"masculino",20010530,"223",true,"123");
+INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("juliannuevo","estudiante","julian.a.gianatiempo@gmail.com",0,1010,1,"43456672",12,"masculino",20010530,"223",true,"123");
+
 
 INSERT INTO CAREERS (careerId,carrer_description, active) VALUES (1,'Naval engineering', true);
 INSERT INTO CAREERS (careerId,carrer_description, active) VALUES (2,'Fishing engineering', false);
@@ -110,8 +118,8 @@ INSERT INTO JOB_POSITION (p_id,p_careerId, p_description) VALUES (23,'8', 'Recei
 
 
 
-CREATE TABLE JOB_OFFER(
-        o_id int not null,
+CREATE TABLE  JOB_OFFER(
+        o_id int not null AUTO_INCREMENT,
         o_idJobPosition int not null,
         o_idCompany int not null,
         o_fecha date not null,
@@ -142,3 +150,14 @@ INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_
 INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (7,15,4,"2021-05-25","Modelado de texturas",true); 
 INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (777,15,4,"2021-05-25","Modelado de escenarios",true); 
 
+insert into STUDENT_X_JOB_OFFER (o_id,recordId) VALUES (14,33);
+INSERT INTO JOB_OFFER (o_id,o_idJobPosition,o_idCompany,o_fecha,o_description,o_active) VALUES (22,15,1,"2021-11-20","Email propa",true);
+insert into STUDENT_X_JOB_OFFER (o_id,recordId) VALUES (22,33);
+
+
+insert into STUDENT_X_JOB_OFFER (o_id,recordId) VALUES (127,999);
+
+insert into STUDENT_X_JOB_OFFER (o_id,recordId) VALUES (1004,1005);
+insert into STUDENT_X_JOB_OFFER (o_id,recordId) VALUES (1111,1008);
+insert into STUDENT_X_JOB_OFFER (o_id,recordId) VALUES (2222,1009);
+insert into STUDENT_X_JOB_OFFER (o_id,recordId) VALUES (3333,1010);

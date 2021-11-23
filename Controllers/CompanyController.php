@@ -13,6 +13,8 @@
     use DAO\JobPositionDAO as JobPositionDAO;
     use Models\JobPosition as JobPosition;
     use DAO\IJobPositionDAO as IJobPositionDAO;
+    use DAO\StudentDAO as StudentDAO;
+    use Models\Student as Student;
 
     Autoload::Start();
 
@@ -89,8 +91,16 @@
                     $this->companyDAO->Add($company);
                     echo "<script>alert('Empresa agregada con exito');</script>";
 
-                    require_once(VIEWS_PATH. "login.php");
-                    //$this->ShowAddView();
+                    if($_SESSION['type'] == 1)
+                    {
+                        $this->ShowAddView();
+                    }
+                    else
+                    {
+                        require_once(VIEWS_PATH. "login.php");
+                    } 
+                    
+                
                 }
                 
                 else
@@ -135,24 +145,49 @@
             
         }
 
-       public function ShowOffers($id)
-       {
-            $jobOffer_repository = new JobOfferDAO();
-            $jo_list = $jobOffer_repository->GetAll();
-            
-            $jobPosition_repository = new JobPositionDAO();
-            $jobPosition_list = $jobPosition_repository->GetAll();
-            $jobPosition_aux = new JobPosition();
-            
-
-            $comp = $this->companyDAO->GetById($id);
-
+        public function ShowOffers($id)
+        {
+             $jobOffer_repository = new JobOfferDAO();
+             $jo_list = $jobOffer_repository->GetAll();
+ 
+             
+             
+             $jobPosition_repository = new JobPositionDAO();
+             $jobPosition_list = $jobPosition_repository->GetAll();
+             $jobPosition_aux = new JobPosition();
+             
+ 
+             $comp = $this->companyDAO->GetById($id);
+ 
+          
+             
+             $company_list = $this->companyDAO->GetAll();
+             $company_aux = new Company();
+ 
+             $student_repository = new StudentDAO();
+             $student_list = $student_repository->GetAll();
+             $student_aux = new Student();
+ 
+ 
+             foreach($student_list as $stu)
+             {
+                 if ($stu->getEmail() == $_SESSION['email']){
+                     $student_aux = $stu;
+                 }
+             }
+ 
+             if($_SESSION['type'] == 0)
+             {
+                 require_once(VIEWS_PATH. "offer-list.php");
+             }  
+             else if($_SESSION['type'] == 1)
+             {
+               
+                 require_once(VIEWS_PATH. "offer-list-for-admin.php");
+             }          
            
-            
-           require_once(VIEWS_PATH. "offer-list.php");
-       }
-
-
+        }
+ 
        
 
         public function ShowCompanyById($id)
@@ -168,6 +203,8 @@
 
             
         }
+
+        /*
         public function ShowCompanyProfile()
         {
             $compList = $this->companyDAO->GetAll();
@@ -175,7 +212,7 @@
             $comp_type = $_SESSION['type'];
             require_once(VIEWS_PATH. "company-profile-1.php");
         }
-
+*/
       
 
     }

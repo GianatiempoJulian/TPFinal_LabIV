@@ -13,7 +13,7 @@ define("DB_HOST", "localhost");
 define("DB_NAME", "University");
 define("DB_USER", "root");
 define("DB_PASS", "43456672");
-
+//43456672
 ?>
 
 

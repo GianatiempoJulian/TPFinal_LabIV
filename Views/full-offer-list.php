@@ -28,10 +28,13 @@ Autoload::Start();
                                   foreach ($company_list as $comp){
                                     if ($job_offer->getActive() == true)
                                     {
+                                        
                                if($job_offer->getIdCompany() == $comp->getComp_id()){
+                                  
                                    $company_aux = $comp;
                                 if($job_offer->getIdJobPosition() == $jobPosition->getId()  && $jobPosition->getCarrerId() == $student_aux->getCareerId())
                                 {
+                                     
                                 
                                     $jobPosition_aux = $jobPosition;
                                     $id_job_offer = $job_offer->getId();

@@ -109,7 +109,7 @@
                     array_push($sxjlist, $studentXJob);
                 }
 
-                return $uxjlist;
+                return $sxjlist;
             }
             catch(Exception $ex)
             {
