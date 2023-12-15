@@ -5,7 +5,6 @@
 		switch($_SESSION['type']){
 
 			case 0:
-               
 				require_once "nav-student.php";
 				break;
 

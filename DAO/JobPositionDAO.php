@@ -20,46 +20,36 @@
         private $tableName = "job_position";
       
 
-        public function Add(JobPosition $jobPosition){
+        public function Add(JobPosition $jobPosition)
+        {
             try {
                 $query = "INSERT INTO ".$this->tableName." (p_id, p_careerId, p_description) VALUES (:p_id, :p_careerId, :p_description);";
-
                 $parameters["p_id"] = $jobPosition->getId();
                 $parameters["p_careerId"] = $jobPosition->getCarrerId();
                 $parameters["p_description"] = $jobPosition->getDescription();
-        
-
                 $this->connection = Connection::GetInstance();
-
                 $this->connection->ExecuteNonQuery($query, $parameters);
-
             }
             catch(Exception $ex){
                 throw $ex;
             }
         }
 
-        public function GetAll(){
+        public function GetAll()
+        {
             try {
                 $jobPositionList = array();
-
                 $query = " SELECT * FROM ".$this->tableName;
-
                 $this->connection = Connection::GetInstance();
-
                 $resultSet = $this->connection->Execute($query);
 
-                foreach ($resultSet as $row){
-
+                foreach ($resultSet as $row)
+                {
                     $jobPosition = new JobPosition();
                     $jobPosition->setId($row["p_id"]);
                     $jobPosition->setCarrerId($row["p_careerId"]);
                     $jobPosition->setDescription($row["p_description"]);
-                    
-
-
                     array_push($jobPositionList, $jobPosition);
-
                 }
                 return $jobPositionList;
             }
