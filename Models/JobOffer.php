@@ -10,6 +10,7 @@
         private $fecha;
         private $description;
         private $active;
+        private $image;
 //        private $users = array();
 
         public function __construct(){}
@@ -152,6 +153,26 @@
         public function setUsers($users)
         {
                 $this->users = $users;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of image
+         */ 
+        public function getImage()
+        {
+                return $this->image;
+        }
+
+        /**
+         * Set the value of image
+         *
+         * @return  self
+         */ 
+        public function setImage($image)
+        {
+                $this->image = $image;
 
                 return $this;
         }

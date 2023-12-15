@@ -21,33 +21,19 @@ Class UserDAO implements IUserDAO {
     private $connection;
     private $tableName = "USERS";
 
-    
-    /*
-    public function Add(User $user){
-        $this->RetrieveData();
-        array_push($this->userList,$user);
-        $this->SaveData();
-    }
-    */
 
-    public function Add(User $user){
+    public function Add(User $user)
+    {
         try {
-            $query = "INSERT INTO ".$this->tableName." ( u_firstName,  u_lastName,  u_email,  u_password,  u_type) VALUES (: u_firstName, : u_lastName, : u_email, : u_password, : u_type);";
 
+            $query = "INSERT INTO ".$this->tableName." ( u_firstName,  u_lastName,  u_email,  u_password,  u_type) VALUES (:u_firstName, :u_lastName, :u_email, :u_password, :u_type);";
             $parameters["u_firstName"] = $user->getFirstName();
             $parameters["u_lastName"] = $user->getLastName();
             $parameters["u_email"] = $user->getEmail();
-            $parameters["u_password"] = $user->getPassword();
+            $parameters["u_password"] = password_hash($user->getPassword(),PASSWORD_DEFAULT);
             $parameters["u_type"] = $user->getType_user();
 
-            echo "n".$parameters["u_firstName"];
-            echo "a".$parameters["u_lastName"];
-            echo "e".$parameters["u_email"];
-            echo  "p".$parameters["u_password"];
-            echo  "t".$parameters["u_type"];
-
             $this->connection = Connection::GetInstance();
-
             $this->connection->ExecuteNonQuery($query, $parameters);
 
         }
@@ -57,14 +43,11 @@ Class UserDAO implements IUserDAO {
     }
    
     
-    public function exist ($email,$pass){
-
-       
-       
+    public function exist ($email,$pass)
+    {
         $users = $this->GetAll();
 
         $studentDAO = new StudentDAO();
-
         $student_list = $studentDAO->GetAll();
 
         $companyDAO = new CompanyDAO();
@@ -72,61 +55,42 @@ Class UserDAO implements IUserDAO {
         
         $flag = -1;
 
-
         foreach ($users as $user)
         {
-    
-     
-        if(strcmp($email,$user->getEmail()) == 0 && $pass == $user->getPassword())
-       // if(strcmp($email,$user->getEmail()) == 0)
-        {
-           
-        
-            $flag = 1;
-        }
-
+            if(strcmp($email,$user->getEmail()) == 0 && password_verify($pass,$user->getPassword()))
+            {
+                $flag = 1;
+            }
         }
         if ($flag == -1)
         {
-            
             foreach($student_list as $stu)
             {
-               
                 if(strcmp($email,$stu->getEmail()) == 0 && $pass == $stu->getPassword())
                 {
-                
                     $flag = 0;
                 }
             }
             foreach($company_list as $comp)
             {
-                if(strcmp($email,$comp->getComp_email()) == 0 && $pass == $comp->getComp_pass())
+                if(strcmp($email,$comp->getComp_email()) == 0 && password_verify($pass, $comp->getComp_pass()))
                 {
-                
                     $flag = 2;
                 }
             }
         }
-        
-
-    
         return $flag;
     }
     
-
-   
     public function GetAll(){
         try {
             $userList = array();
-
             $query = " SELECT * FROM ".$this->tableName;
-
             $this->connection = Connection::GetInstance();
-
             $resultSet = $this->connection->Execute($query);
 
-            foreach ($resultSet as $row){
-
+            foreach ($resultSet as $row)
+            {
                 $user = new User();
                 $user->setFirstName($row["u_firstName"]);
                 $user->setLastName($row["u_lastName"]);
@@ -135,11 +99,11 @@ Class UserDAO implements IUserDAO {
                 $user->setType_user($row["u_type"]);
 
                 array_push($userList, $user);
-
             }
             return $userList;
         }
-        catch (Exception $ex){
+        catch (Exception $ex)
+        {
             throw $ex;
         }
     }
@@ -151,17 +115,12 @@ Class UserDAO implements IUserDAO {
 
         foreach($userList as $us)
         {
-            
             if($us->getEmail() == $email)
             {
                 $user = $us;
             }
         }
-
         return $user;
-    }
-    
+    } 
 }
-
-
 ?>

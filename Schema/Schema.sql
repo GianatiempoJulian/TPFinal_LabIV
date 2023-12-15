@@ -21,7 +21,7 @@ CREATE TABLE USERS(
     u_firstName varchar(100) not null,
     u_lastName varchar(100) not null,
     u_email varchar(50) not null,
-    u_password varchar(50) not null,
+    u_password varchar(256) not null,
     u_type int not null,
     CONSTRAINT pk_users_email primary key (u_email)
 );
@@ -51,11 +51,11 @@ CREATE TABLE STUDENTS(
 );
  /*CONSTRAINT FK_USER FOREIGN KEY (u_email) REFERENCES USERS (u_email)*/
 
-INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("julian","student","gs@gmail.com",0,999,1,"43456672",12,"masculino",20010530,"223",true,"123");
+INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("julian","locura","gs@gmail.com",0,1,1,"44567921",12,"masculino",20010530,"2235444433",true,"123");
 INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("julianxxxxx","studentxxxx","gianatiempoattorney@gmail.com",0,1005,1,"43456672",12,"masculino",20010530,"223",true,"123");
 
 INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("goku","nose","gianatiempoattorney@icloud.com",0,1006,1,"43456672",12,"masculino",20010530,"223",true,"123");
-INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("fede","estudiante","federicosoler25@gmail.com",0,1007,1,"43456672",12,"masculino",20010530,"223",true,"123");
+INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("fede","estudiante","federicosoler256@gmail.com",0,1877,1,"43456672",12,"masculino",20010530,"223",true,"123");
 INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("fedelol","estudiante","federicosoler25666@gmail.com",0,1008,1,"43456672",12,"masculino",20010530,"223",true,"123");
 INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("fedeloffl","estudiante","federicosoler256636@gmail.com",0,1009,1,"43456672",12,"masculino",20010530,"223",true,"123");
 INSERT INTO STUDENTS(firstName,lastName,email,type_us,recordId,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES ("juliannuevo","estudiante","julian.a.gianatiempo@gmail.com",0,1010,1,"43456672",12,"masculino",20010530,"223",true,"123");
@@ -76,7 +76,7 @@ CREATE TABLE COMPANIES(
     comp_type varchar (100) not null,
     comp_active boolean not null,
     comp_email varchar(50) not null,
-    comp_pass varchar(50) not null,
+    comp_pass varchar(256) not null,
     comp_type_int int not null,
     CONSTRAINT PK_COMPANIES PRIMARY KEY (comp_id)
 );
@@ -125,6 +125,7 @@ CREATE TABLE  JOB_OFFER(
         o_fecha date not null,
         o_description varchar(100) not null,
         o_active boolean not null,
+        o_image varchar(255),
         
         CONSTRAINT pk_offer_id primary key (o_id),
         CONSTRAINT fk_offer_position foreign key (o_idJobPosition) references JOB_POSITION (p_id),
@@ -160,4 +161,5 @@ insert into STUDENT_X_JOB_OFFER (o_id,recordId) VALUES (127,999);
 insert into STUDENT_X_JOB_OFFER (o_id,recordId) VALUES (1004,1005);
 insert into STUDENT_X_JOB_OFFER (o_id,recordId) VALUES (1111,1008);
 insert into STUDENT_X_JOB_OFFER (o_id,recordId) VALUES (2222,1009);
-insert into STUDENT_X_JOB_OFFER (o_id,recordId) VALUES (3333,1010);
+insert into STUDENT_X_JOB_OFFER (o_id,recordId) VALUES (9876,1006);
+

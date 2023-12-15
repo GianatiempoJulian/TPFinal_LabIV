@@ -22,7 +22,8 @@
         private $studentList = array();
       
 
-        public function Add(Student $student){
+        public function Add(Student $student)
+        {
             try {
                 $query = "INSERT INTO ".$this->tableName." (recordId, firstName, lastName,email,type_us,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES (:recordId, :firstName, :lastName, :email, :type_us, :careerId, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active,:s_password);";
 
@@ -42,23 +43,19 @@
                 $parameters["active"] = $student->getActive();
 
                 $this->connection = Connection::GetInstance();
-
                 $this->connection->ExecuteNonQuery($query, $parameters);
-
             }
             catch(Exception $ex){
                 throw $ex;
             }
         }
 
-        public function GetAll(){
+        public function GetAll()
+        {
             try {
                 $studentList = array();
-
                 $query = " SELECT * FROM ".$this->tableName;
-
                 $this->connection = Connection::GetInstance();
-
                 $resultSet = $this->connection->Execute($query);
 
                 foreach ($resultSet as $row){
@@ -79,9 +76,7 @@
                     $student->setPhoneNumber($row["phoneNumber"]);
                     $student->setActive($row["active"]);
 
-
                     array_push($studentList, $student);
-
                 }
                 return $studentList;
             }
@@ -98,13 +93,11 @@
     
             foreach($studentList as $std)
             {
-                
                 if($std->getEmail() == $email)
                 {
                     $student = $std;
                 }
             }
-    
             return $student;
         }
 
@@ -115,13 +108,11 @@
     
             foreach($studentList as $std)
             {
-                
                 if($std->getStudentId() == $id)
                 {
                     $student = $std;
                 }
             }
-    
             return $student;
         }
 
@@ -129,7 +120,6 @@
         public function GetAllFromApi()
         {
             $this->RetrieveDataFromAPI();
-
             return $this->studentList;
         }
 
@@ -140,7 +130,6 @@
             foreach($student_list as $student)
             {
                 $new_student = new Student();
-
                 $new_student->setStudentId($student["studentId"]);
                 $new_student->setFirstName($student["firstName"]);
                 $new_student->setLastName($student["lastName"]);
@@ -152,9 +141,10 @@
                 $new_student->setEmail($student["email"]);
                 $new_student->setPhoneNumber($student["phoneNumber"]);
                 $new_student->setActive($student["active"]);
-
+                
                 array_push($this->studentList, $new_student);
             }
         }
+
     }
 ?>

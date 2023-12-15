@@ -1,60 +1,84 @@
 <?php
     namespace Controllers;
 
-    use DAO\UserDAO as UserDAO;
+    //! Modelos:
     use Models\User as User;
+
+    //! DAO's:
+    use DAO\UserDAO as UserDAO;
     use DAO\StudentDAO as StudentDao;
 
     class UserController
     {
         private $userDAO;
 
+        //! Constructor:
+        //! =================================================================================================
         public function __construct()
         {
             $this->userDAO = new UserDAO();
         }
+        //! =================================================================================================
+
+        //! Llamados a vistas:
+        //! =================================================================================================
+
+        //? Vista agregar usuario.
 
         public function ShowAddView()
         {
-            require_once(VIEWS_PATH."add-user.php");
+           
+            require_once(VIEWS_PATH."/user/add.php");
+            /*
+            else
+            {
+                    echo "<script>alert('Acceso no permitido para estudiantes.');</script>";
+                    echo "<script>window.history.go(-1)</script>";
+            }*/
         }
+
+        //? Vista lista de usuarios.
 
         public function ShowListView()
         {
-            $userList = $this->userDAO->GetAll();
-
-            require_once(VIEWS_PATH."user-list.php");
+            if($_SESSION)
+            {
+                $userList = $this->userDAO->GetAll();
+                require_once(VIEWS_PATH."user-list.php");
+            }
+            else
+            {
+                header("location:". FRONT_ROOT . "Home/Index?status=0");
+            }
         }
+
+        //? Vista ver perfil usuario en sesión.
 
         public function ShowUserProfile()
         {
-            $userList = $this->userDAO->GetAll();
-            $user_mail = $_SESSION['email'];
-            require_once(VIEWS_PATH. "user_profile.php");
+            if($_SESSION)
+            {
+                $userList = $this->userDAO->GetAll();
+                $user_mail = $_SESSION['email'];
+                require_once(VIEWS_PATH. "/user/profile.php");
+            }
+            else
+            {
+                header("location:". FRONT_ROOT . "Home/Index?status=0");
+            }
         }
 
-       /* public function Add($firstname,$lastname,$email, $password)
-        {
-            $user = new User();
+        //! =================================================================================================
 
-            $user->setFirstName($firstname);
-            $user->setLastName($lastname);
-            $user->setEmail($email);
-            $user->setPassword($password);
-            $user->setType_user(1);
+        //! Funciones CRUD:
+        //! =================================================================================================
 
-            ///deberia ponerle una ID al admin
-           
-           
-            $this->userDAO->Add($user);
+        //? Agregar usuario.
 
-
-            
-            $this->ShowAddView();
-        }*/
-
-        public function Add($firstname,$lastname,$email, $password)
+        public function Add($firstname,$lastname,$email, $password,)
         {   
+            
+            /*
             $flag = 1;
             $student_api = new StudentDAO(); 
             $student_list = $student_api->GetAllFromApi();
@@ -66,35 +90,31 @@
                     $flag = 0;
                     echo $student_from_api->getEmail();
                 }
-                
-                                                                      ///deberia ponerle una ID al admin
              }
-             if($flag == 1){
+             if($flag == 1)
+             {
+                */
                  
                 $user = new User();
-
                 $user->setFirstName($firstname);
                 $user->setLastName($lastname);
                 $user->setEmail($email);
                 $user->setPassword($password);
                 $user->setType_user(1);
-
-                echo $user->getFirstName();
-                
-
                 $this->userDAO->Add($user);
                 
-                echo "despues del add";
                 echo "<script>alert('El administrador se ha registrado con exito');</script>";
-                require_once(VIEWS_PATH. "login.php");
+                require_once(VIEWS_PATH. "/auth/login.php");
 
+                /*
              }
-             if ($flag == 0){
-            echo "<script>alert('El email ingresado pertenece a un alumno');</script>";
-            $this->ShowAddView();    
-            }
-
+             if ($flag == 0)
+             {
+                echo "<script>alert('El email ingresado pertenece a un alumno');</script>";
+                $this->ShowAddView();    
+            }*/
         }
+        //! =================================================================================================
 
     }
 ?>

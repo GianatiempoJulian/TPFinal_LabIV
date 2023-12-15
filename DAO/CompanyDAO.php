@@ -18,7 +18,8 @@
         private $tableName = "companies";
           
         
-            public function Add(Company $company){
+            public function Add(Company $company)
+            {
                 try {
                     $query = "INSERT INTO ".$this->tableName." (comp_id, comp_name, comp_type,comp_active,comp_email,comp_pass,comp_type_int) VALUES (:comp_id, :comp_name, :comp_type,:comp_active,:comp_email,:comp_pass,:comp_type_int);";
     
@@ -27,7 +28,7 @@
                     $parameters["comp_type"] = $company->getComp_type();
                     $parameters["comp_active"] = $company->getComp_active();
                     $parameters["comp_email"] = $company->getComp_email();
-                    $parameters["comp_pass"] = $company->getComp_pass();
+                    $parameters["comp_pass"] =  password_hash($company->getComp_pass(),PASSWORD_DEFAULT);
                     $parameters["comp_type_int"] = 2 ;// $company->getComp_type_int();
 
                   
@@ -42,7 +43,8 @@
                 }
             }
     
-            public function GetAll(){
+            public function GetAll()
+            {
                 try {
                     $companyList = array();
     
@@ -75,7 +77,8 @@
                 }
             }
 
-            public function Remove($id){
+            public function Remove($id)
+            {
 
                 try{
     
@@ -105,7 +108,8 @@
                 }
             }
 
-            public function Modify(Company $company){
+            public function Modify(Company $company)
+            {
 
                 try{
     
@@ -142,10 +146,41 @@
             }
             return $company_aux;
         }
+
+        public function getByStatus($status)
+        {
+            try {
+                $companyList = array();
+
+                $query = " SELECT * FROM ".$this->tableName . " WHERE comp_active = " .$status;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query);
+
+                foreach ($resultSet as $row){
+
+                    $company = new Company();
+                    $company->setComp_id($row["comp_id"]);
+                    $company->setComp_name($row["comp_name"]);
+                    $company->setComp_type($row["comp_type"]);
+                    $company->setComp_active($row["comp_active"]);
+                    $company->setComp_email($row["comp_email"]);
+                    $company->setComp_pass($row["comp_pass"]);
+                    $company->setComp_type_int($row["comp_type_int"]);
+                    array_push($companyList, $company);
+
+                }
+                return $companyList;
+            }
+            catch (Exception $ex){
+                throw $ex;
+            }
+        }
        
 
-        public function CountCompanies(){
-
+        public function CountCompanies()
+        {
             $list = $this->GetAll();
             return count($list);
         }
@@ -165,6 +200,7 @@
 
             return $company_found;
         }
+        
         public function SearchCompanyByEmail($comp_email)
         {
             $companyList = $this->GetAll();

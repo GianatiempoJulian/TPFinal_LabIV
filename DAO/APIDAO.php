@@ -2,7 +2,8 @@
 
 	namespace DAO;
 
-	class APIDAO{
+	class APIDAO
+	{
 
 		public static function RetrieveCareers(){
 
@@ -24,7 +25,8 @@
 		}
 
 
-		public static function RetrieveStudents(){
+		public static function RetrieveStudents()
+		{
 
 				$opt = array(
 					  "http" => array(
@@ -44,7 +46,8 @@
 		}
 
 
-		public static function RetrieveJobPosition(){
+		public static function RetrieveJobPosition()
+		{
 
 				$opt = array(
 					  "http" => array(

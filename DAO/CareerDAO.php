@@ -9,12 +9,14 @@
   
     require_once("ICareerDAO.php");
     
-    Class CareerDAO /*implements ICareerDAO*/{
+    Class CareerDAO /*implements ICareerDAO*/
+    {
         private $connection;
         private $tableName = "careers";
       
     
-        public function Add(Career $career){
+        public function Add(Career $career)
+        {
             try {
                 $query = "INSERT INTO ".$this->tableName." (careerId, carrer_description, active) VALUES (:careerId, :carrer_description, :active);";
 
@@ -33,7 +35,8 @@
             }
         }
 
-        public function GetAll(){
+        public function GetAll()
+        {
             try {
                 $careerList = array();
 
@@ -49,11 +52,7 @@
                     $career->setCareerId($row["careerId"]);
                     $career->setCarrer_description($row["carrer_description"]);
                     $career->setActive($row["active"]);
-                   
-
-
                     array_push($careerList, $career);
-
                 }
                 return $careerList;
             }
@@ -61,9 +60,7 @@
                 throw $ex;
             }
         }
-
-
-
+        
         /*
 
         public function Remove($career_id){
