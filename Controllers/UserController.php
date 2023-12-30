@@ -7,6 +7,7 @@
     //! DAO's:
     use DAO\UserDAO as UserDAO;
     use DAO\StudentDAO as StudentDao;
+    use DAO\MessageDAO as MessageDAO;
 
     class UserController
     {
@@ -41,14 +42,11 @@
 
         public function ShowListView()
         {
-            if($_SESSION)
-            {
+            if($_SESSION) {
                 $userList = $this->userDAO->GetAll();
                 require_once(VIEWS_PATH."user-list.php");
-            }
-            else
-            {
-                header("location:". FRONT_ROOT . "Home/Index?status=0");
+            } else {
+                $messageDAO = (new MessageDAO())->notLoggedMessage();
             }
         }
 
@@ -56,15 +54,11 @@
 
         public function ShowUserProfile()
         {
-            if($_SESSION)
-            {
-                $userList = $this->userDAO->GetAll();
-                $user_mail = $_SESSION['email'];
+            if($_SESSION) {
+                $user = $this->userDAO->searchUser($_SESSION['email']);
                 require_once(VIEWS_PATH. "/user/profile.php");
-            }
-            else
-            {
-                header("location:". FRONT_ROOT . "Home/Index?status=0");
+            } else {
+                $messageDAO = (new MessageDAO())->notLoggedMessage();
             }
         }
 

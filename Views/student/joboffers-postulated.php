@@ -21,30 +21,30 @@ Autoload::Start();
                               <tbody class="joboffer-table-body">
                                    <tr class="joboffers">
                                    <?php
-                                        foreach($student_x_offer_list as $sxj)
+                                        foreach($studentXJobOfferList as $studentXJobOffer)
                                         {
-                                             if ($sxj->getStudentId() == $student->getStudentId())
+                                             if ($studentXJobOffer->getStudentId() == $student->getStudentId())
                                              {
-                                                  foreach($jo_list as $job_offer)
+                                                  foreach($jobOfferList as $jobOffer)
                                                   {
-                                                       if( $sxj->getJobOfferId() == $job_offer->getId())
+                                                       if( $studentXJobOffer->getJobOfferId() == $jobOffer->getId())
                                                        {
-                                                       foreach($jobPosition_list as $jobPosition)
+                                                       foreach($jobPositionList as $jobPosition)
                                                        {
-                                                            if($job_offer->getIdJobPosition() == $jobPosition->getId())
+                                                            if($jobOffer->getIdJobPosition() == $jobPosition->getId())
                                                             {
-                                                                 $jobPosition_aux = $jobPosition;
-                                                                 $id_job_offer = $job_offer->getId();
-                                                                      if($job_offer->getActive() == true){
+                                                                 $jobPositionAux = $jobPosition;
+                                                                 $idJobOffer = $jobOffer->getId();
+                                                                      if($jobOffer->getActive() == true){
                                    ?>
-                                   <th class="joboffer postulated " style="background-image: url('<?php echo $job_offer->getImage()?>')" > <?php echo $job_offer->getId()?><br> <?php $jobPosition_aux->getDescription(); ?> <?php  echo $job_offer->getDescription()?> <br> <?php echo $job_offer->getFecha()?></th>
+                                   <th class="joboffer postulated " style="background-image: url('<?php echo $jobOffer->getImage()?>')" > <?php echo $jobOffer->getId()?><br> <?php $jobPositionAux->getDescription(); ?> <?php  echo $jobOffer->getDescription()?> <br> <?php echo $jobOffer->getFecha()?></th>
                                    
                                    <?php
                                         }
                                         else
                                         {
                                    ?>
-                                   <th class="joboffer expired" style="background-image: url('<?php echo $job_offer->getImage()?>')" > <?php echo $job_offer->getId()?><br> <?php $jobPosition_aux->getDescription(); ?> <?php  echo $job_offer->getDescription()?> <br> <?php echo $job_offer->getFecha()?> <br> Expirada</th>
+                                   <th class="joboffer expired" style="background-image: url('<?php echo $jobOffer->getImage()?>')" > <?php echo $jobOffer->getId()?><br> <?php $jobPositionAux->getDescription(); ?> <?php  echo $jobOffer->getDescription()?> <br> <?php echo $jobOffer->getFecha()?> <br> Expirada</th>
                                   
                               <?php
                               }

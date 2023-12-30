@@ -33,7 +33,7 @@ require_once("Config/Autoload.php");
             </div>
              <div>
                 <h2><?php echo $student->getFirstName() . " " .  $student->getLastName()?></h2>
-                <h5><?php echo $career_from_student->getCarrer_description() ?></h5>
+                <h5><?php echo $careerFromStudent->getCarrer_description() ?></h5>
              </div>
              <div class="user-profile-options">
                 <a href="<?php echo FRONT_ROOT?>Student/ShowOfferStudent/<?php echo $student->getStudentId()?>">Empleos Solicitados</a>
@@ -54,8 +54,5 @@ require_once("Config/Autoload.php");
     </section>
     </div>
 </body>
-<?php
- 
-?>
 
 <?php include('./Views/footer.php'); ?>
