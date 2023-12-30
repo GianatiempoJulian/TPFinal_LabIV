@@ -17,16 +17,7 @@ require_once("Config/Autoload.php");
    use Models\Career as Career;
 
    Autoload::Start();
-
-
-
-
- foreach($userList as $user)
- {
-
-   if($user->getEmail() == $user_mail)
-   {
-    
+ 
 ?>
 
 <body>
@@ -56,10 +47,5 @@ require_once("Config/Autoload.php");
 
 
 
-<?php
-    }
-   }
-
-?>
 
 <?php include('./Views/footer.php'); ?>

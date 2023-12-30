@@ -18,6 +18,7 @@
     use DAO\JobOfferDAO as JobOfferDAO;
     use DAO\JobPositionDAO as JobPositionDAO;
     use DAO\StudentXJobOfferDAO as StudentXJobOfferDAO;
+    use DAO\MessageDAO as MessageDAO;
 
     Autoload::Start();
 
@@ -49,55 +50,48 @@
         {
             if($_SESSION)
             {
-
                 $careerList =  new CareerDAO();
-                $api_career = $careerList->GetAll();
-                $career_from_student = new Career();
+                $apiCareer = $careerList->GetAll();
+                $careerFromStudent = new Career();
                 $student = $this->studentDAO->searchStudentById($_SESSION['id_student']);
-                foreach($api_career as $career)
+                foreach($apiCareer as $career)
                 {
                     if($student->getCareerId() == $career->getCareerId())
                         {
-                            $career_from_student = $career;
+                            $careerFromStudent = $career;
                         }
                 }
                 require_once(VIEWS_PATH. "/student/profile.php");
             }
             else
             {
-                header("location:". FRONT_ROOT . "Home/Index?status=0");
+                $messageDAO = (new MessageDAO())->notLoggedMessage();
             }
         }
 
         //? Ver ofertas postuladas de un estudiante mediante su ID.
 
-        public function ShowOfferStudent($id)
+        public function ShowOfferStudent($studentId)
         {
-           if($_SESSION)
-            {
-                //Job Offer
-                $jobOffer_repository = new JobOfferDAO();
-                $jo_list = $jobOffer_repository->GetAll();
+           if($_SESSION) {
+                //Job Offers:
+                $jobOfferList = (new JobOfferDAO())->GetAll();
                 
                 //Job Position para printear nombre posicion
-                $jobPosition_repository = new JobPositionDAO();
-                $jobPosition_list = $jobPosition_repository->GetAll();
+                $jobPositionList = (new JobPositionDAO())->GetAll();
 
                 //SxJO para buscar ID estudiante vinculado a una oferta
-                $student_x_offer = new StudentXJobOfferDAO();
-                $student_x_offer_list = $student_x_offer->GetAll();
+                $studentXJobOfferList = (new StudentXJobOfferDAO())->GetAll();
 
                 //JobPosition para guardar el nombre
-                $jobPosition_aux = new JobPosition();
+                $jobPositionAux = new JobPosition();
 
                 //Student para buscar estudiante con la ID que nos enviaron
-                $student = $this->studentDAO->searchStudentById($id);
+                $student = $this->studentDAO->searchStudentById($studentId);
 
                 require_once(VIEWS_PATH. "/student/joboffers-postulated.php");
-            }
-            else
-            {
-                header("location:". FRONT_ROOT . "Home/Index?status=0");
+            } else {
+                $messageDAO = (new MessageDAO())->notLoggedMessage();
             }
         }
 
@@ -105,29 +99,23 @@
 
         public function ShowListView()
         {
-            if($_SESSION)
-            {
+            if($_SESSION) {
                 $studentList = $this->studentDAO->GetAll();
                 require_once(VIEWS_PATH."/student/list.php");
-            }
-            else
-            {
-                header("location:". FRONT_ROOT . "Home/Index?status=0");
+            } else {
+                $messageDAO = (new MessageDAO())->notLoggedMessage();
             }
         }
 
         //? Vista modificar empresa.
 
-        public function ShowModifyView($id)
+        public function ShowModifyView($studentId)
         {
-            if($_SESSION)
-            {
-                $student_aux = $this->studentDAO->searchStudentById($id);
+            if($_SESSION) {
+                $studentAux = $this->studentDAO->searchStudentById($studentId);
                 require_once(VIEWS_PATH."/student/modify.php");
-            }
-            else
-            {
-                header("location:". FRONT_ROOT . "Home/Index?status=0");
+            } else {
+                $messageDAO = (new MessageDAO())->notLoggedMessage();
             }
         }
 
@@ -142,25 +130,23 @@
         public function Add($email,$pass)
         {
             $flag = 0;
-            $student_api = $this->studentDAO->GetAllFromApi();
+            $studentsApi = $this->studentDAO->GetAllFromApi();
 
-            foreach ($student_api as $student_from_api)
-            {
-                if ($student_from_api->getEmail() == $email && $student_from_api->getActive() == true)
-                {
+            foreach ($studentsApi as $studentFromApi) {
+                if ($studentFromApi->getEmail() == $email && $studentFromApi->getActive() == true) {
                     $student = new Student();
-                    $student->setStudentId($student_from_api->getStudentId());
-                    $student->setFirstName($student_from_api->getFirstName());
-                    $student->setLastName($student_from_api->getLastName());
+                    $student->setStudentId($studentFromApi->getStudentId());
+                    $student->setFirstName($studentFromApi->getFirstName());
+                    $student->setLastName($studentFromApi->getLastName());
                     $student->setType_user(0);
-                    $student->setEmail($student_from_api->getEmail());
+                    $student->setEmail($studentFromApi->getEmail());
         
-                    $student->setCareerId($student_from_api->getCareerId());
-                    $student->setDni($student_from_api->getDni());
-                    $student->setFileNumber($student_from_api->getFileNumber());
-                    $student->setGender($student_from_api->getGender());
-                    $student->setBirthDate($student_from_api->getBirthDate());
-                    $student->setPhoneNumber($student_from_api->getPhoneNumber());
+                    $student->setCareerId($studentFromApi->getCareerId());
+                    $student->setDni($studentFromApi->getDni());
+                    $student->setFileNumber($studentFromApi->getFileNumber());
+                    $student->setGender($studentFromApi->getGender());
+                    $student->setBirthDate($studentFromApi->getBirthDate());
+                    $student->setPhoneNumber($studentFromApi->getPhoneNumber());
                     $student->setActive(true);
                     $student->setPassword($pass);
                     $this->studentDAO->Add($student);
@@ -169,12 +155,9 @@
                     require_once(VIEWS_PATH. "login.php");
                     $flag = 1;
                 }  
-            }
-            if ($flag == 0)
-            {
+            } if ($flag == 0) {
                  echo "<script>alert('El mail ingresado no perenece a un alumno activo');</script>";
                 $this->ShowAddView();
-                
             }
         }
 
