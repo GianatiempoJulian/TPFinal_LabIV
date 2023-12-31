@@ -11,7 +11,7 @@
           <section class="container vh90">
                <div class="modify-joboffer-container">
                <h1>Modificando <?php echo $jo_aux->getDescription() . " de la empresa " . $comp_aux->getComp_name()?></h1>
-               <form class="modify-joboffer-form" action="<?php echo FRONT_ROOT ?>JobOffer/Modify" method= "post">
+               <form class="modify-joboffer-form" action="<?php echo FRONT_ROOT ?>JobOffer/modify" method= "post">
                     <input class="input" type="text" name="o_id" style="display:none" value="<?php echo $jo_aux->getId()?>" readonly>
                     <input class="input" type="text" name="o_idCompany" style="display:none" value="<?php echo $comp_aux->getComp_id()?>" placeholder="<?php echo $comp_aux->getComp_name()?>" readonly>
                     <input class="input" type="text" name="o_idJobPosition" style="display:none" value="<?php echo $jp_aux->getId()?>" readonly>   

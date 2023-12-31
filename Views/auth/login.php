@@ -15,7 +15,7 @@
         <section class="container">
           <div class="login-container">
                <h1>Iniciar sesión</h1>
-               <form class="login-form" action="<?php echo FRONT_ROOT?>Login/Verify" method="post">
+               <form class="login-form" action="<?php echo FRONT_ROOT?>Login/verify" method="post">
                     <div>
                          <input class="input" type="email" name="user_mail" placeholder="Ingresar correo" required>
                     </div>

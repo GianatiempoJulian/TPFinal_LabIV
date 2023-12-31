@@ -6,7 +6,7 @@
 
 <body>
     <div id="root vh90">
-        <form action="<?php echo FRONT_ROOT ?>Company/Remove" method= "post">
+        <form action="<?php echo FRONT_ROOT ?>Company/remove" method= "post">
         <section class="container vh90">
             <div class="altabaja-company-container">
             <table class="company-table">
@@ -17,7 +17,7 @@
                          <?php 
                              foreach($companyList as $company){
                         ?>
-                             <th class="company company-altabaja"><?php echo $company->getComp_id()?><br><?php echo $company->getComp_name()?> <br> <?php echo $company->getComp_type()?> <a href="<?php echo FRONT_ROOT ?>Company/Remove/<?php echo $company->getComp_id()?>">Eliminar</a></th>
+                             <th class="company company-altabaja"><?php echo $company->getComp_id()?><br><?php echo $company->getComp_name()?> <br> <?php echo $company->getComp_type()?> <a href="<?php echo FRONT_ROOT ?>Company/remove/<?php echo $company->getComp_id()?>">Eliminar</a></th>
                          </tr>
                          <?php
                          }

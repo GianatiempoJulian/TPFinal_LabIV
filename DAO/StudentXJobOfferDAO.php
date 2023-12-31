@@ -10,7 +10,7 @@
         private $connection;
         private $tableName = "STUDENT_X_JOB_OFFER";
 
-        public function Add(StudentXJobOffer $studentXJob)
+        public function add(StudentXJobOffer $studentXJob)
         {
             try
             {
@@ -26,7 +26,7 @@
             }
         }
 
-        public function GetAll()
+        public function getAll()
         {
             try
             {
@@ -51,7 +51,7 @@
         }
 
         
-        public function GetByJobOfferId($id)
+        public function getByJobOfferId($id)
         {
             try
             {
@@ -75,7 +75,7 @@
             }
         }
 
-        public function GetByStudentId($id)
+        public function getByStudentId($id)
         {
             try
             {
@@ -118,7 +118,7 @@
             }
         }
 
-        public function Remove($studentId, $joId)
+        public function remove($studentId, $joId)
             {
                 try
                 {

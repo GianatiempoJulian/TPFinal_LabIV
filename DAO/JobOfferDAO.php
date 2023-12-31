@@ -21,7 +21,7 @@
         private $tableName = "job_offer";
       
 
-        public function Add(JobOffer $jobOffer)
+        public function add(JobOffer $jobOffer)
         {
             try {
                 $query = "INSERT INTO ".$this->tableName." (o_id,o_idJobPosition, o_idCompany, o_fecha, o_description, o_active, o_image) VALUES ( :o_id,:o_idJobPosition, :o_idCompany, :o_fecha, :o_description, :o_active, :o_image);";
@@ -45,7 +45,7 @@
             }
         }
 
-        public function GetAll()
+        public function getAll()
         {
             try {
 
@@ -88,7 +88,7 @@
             }
         }
 
-        public function Remove($id)
+        public function remove($id)
         {
             try{
                 $query = "UPDATE $this->tableName SET o_active = 0 WHERE o_id = $id;";
@@ -101,7 +101,7 @@
             }  
         }
         
-        public function Alta($id)
+        public function alta($id)
         {
             try
             {
@@ -130,7 +130,7 @@
             }
         }
 
-        public function Modify(JobOffer $jobOffer)
+        public function modify(JobOffer $jobOffer)
         {
             try
             {
@@ -152,13 +152,13 @@
             }
         }
 
-        public function CountOffers()
+        public function countOffers()
         {
             $list = $this->GetAll();
             return count($list);
         }
 
-        public function SearchOfferById ($o_id)
+        public function searchOfferById ($o_id)
         {
             try
             {

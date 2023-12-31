@@ -15,7 +15,7 @@
         private $tableName = "careers";
       
     
-        public function Add(Career $career)
+        public function add(Career $career)
         {
             try {
                 $query = "INSERT INTO ".$this->tableName." (careerId, carrer_description, active) VALUES (:careerId, :carrer_description, :active);";
@@ -35,7 +35,7 @@
             }
         }
 
-        public function GetAll()
+        public function getAll()
         {
             try {
                 $careerList = array();

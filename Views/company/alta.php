@@ -6,7 +6,7 @@
 
 <body>
     <div id="root vh90">
-        <form action="<?php echo FRONT_ROOT ?>Company/Alta" method= "post">
+        <form action="<?php echo FRONT_ROOT ?>Company/alta" method= "post">
         <section class="container vh90">
             <div class="altabaja-company-container">
             <table class="company-table">

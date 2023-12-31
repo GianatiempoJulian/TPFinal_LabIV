@@ -22,7 +22,7 @@ Class UserDAO implements IUserDAO {
     private $tableName = "USERS";
 
 
-    public function Add(User $user)
+    public function add(User $user)
     {
         try {
 
@@ -82,7 +82,7 @@ Class UserDAO implements IUserDAO {
         return $flag;
     }
     
-    public function GetAll(){
+    public function getAll(){
         try {
             $userList = array();
             $query = " SELECT * FROM ".$this->tableName;

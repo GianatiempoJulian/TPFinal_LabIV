@@ -5,7 +5,7 @@
     use Models\Student as Student;
 
     interface IStudentDAO{
-        function Add(Student $student);
+        function add(Student $student);
         function getAll();
         //function Remove($student_id);
     }

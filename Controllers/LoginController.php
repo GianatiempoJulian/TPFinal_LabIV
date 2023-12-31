@@ -52,7 +52,7 @@ namespace Controllers;
         
         //? Verificación de datos.
 
-        public function Verify($user_mail,$password)
+        public function verify($user_mail,$password)
         {
             $users = new UserDAO();
             $students = new StudentDAO();
@@ -80,7 +80,7 @@ namespace Controllers;
             }
             else if ($flag == 2)
             {
-                $company_in_session = $company->SearchCompanyByEmail($user_mail);
+                $company_in_session = $company->searchCompanyByEmail($user_mail);
                 $_SESSION['id_comp'] = $company_in_session->getComp_id();
                 $_SESSION['email'] = $user_mail;
                 $_SESSION['type'] = $company_in_session->getComp_type_int();
@@ -97,7 +97,7 @@ namespace Controllers;
 
         //? Cerrar sesión.
 
-        public function LogOut()
+        public function logOut()
         {    
             session_destroy();
             require_once(VIEWS_PATH. "index.php");

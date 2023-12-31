@@ -23,8 +23,8 @@ Autoload::Start();
                          <?php 
                          foreach($jobPositionList as $jobPosition)
                          {
-                              foreach($joList as $jobOffer){
-                               if($jobOffer->getIdCompany() == $comp->getComp_id() && $jobOffer->getActive() == true){
+                              foreach($jobOfferList as $jobOffer){
+                               if($jobOffer->getIdCompany() == $company->getComp_id() && $jobOffer->getActive() == true){
                                 if($jobOffer->getIdJobPosition() == $jobPosition->getId())
                                 {
                                    $jobPositionAux = $jobPosition;
@@ -32,20 +32,20 @@ Autoload::Start();
                                    if($_SESSION['type'] == 0)
                                    {    
                          ?>
-                              <th class="joboffer admin"  style="background-image: url('<?php echo $jobOffer->getImage()?>')" ><p><?php echo $jobPositionAux->getDescription(); ?></p><p><?php  echo $jobOffer->getDescription()?></p><p><?php echo $comp->getComp_name()?></p><p><?php echo $jobOffer->getFecha()?></p><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/ApplyForJob/<?php echo $idJobOffer?>">Postularse</a></th>
+                              <th class="joboffer admin"  style="background-image: url('<?php echo $jobOffer->getImage()?>')" ><p><?php echo $jobPositionAux->getDescription(); ?></p><p><?php  echo $jobOffer->getDescription()?></p><p><?php echo $company->getComp_name()?></p><p><?php echo $jobOffer->getFecha()?></p><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/applyForJob/<?php echo $idJobOffer?>">Postularse</a></th>
                          </tr>
                          <?php
                          }
                               else if($_SESSION['type'] == 1)
                               {
                          ?>
-                         <th class="joboffer admin"  style="background-image: url('<?php echo $jobOffer->getImage()?>')" ><p><?php echo $jobPositionAux->getDescription(); ?></p><p><?php  echo $jobOffer->getDescription()?></p><p><?php echo $comp->getComp_name()?></p><p><?php echo $jobOffer->getFecha()?></p><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/showModifyView/<?php echo $idJobOffer?>">Modificar</a><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/ShowStudents/<?php echo $idJobOffer?>">Ver Postulados</a></th>
+                         <th class="joboffer admin"  style="background-image: url('<?php echo $jobOffer->getImage()?>')" ><p><?php echo $jobPositionAux->getDescription(); ?></p><p><?php  echo $jobOffer->getDescription()?></p><p><?php echo $company->getComp_name()?></p><p><?php echo $jobOffer->getFecha()?></p><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/showModifyView/<?php echo $idJobOffer?>">Modificar</a><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/showStudents/<?php echo $idJobOffer?>">Ver Postulados</a></th>
                          <?php
                          }
                               else if($_SESSION['type'] == 2)
                               {
                          ?>
-                         <th class="joboffer admin"  style="background-image: url('<?php echo $jobOffer->getImage()?>')" ><p><?php echo $jobPositionAux->getDescription(); ?></p><p><?php  echo $jobOffer->getDescription()?></p><p><?php echo $comp->getComp_name()?></p><p><?php echo $jobOffer->getFecha()?></p><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/showModifyView/<?php echo $idJobOffer?>">Modificar</a><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/ShowStudents/<?php echo $idJobOffer?>">Ver Postulados</a></th>
+                         <th class="joboffer admin"  style="background-image: url('<?php echo $jobOffer->getImage()?>')" ><p><?php echo $jobPositionAux->getDescription(); ?></p><p><?php  echo $jobOffer->getDescription()?></p><p><?php echo $company->getComp_name()?></p><p><?php echo $jobOffer->getFecha()?></p><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/showModifyView/<?php echo $idJobOffer?>">Modificar</a><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/showStudents/<?php echo $idJobOffer?>">Ver Postulados</a></th>
                          <?php
                          }
                          }

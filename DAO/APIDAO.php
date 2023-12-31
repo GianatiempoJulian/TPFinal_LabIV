@@ -5,7 +5,7 @@
 	class APIDAO
 	{
 
-		public static function RetrieveCareers(){
+		public static function retrieveCareers(){
 
 				$opt = array(
 					  "http" => array(
@@ -25,7 +25,7 @@
 		}
 
 
-		public static function RetrieveStudents()
+		public static function retrieveStudents()
 		{
 
 				$opt = array(
@@ -46,7 +46,7 @@
 		}
 
 
-		public static function RetrieveJobPosition()
+		public static function retrieveJobPosition()
 		{
 
 				$opt = array(

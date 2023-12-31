@@ -16,7 +16,7 @@ class MailDAO{
 
     public function __construct(){}
 
-    public function SendNewMail($email, $msg)
+    public function sendNewMail($email, $msg)
     {
         $mail = new PHPMailer(true);
         try {
@@ -48,7 +48,8 @@ class MailDAO{
 
             $mail->send();
             echo 'Message has been sent';
-            header("location:". FRONT_ROOT . "User/ShowUserProfile");
+            echo "<script>window.history.go(-1)</script>";
+            //header("location:". FRONT_ROOT . "User/showUserProfile");
         } 
         catch (Exception $e) 
         {

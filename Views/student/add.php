@@ -11,7 +11,7 @@
         <section class="container">
             <div class="add-user-container">
             <h1>Agrega un alumno</h1>
-            <form action="<?php echo FRONT_ROOT ?>Student/Add" method= "post">
+            <form action="<?php echo FRONT_ROOT ?>Student/add" method= "post">
                <div>
                     <input type="email" name="email" placeholder="Ingresar email" required>
                </div>

@@ -26,7 +26,7 @@
 
         //? Vista agregar usuario.
 
-        public function ShowAddView()
+        public function showAddView()
         {
            
             require_once(VIEWS_PATH."/user/add.php");
@@ -40,10 +40,10 @@
 
         //? Vista lista de usuarios.
 
-        public function ShowListView()
+        public function showListView()
         {
             if($_SESSION) {
-                $userList = $this->userDAO->GetAll();
+                $userList = $this->userDAO->getAll();
                 require_once(VIEWS_PATH."user-list.php");
             } else {
                 $messageDAO = (new MessageDAO())->notLoggedMessage();
@@ -52,7 +52,7 @@
 
         //? Vista ver perfil usuario en sesión.
 
-        public function ShowUserProfile()
+        public function showUserProfile()
         {
             if($_SESSION) {
                 $user = $this->userDAO->searchUser($_SESSION['email']);
@@ -69,7 +69,7 @@
 
         //? Agregar usuario.
 
-        public function Add($firstname,$lastname,$email, $password,)
+        public function add($firstname,$lastname,$email, $password,)
         {   
             
             /*
@@ -95,7 +95,7 @@
                 $user->setEmail($email);
                 $user->setPassword($password);
                 $user->setType_user(1);
-                $this->userDAO->Add($user);
+                $this->userDAO->add($user);
                 
                 echo "<script>alert('El administrador se ha registrado con exito');</script>";
                 require_once(VIEWS_PATH. "/auth/login.php");

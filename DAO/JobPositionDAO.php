@@ -20,7 +20,7 @@
         private $tableName = "job_position";
       
 
-        public function Add(JobPosition $jobPosition)
+        public function add(JobPosition $jobPosition)
         {
             try {
                 $query = "INSERT INTO ".$this->tableName." (p_id, p_careerId, p_description) VALUES (:p_id, :p_careerId, :p_description);";
@@ -35,7 +35,7 @@
             }
         }
 
-        public function GetAll()
+        public function getAll()
         {
             try {
                 $jobPositionList = array();
