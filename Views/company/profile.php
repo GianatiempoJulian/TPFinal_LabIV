@@ -31,20 +31,20 @@ Autoload::Start();
                 <?php 
                 if ($_SESSION['type'] == 1)
                 {?>
-                    <a href="<?php echo FRONT_ROOT?>Company/showModifyView/<?php echo $id?>">Editar Empresa</a>
+                    <a href="<?php echo FRONT_ROOT?>Company/showModifyView/<?php echo $companyId?>">Editar Empresa</a>
                     <?php
                 }
                 ?>
-                <a href="<?php echo FRONT_ROOT?>Company/ShowOffers/<?php echo $id?>">Empleos Publicados</a>
+                <a href="<?php echo FRONT_ROOT?>Company/showOffers/<?php echo $companyId?>">Empleos Publicados</a>
                 <?php
                 
                 if ($_SESSION['type'] == 1 && $comp->getComp_active() == true){
                 ?>
-                <a class="company-baja" href="<?php echo FRONT_ROOT?>Company/remove/<?php echo $id?>">Dar de baja Empresa</a>
+                <a class="company-baja" href="<?php echo FRONT_ROOT?>Company/remove/<?php echo $companyId?>">Dar de baja Empresa</a>
                 <?php
                 }else if ($_SESSION['type'] == 1 && $comp->getComp_active() != true){
                     ?>
-                <a href="<?php echo FRONT_ROOT?>Company/Alta/<?php echo $id?>">Dar de alta Empresa</a>
+                <a href="<?php echo FRONT_ROOT?>Company/alta/<?php echo $companyId?>">Dar de alta Empresa</a>
                 <?php
                 }
                 ?>

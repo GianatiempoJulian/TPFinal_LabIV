@@ -31,7 +31,7 @@ $cc = new CompanyController();
      <form action="" method="post"></form>
      <section class="container vh90">
           <div class="company-list-container">
-               <form action="<?php echo FRONT_ROOT?>Company/SearchCompany" method="post" >
+               <form action="<?php echo FRONT_ROOT?>Company/searchCompany" method="post" >
                <input class="input" type="search" id="comp_name" name="comp_name" placeholder="Ingrese Empresa" required>
                <button class="btn-submit" type="submit">Buscar</button>
                </form>

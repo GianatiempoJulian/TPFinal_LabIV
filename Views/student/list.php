@@ -29,7 +29,7 @@ $stun_list = $student_repository->GetAll();
      <form action="" method="post"></form>
      <section>
           <div>
-               <form action="company-search.php" method="post" >
+               <form action="company-search.php" method="post">
                <input type="search" id="comp_search" name="comp_search" placeholder="Ingrese Alumno" required>
                <button type="submit" name="submit" id="submit_button_company_search">Buscar</button>
                </form>

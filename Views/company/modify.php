@@ -11,7 +11,7 @@
         <section class="container vh90">
             <div class="modify-company-container">
             <h1>Modificando <?php echo $companyAux->getComp_name()?></h1>
-            <form class="modify-company-form" action="<?php echo FRONT_ROOT ?>Company/Modify" method= "post">
+            <form class="modify-company-form" action="<?php echo FRONT_ROOT ?>Company/modify" method= "post">
                <input class="input" type="text" name="comp_id" value="<?php echo $companyAux->getComp_id()?>" readonly style="display:none">
                <input class="input" type="text" name="comp_name" value="<?php echo $companyAux->getComp_name()?>">
                <input class="input" type="text" name="comp_type" value="<?php echo $companyAux->getComp_type()?>">

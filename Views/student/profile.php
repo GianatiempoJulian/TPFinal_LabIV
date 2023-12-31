@@ -36,7 +36,7 @@ require_once("Config/Autoload.php");
                 <h5><?php echo $careerFromStudent->getCarrer_description() ?></h5>
              </div>
              <div class="user-profile-options">
-                <a href="<?php echo FRONT_ROOT?>Student/ShowOfferStudent/<?php echo $student->getStudentId()?>">Empleos Solicitados</a>
+                <a href="<?php echo FRONT_ROOT?>Student/showOfferStudent/<?php echo $student->getStudentId()?>">Empleos Solicitados</a>
              </div>
              <div>
              </div>

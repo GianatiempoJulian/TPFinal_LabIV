@@ -23,7 +23,7 @@ Autoload::Start();
                          <?php 
                               foreach ($jobPositionList as $jobPosition)
                               {
-                                   foreach ($joList as $jobOffer)
+                                   foreach ($jobOfferList as $jobOffer)
                                    {
                                         foreach ($companyList as $comp)
                                         {
@@ -39,7 +39,7 @@ Autoload::Start();
                                                             if($jobPosition->getCarrerId() == $studentAux->getCareerId())
                                                             {
                          ?>                                 
-                                                                 <th class="joboffer admin"  style="background-image: url('<?php echo $jobOffer->getImage()?>')" ><p><?php echo $jobPositionAux->getDescription(); ?></p><p><?php  echo $jobOffer->getDescription()?></p><p><?php echo $companyAux->getComp_name()?></p><p><?php echo $jobOffer->getFecha()?></p><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/ApplyForJob/<?php echo $idJobOffer?>">Postularse</a></th>
+                                                                 <th class="joboffer admin"  style="background-image: url('<?php echo $jobOffer->getImage()?>')" ><p><?php echo $jobPositionAux->getDescription(); ?></p><p><?php  echo $jobOffer->getDescription()?></p><p><?php echo $companyAux->getComp_name()?></p><p><?php echo $jobOffer->getFecha()?></p><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/applyForJob/<?php echo $idJobOffer?>">Postularse</a></th>
                               </tr>
                          <?php
                                                             }
@@ -48,7 +48,7 @@ Autoload::Start();
                                                        {
                                                   
                          ?>        
-                                                  <th class="joboffer admin"  style="background-image: url('<?php echo $jobOffer->getImage()?>')" ><p><?php echo $jobPositionAux->getDescription(); ?></p><p><?php  echo $jobOffer->getDescription()?></p><p><?php echo $companyAux->getComp_name()?></p><p><?php echo $jobOffer->getFecha()?></p><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/showModifyView/<?php echo $idJobOffer?>">Modificar</a><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/ShowStudents/<?php echo $idJobOffer?>">Ver Postulados</a></th>
+                                                  <th class="joboffer admin"  style="background-image: url('<?php echo $jobOffer->getImage()?>')" ><p><?php echo $jobPositionAux->getDescription(); ?></p><p><?php  echo $jobOffer->getDescription()?></p><p><?php echo $companyAux->getComp_name()?></p><p><?php echo $jobOffer->getFecha()?></p><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/showModifyView/<?php echo $idJobOffer?>">Modificar</a><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/showStudents/<?php echo $idJobOffer?>">Ver Postulados</a></th>
                          <?php
                                                   }}}}}}
                          ?>

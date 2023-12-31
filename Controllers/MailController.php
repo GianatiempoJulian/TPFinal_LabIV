@@ -19,9 +19,9 @@
 
 		//! Funciones especificas:
         //! =================================================================================================
-		public function NewMailView($email)
+		public function newMailView($email)
 		{
-			$this->mailDAO->SendNewMail($email);
+			$this->mailDAO->sendNewMail($email);
 		}
         //! =================================================================================================
     }

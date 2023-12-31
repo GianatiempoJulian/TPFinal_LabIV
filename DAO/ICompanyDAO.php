@@ -5,9 +5,9 @@
     use Models\Company as Company;
 
     interface ICompanyDAO{
-        function Add(Company $company);
+        function add(Company $company);
         function getAll();
-        function Remove($comp_id);
+        function remove($comp_id);
     }
 
 ?>

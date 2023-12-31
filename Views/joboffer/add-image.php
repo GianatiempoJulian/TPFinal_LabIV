@@ -27,7 +27,7 @@ Autoload::Start();
         <section class="container vh90">
             <div class="add-user-container vh90">
             <h1>Agrega una imagen a la oferta</h1>
-            <form method="POST" enctype="multipart/form-data" class="add-joboffer-form" action="<?php echo FRONT_ROOT ?>JobOffer/AddImage">
+            <form method="POST" enctype="multipart/form-data" class="add-joboffer-form" action="<?php echo FRONT_ROOT ?>JobOffer/addImage">
                     <!--<input style="display:none" name="o_id" id="o_id" value="<?php //echo $id ?>">-->
                     <input class="input" name="o_image" id="o_image" type="file">
                     <button class="btn-submit" type="submit">Agregar</button>

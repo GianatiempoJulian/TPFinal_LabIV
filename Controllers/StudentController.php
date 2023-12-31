@@ -39,19 +39,19 @@
 
         //? Vista agregar estudiante.
 
-        public function ShowAddView()
+        public function showAddView()
         {
             require_once(VIEWS_PATH. "/student/add.php");
         }
 
         //? Vista perfil estudiante en sesión.
 
-        public function ShowStudentProfile()
+        public function showStudentProfile()
         {
             if($_SESSION)
             {
                 $careerList =  new CareerDAO();
-                $apiCareer = $careerList->GetAll();
+                $apiCareer = $careerList->getAll();
                 $careerFromStudent = new Career();
                 $student = $this->studentDAO->searchStudentById($_SESSION['id_student']);
                 foreach($apiCareer as $career)
@@ -71,17 +71,17 @@
 
         //? Ver ofertas postuladas de un estudiante mediante su ID.
 
-        public function ShowOfferStudent($studentId)
+        public function showOfferStudent($studentId)
         {
            if($_SESSION) {
                 //Job Offers:
-                $jobOfferList = (new JobOfferDAO())->GetAll();
+                $jobOfferList = (new JobOfferDAO())->getAll();
                 
                 //Job Position para printear nombre posicion
-                $jobPositionList = (new JobPositionDAO())->GetAll();
+                $jobPositionList = (new JobPositionDAO())->getAll();
 
                 //SxJO para buscar ID estudiante vinculado a una oferta
-                $studentXJobOfferList = (new StudentXJobOfferDAO())->GetAll();
+                $studentXJobOfferList = (new StudentXJobOfferDAO())->getAll();
 
                 //JobPosition para guardar el nombre
                 $jobPositionAux = new JobPosition();
@@ -97,10 +97,10 @@
 
         //? Vista de la lista de estudiantes.
 
-        public function ShowListView()
+        public function showListView()
         {
             if($_SESSION) {
-                $studentList = $this->studentDAO->GetAll();
+                $studentList = $this->studentDAO->getAll();
                 require_once(VIEWS_PATH."/student/list.php");
             } else {
                 $messageDAO = (new MessageDAO())->notLoggedMessage();
@@ -109,7 +109,7 @@
 
         //? Vista modificar empresa.
 
-        public function ShowModifyView($studentId)
+        public function showModifyView($studentId)
         {
             if($_SESSION) {
                 $studentAux = $this->studentDAO->searchStudentById($studentId);
@@ -127,10 +127,10 @@
 
         //? Agregar estudiante.
 
-        public function Add($email,$pass)
+        public function add($email,$pass)
         {
             $flag = 0;
-            $studentsApi = $this->studentDAO->GetAllFromApi();
+            $studentsApi = $this->studentDAO->getAllFromApi();
 
             foreach ($studentsApi as $studentFromApi) {
                 if ($studentFromApi->getEmail() == $email && $studentFromApi->getActive() == true) {
@@ -149,7 +149,7 @@
                     $student->setPhoneNumber($studentFromApi->getPhoneNumber());
                     $student->setActive(true);
                     $student->setPassword($pass);
-                    $this->studentDAO->Add($student);
+                    $this->studentDAO->add($student);
 
                     echo "<script>alert('Registro exitoso');</script>";
                     require_once(VIEWS_PATH. "login.php");
@@ -157,7 +157,7 @@
                 }  
             } if ($flag == 0) {
                  echo "<script>alert('El mail ingresado no perenece a un alumno activo');</script>";
-                $this->ShowAddView();
+                $this->showAddView();
             }
         }
 

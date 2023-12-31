@@ -22,7 +22,7 @@
         private $studentList = array();
       
 
-        public function Add(Student $student)
+        public function add(Student $student)
         {
             try {
                 $query = "INSERT INTO ".$this->tableName." (recordId, firstName, lastName,email,type_us,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES (:recordId, :firstName, :lastName, :email, :type_us, :careerId, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active,:s_password);";
@@ -50,7 +50,7 @@
             }
         }
 
-        public function GetAll()
+        public function getAll()
         {
             try {
                 $studentList = array();
@@ -88,7 +88,7 @@
 
         public function searchStudent($email)
         {
-            $studentList = $this->GetAll();
+            $studentList = $this->getAll();
             $student = null;
     
             foreach($studentList as $std)
@@ -103,7 +103,7 @@
 
         public function searchStudentById($id)
         {
-            $studentList = $this->GetAll();
+            $studentList = $this->getAll();
             $student = null;
     
             foreach($studentList as $std)
@@ -117,15 +117,15 @@
         }
 
 
-        public function GetAllFromApi()
+        public function getAllFromApi()
         {
-            $this->RetrieveDataFromAPI();
+            $this->retrieveDataFromAPI();
             return $this->studentList;
         }
 
-        private function RetrieveDataFromAPI()
+        private function retrieveDataFromAPI()
         {
-            $student_list = APIDAO::RetrieveStudents();
+            $student_list = APIDAO::retrieveStudents();
 
             foreach($student_list as $student)
             {

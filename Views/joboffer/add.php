@@ -27,7 +27,7 @@ Autoload::Start();
         <section class="container vh90">
             <div class="add-user-container vh90">
             <h1>Agrega una oferta</h1>
-            <form method="POST" class="add-joboffer-form" action="<?php echo FRONT_ROOT ?>JobOffer/Add" >
+            <form method="POST" class="add-joboffer-form" action="<?php echo FRONT_ROOT ?>JobOffer/add" >
                <select class="input"  name="id_jp" id="id_jp">
                     <?php  foreach($jobPositionList as $jobPosition){
                     ?>

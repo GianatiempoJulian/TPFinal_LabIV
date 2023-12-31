@@ -16,7 +16,7 @@ use DAO\ICompanyDAO as ICompanyDAO;
 
 
 $comp_repository = new CompanyDAO();
-$comp_list = $comp_repository->GetAll();
+$comp_list = $comp_repository->getAll();
 
 $texto =$_POST['comp_search']; 
  ?>

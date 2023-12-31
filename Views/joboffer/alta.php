@@ -6,7 +6,7 @@
 
 <body>
      <div id="root vh90">
-          <form action="<?php echo FRONT_ROOT ?>JobOffer/Alta" method= "post">
+          <form action="<?php echo FRONT_ROOT ?>JobOffer/alta" method= "post">
           <section class="container vh90">
                <div class="altabaja-joboffer-container">
                <table class="joboffer-table">
@@ -19,7 +19,7 @@
                               foreach($companies as $c){
                                    if ($jo->getIdCompany() == $c->getComp_id()){
                         ?>
-                             <th class="joboffer joboffer-altabaja"><?php echo $jo->getId()?><br><?php echo $jo->getDescription()?><br><?php echo $c->getComp_name()?><br><a href="<?php echo FRONT_ROOT ?>JobOffer/Alta/<?php echo $jo->getId()?>">Alta</a></th>
+                             <th class="joboffer joboffer-altabaja"><?php echo $jo->getId()?><br><?php echo $jo->getDescription()?><br><?php echo $c->getComp_name()?><br><a href="<?php echo FRONT_ROOT ?>JobOffer/alta/<?php echo $jo->getId()?>">Alta</a></th>
                          </tr>
                          <?php
                          }}}
