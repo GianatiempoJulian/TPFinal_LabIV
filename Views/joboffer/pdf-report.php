@@ -51,7 +51,7 @@ class PDF extends FPDF
         $this->SetFont('Arial','I',8);
         // Número de página
     
-        $this->Cell(0,10,utf8_decode('Página') .$this->PageNo().'/{nb}',0,0,'C');
+        $this->Cell(0,10,mb_convert_encoding('Página','ISO-8859-1') .$this->PageNo().'/{nb}',0,0,'C');
         //$this->SetFillColor(223, 229,235);
         //$this->SetDrawColor(181, 14,246);
         //$this->Ln(0.5);

@@ -12,7 +12,7 @@ Class Company{
     private $comp_type;
     private $comp_active;
     private $comp_email;
-    private $comp_pas;
+    private $comp_pass;
     private $comp_type_int;
 
 
