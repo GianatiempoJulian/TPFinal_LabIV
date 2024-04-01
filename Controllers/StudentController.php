@@ -53,10 +53,10 @@
                 $careerList =  new CareerDAO();
                 $apiCareer = $careerList->getAll();
                 $careerFromStudent = new Career();
-                $student = $this->studentDAO->searchStudentById($_SESSION['id_student']);
+                $student = $this->studentDAO->getByID($_SESSION['id']);
                 foreach($apiCareer as $career)
                 {
-                    if($student->getCareerId() == $career->getCareerId())
+                    if($student->getCareerId() == $career->getId())
                         {
                             $careerFromStudent = $career;
                         }
@@ -87,7 +87,7 @@
                 $jobPositionAux = new JobPosition();
 
                 //Student para buscar estudiante con la ID que nos enviaron
-                $student = $this->studentDAO->searchStudentById($studentId);
+                $student = $this->studentDAO->getByID($studentId);
 
                 require_once(VIEWS_PATH. "/student/joboffers-postulated.php");
             } else {
@@ -127,36 +127,45 @@
 
         //? Agregar estudiante.
 
-        public function add($email,$pass)
+        public function add($email,$password)
         {
             $flag = 0;
             $studentsApi = $this->studentDAO->getAllFromApi();
 
-            foreach ($studentsApi as $studentFromApi) {
-                if ($studentFromApi->getEmail() == $email && $studentFromApi->getActive() == true) {
-                    $student = new Student();
-                    $student->setStudentId($studentFromApi->getStudentId());
-                    $student->setFirstName($studentFromApi->getFirstName());
-                    $student->setLastName($studentFromApi->getLastName());
-                    $student->setType_user(0);
-                    $student->setEmail($studentFromApi->getEmail());
+            if($this->studentDAO->getByEmail($email) == NULL) 
+            {
+                foreach ($studentsApi as $studentFromApi) {
+                    if ($studentFromApi->getEmail() == $email && $studentFromApi->getActive() == true) 
+                    {
+                            $student = new Student();
+                            $student->setRecordId($studentFromApi->getRecordId());
+                            $student->setFirstName($studentFromApi->getFirstName());
+                            $student->setLastName($studentFromApi->getLastName());
+                            $student->setEmail($studentFromApi->getEmail());
+                            $student->setCareerId($studentFromApi->getCareerId());
+                            $student->setDni($studentFromApi->getDni());
+                            $student->setFileNumber($studentFromApi->getFileNumber());
+                            $student->setGender($studentFromApi->getGender());
+                            $student->setBirthDate($studentFromApi->getBirthDate());
+                            $student->setPhoneNumber($studentFromApi->getPhoneNumber());
+                            $student->setActive(true);
+                            $student->setPassword($password);
+                            $this->studentDAO->add($student);
         
-                    $student->setCareerId($studentFromApi->getCareerId());
-                    $student->setDni($studentFromApi->getDni());
-                    $student->setFileNumber($studentFromApi->getFileNumber());
-                    $student->setGender($studentFromApi->getGender());
-                    $student->setBirthDate($studentFromApi->getBirthDate());
-                    $student->setPhoneNumber($studentFromApi->getPhoneNumber());
-                    $student->setActive(true);
-                    $student->setPassword($pass);
-                    $this->studentDAO->add($student);
-
-                    echo "<script>alert('Registro exitoso');</script>";
-                    require_once(VIEWS_PATH. "login.php");
-                    $flag = 1;
-                }  
-            } if ($flag == 0) {
-                 echo "<script>alert('El mail ingresado no perenece a un alumno activo');</script>";
+                            echo "<script>alert('Registro exitoso');</script>";
+                            require_once(VIEWS_PATH. "auth/login.php");
+                            $flag = 1;
+                        }
+                } 
+                if ($flag == 0)
+                {
+                    echo "<script>alert('El mail ingresado no perenece a un alumno activo');</script>";
+                    $this->showAddView();
+                }
+            }
+            else 
+            {
+                echo "<script>alert('El mail ingresado ya esta en uso.');</script>";
                 $this->showAddView();
             }
         }

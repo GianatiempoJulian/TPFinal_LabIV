@@ -1,13 +1,11 @@
-<?php require_once("header.php"); ?>
-        <?php
-        
-        if(isset($_GET['status']) && $_GET['status'] == 0)
-        {
-        ?>
-            <h1>Debes iniciar sesión para acceder a esta sección.</h1>
-        <?php
-        }
-        ?>
+<?php
+    if(isset($_GET['status']) && $_GET['status'] == 0)
+    {
+?>
+    <h1>Debes iniciar sesión para acceder a esta sección.</h1>
+<?php
+    }
+?>
     <div id="root">
         <section class="container">
             <div class="auth-container">
@@ -17,7 +15,6 @@
             </div>
         </section>
     </div>
-<?php include('footer.php'); ?>
 
 
 

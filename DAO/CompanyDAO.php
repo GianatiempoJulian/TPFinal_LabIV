@@ -13,7 +13,8 @@
    
     Autoload::Start();
 
-    Class CompanyDAO /*implements ICompanyDAO*/{    
+    Class CompanyDAO 
+    {    
         private $connection;
         private $tableName = "companies";
           
@@ -21,22 +22,17 @@
             public function add(Company $company)
             {
                 try {
-                    $query = "INSERT INTO ".$this->tableName." (comp_id, comp_name, comp_type,comp_active,comp_email,comp_pass,comp_type_int) VALUES (:comp_id, :comp_name, :comp_type,:comp_active,:comp_email,:comp_pass,:comp_type_int);";
-    
-                    $parameters["comp_id"] = $company->getComp_id();
-                    $parameters["comp_name"] = $company->getComp_name();
-                    $parameters["comp_type"] = $company->getComp_type();
-                    $parameters["comp_active"] = $company->getComp_active();
-                    $parameters["comp_email"] = $company->getComp_email();
-                    $parameters["comp_pass"] =  password_hash($company->getComp_pass(),PASSWORD_DEFAULT);
-                    $parameters["comp_type_int"] = 2 ;// $company->getComp_type_int();
+                    $query = "INSERT INTO ".$this->tableName." (id, name, type,active,email,password) VALUES (:id, :name, :type,:active,:email,:password);";
+                    $parameters["id"] = $company->getId();
+                    $parameters["name"] = $company->getName();
+                    $parameters["type"] = $company->getType();
+                    $parameters["active"] = $company->getActive();
+                    $parameters["email"] = $company->getEmail();
+                    $parameters["password"] =  password_hash($company->getPassword(),PASSWORD_DEFAULT);
 
-                  
-    
                     $this->connection = Connection::GetInstance();
-    
                     $this->connection->ExecuteNonQuery($query, $parameters);
-    
+
                 }
                 catch(Exception $ex){
                     throw $ex;
@@ -57,16 +53,13 @@
                     foreach ($resultSet as $row){
     
                         $company = new Company();
-                        $company->setComp_id($row["comp_id"]);
-                        $company->setComp_name($row["comp_name"]);
-                        $company->setComp_type($row["comp_type"]);
-                        $company->setComp_active($row["comp_active"]);
-                        $company->setComp_email($row["comp_email"]);
-                        $company->setComp_pass($row["comp_pass"]);
-                        $company->setComp_type_int($row["comp_type_int"]);
-                       
-    
-    
+                        $company->setId($row["id"]);
+                        $company->setName($row["name"]);
+                        $company->setType($row["type"]);
+                        $company->setActive($row["active"]);
+                        $company->setEmail($row["email"]);
+                        $company->setPassword($row["password"]);
+
                         array_push($companyList, $company);
     
                     }
@@ -79,31 +72,14 @@
 
             public function remove($id)
             {
-
-                try{
-    
-                    $query = "UPDATE $this->tableName SET comp_active = 0 WHERE comp_id = $id;";
-    
+                try
+                {
+                    $query = "DELETE FROM " .$this->tableName. " WHERE id=" .$id;
                     $this->connection = Connection::GetInstance();
                     $this->connection->ExecuteNonQuery($query);
                 }
-                catch(Exception $ex){
-    
-                    throw $ex;
-                }
-            }
-
-            public function alta($id){
-
-                try{
-    
-                    $query = "UPDATE $this->tableName SET comp_active = 1 WHERE comp_id = $id;";
-    
-                    $this->connection = Connection::GetInstance();
-                    $this->connection->ExecuteNonQuery($query);
-                }
-                catch(Exception $ex){
-    
+                catch(Exception $ex)
+                {
                     throw $ex;
                 }
             }
@@ -113,12 +89,12 @@
 
                 try{
     
-                    $query = "UPDATE $this->tableName SET comp_name = :comp_name , comp_type = :comp_type, comp_active = :comp_active   WHERE comp_id = :comp_id";
+                    $query = "UPDATE $this->tableName SET name = :name , type = :type, active = :active   WHERE id = :id";
     
-                    $parameters["comp_id"] = $company->getComp_id();
-                    $parameters["comp_name"] = $company->getComp_name();
-                    $parameters["comp_type"] = $company->getComp_type();
-                    $parameters["comp_active"] = $company->getComp_active();
+                    $parameters["id"] = $company->getId();
+                    $parameters["name"] = $company->getName();
+                    $parameters["type"] = $company->getType();
+                    $parameters["active"] = $company->getActive();
                   
     
                     $this->connection = Connection::GetInstance();
@@ -131,14 +107,14 @@
             }
 
         
-        public function getById($id)
+        public function getByID($id)
         {
-            $companyList = $this->GetAll();
+            $companyList = $this->getAll();
             $company_aux = new Company();
 
             foreach($companyList as $company)
             {
-                if($company->getComp_id() == $id)
+                if($company->getid() == $id)
                 {
                     
                     $company_aux = $company;
@@ -152,7 +128,7 @@
             try {
                 $companyList = array();
 
-                $query = " SELECT * FROM ".$this->tableName . " WHERE comp_active = " .$status;
+                $query = " SELECT * FROM ".$this->tableName . " WHERE active = " .$status;
 
                 $this->connection = Connection::GetInstance();
 
@@ -161,13 +137,12 @@
                 foreach ($resultSet as $row){
 
                     $company = new Company();
-                    $company->setComp_id($row["comp_id"]);
-                    $company->setComp_name($row["comp_name"]);
-                    $company->setComp_type($row["comp_type"]);
-                    $company->setComp_active($row["comp_active"]);
-                    $company->setComp_email($row["comp_email"]);
-                    $company->setComp_pass($row["comp_pass"]);
-                    $company->setComp_type_int($row["comp_type_int"]);
+                    $company->setId($row["id"]);
+                    $company->setName($row["name"]);
+                    $company->setType($row["type"]);
+                    $company->setActive($row["active"]);
+                    $company->setEmail($row["email"]);
+                    $company->setPassword($row["password"]);
                     array_push($companyList, $company);
 
                 }
@@ -177,44 +152,37 @@
                 throw $ex;
             }
         }
-       
-
-        public function countCompanies()
-        {
-            $list = $this->GetAll();
-            return count($list);
-        }
-
-        public function searchCompanyByName($comp_name)
+    
+        public function getByName($name)
         {
             $companyList = $this->GetAll();
-            $company_found = null;
+            $companyFounded = null;
 
             foreach($companyList as $company)
             {
-                if($company->getComp_name() == $comp_name)
+                if($company->getName() == $name)
                 {
-                    $company_found = $company;
+                    $companyFounded = $company;
                 }
             }
 
-            return $company_found;
+            return $companyFounded;
         }
         
-        public function searchCompanyByEmail($comp_email)
+        public function getByEmail($email)
         {
             $companyList = $this->GetAll();
-            $company_found = null;
+            $companyFounded = null;
 
             foreach($companyList as $company)
             {
-                if($company->getComp_email() == $comp_email)
+                if($company->getEmail() == $email)
                 {
-                    $company_found = $company;
+                    $companyFounded = $company;
                 }
             }
 
-            return $company_found;
+            return $companyFounded;
         }
 
                    

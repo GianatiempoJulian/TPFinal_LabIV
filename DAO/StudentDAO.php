@@ -25,15 +25,13 @@
         public function add(Student $student)
         {
             try {
-                $query = "INSERT INTO ".$this->tableName." (recordId, firstName, lastName,email,type_us,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,s_password) VALUES (:recordId, :firstName, :lastName, :email, :type_us, :careerId, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active,:s_password);";
+                $query = "INSERT INTO ".$this->tableName." (recordId, firstName, lastName,email,careerId,dni,fileNumber,gender,birthDate,phoneNumber,active,password) VALUES (:recordId, :firstName, :lastName, :email, :careerId, :dni, :fileNumber, :gender, :birthDate, :phoneNumber, :active,:password);";
 
-                $parameters["recordId"] = $student->getStudentId();
+                $parameters["recordId"] = $student->getRecordId();
                 $parameters["firstName"] = $student->getFirstName();
                 $parameters["lastName"] = $student->getLastName();
                 $parameters["email"] = $student->getEmail();
-                $parameters["type_us"] = $student->getType_user();
-                $parameters["s_password"] = $student->getPassword();
-
+                $parameters["password"] = $student->getPassword();
                 $parameters["careerId"] = $student->getCareerId();
                 $parameters["dni"] = $student->getDni();
                 $parameters["fileNumber"] = $student->getFileNumber();
@@ -61,13 +59,11 @@
                 foreach ($resultSet as $row){
 
                     $student = new Student();
-                    $student->setStudentId($row["recordId"]);
-                    $student->setFirstName($row["firstName"]);
-                    $student->setLastName($row["lastName"]);
+                    $student->setRecordId($row["recordId"]);
+                    $student->setFirstname($row["firstname"]);
+                    $student->setLastname($row["lastname"]);
                     $student->setEmail($row["email"]);
-                    $student->setType_user($row["type_us"]);
-                    $student->setPassword($row["s_password"]);
-
+                    $student->setPassword($row["password"]);
                     $student->setCareerId($row["careerId"]);
                     $student->setDni($row["dni"]);
                     $student->setFileNumber($row["fileNumber"]);
@@ -86,34 +82,34 @@
         }
 
 
-        public function searchStudent($email)
+        public function getByEmail($email)
         {
             $studentList = $this->getAll();
-            $student = null;
+            $studentFounded = null;
     
-            foreach($studentList as $std)
+            foreach($studentList as $student)
             {
-                if($std->getEmail() == $email)
+                if($student->getEmail() == $email)
                 {
-                    $student = $std;
+                    $studentFounded = $student;
                 }
             }
-            return $student;
+            return $studentFounded;
         }
 
-        public function searchStudentById($id)
+        public function getByID($id)
         {
             $studentList = $this->getAll();
-            $student = null;
+            $studentFounded = null;
     
-            foreach($studentList as $std)
+            foreach($studentList as $student)
             {
-                if($std->getStudentId() == $id)
+                if($student->getRecordId() == $id)
                 {
-                    $student = $std;
+                    $studentFounded = $student;
                 }
             }
-            return $student;
+            return $studentFounded;
         }
 
 
@@ -125,24 +121,26 @@
 
         private function retrieveDataFromAPI()
         {
-            $student_list = APIDAO::retrieveStudents();
+            $studentsFromApi = APIDAO::retrieveStudents();
 
-            foreach($student_list as $student)
+            foreach($studentsFromApi as $students)
             {
-                $new_student = new Student();
-                $new_student->setStudentId($student["studentId"]);
-                $new_student->setFirstName($student["firstName"]);
-                $new_student->setLastName($student["lastName"]);
-                $new_student->setCareerId($student["careerId"]);
-                $new_student->setDni($student["dni"]);
-                $new_student->setFileNumber($student["fileNumber"]);
-                $new_student->setGender($student["gender"]);
-                $new_student->setBirthDate($student["birthDate"]);
-                $new_student->setEmail($student["email"]);
-                $new_student->setPhoneNumber($student["phoneNumber"]);
-                $new_student->setActive($student["active"]);
-                
-                array_push($this->studentList, $new_student);
+                foreach($students as $student)
+                {
+                    $newStudent = new Student();
+                    $newStudent->setRecordId($student["recordId"]);
+                    $newStudent->setFirstName($student["firstName"]);
+                    $newStudent->setLastName($student["lastName"]);
+                    $newStudent->setCareerId($student["careerId"]);
+                    $newStudent->setDni($student["dni"]);
+                    $newStudent->setFileNumber($student["fileNumber"]);
+                    $newStudent->setGender($student["gender"]);
+                    $newStudent->setBirthDate($student["birthDate"]);
+                    $newStudent->setEmail($student["email"]);
+                    $newStudent->setPhoneNumber($student["phoneNumber"]);
+                    $newStudent->setActive($student["active"]);
+                    array_push($this->studentList, $newStudent);
+                }
             }
         }
 

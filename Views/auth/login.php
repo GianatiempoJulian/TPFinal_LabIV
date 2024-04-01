@@ -3,9 +3,9 @@
 <?php
 
     
-     if(isset($_SESSION["user_mail"]))
+     if(isset($_SESSION["email"]))
      {
-          header("location:/user/profile.php"); ///si la sesion esta iniciada te manda de una al profile
+          require_once(VIEWS_PATH. "/administrator/profile.php");
      }
      
 ?>
@@ -17,7 +17,7 @@
                <h1>Iniciar sesión</h1>
                <form class="login-form" action="<?php echo FRONT_ROOT?>Login/verify" method="post">
                     <div>
-                         <input class="input" type="email" name="user_mail" placeholder="Ingresar correo" required>
+                         <input class="input" type="email" name="email" placeholder="Ingresar correo" required>
                     </div>
                     <div>
                          <input class="input" type="password" name="password" placeholder="Ingresar constraseña" required>

@@ -21,22 +21,22 @@ Autoload::Start();
                               <tbody class="user-table-body">
                                    <tr class="users">
                                    <?php
-                                   foreach($student_x_offer_list as $sxj)
+                                   foreach($studentOfferList as $studentOffer)
                                    {
-                                        if ($sxj->getJobOfferId() == $jo->getId())
+                                        if ($studentOffer->getJobOfferId() == $jobOffer->getId())
                                         {
-                                             $id_job_offer = $sxj->getJobOfferId();
-                                             foreach($student_list as $student)
+                                             $jobOfferId = $studentOffer->getJobOfferId();
+                                             foreach($studentList as $student)
                                              {
-                                                  if( $sxj->getStudentId() == $student->getStudentId() && $jo->getActive() == true)
+                                                  if( $studentOffer->getStudentId() == $student->getRecordId() && $jobOffer->getActive() == true)
                                                   {
-                                                       foreach($career_list as $career)
+                                                       foreach($careerList as $career)
                                                        {
-                                                            if($career->getCareerId() == $student->getCareerId())
+                                                            if($career->getId() == $student->getCareerId())
                                                             {
-                                                                 $career_aux = $career;
+                                                                 $careerAux = $career;
                                    ?>
-                                   <th class="user"><?php echo $student->getStudentId()?><br> <?php echo $student->getFirstName() . " " . $student->getLastName()?> <br> <?php echo $career_aux->getCarrer_description()?>  <br> <?php echo $student->getDni()?> <br> <?php echo $student->getEmail()?> <br> <?php echo $jo->getFecha()?><a href="<?php echo FRONT_ROOT?>JobOffer/denyApplyByAdmin/<?php echo $student->getStudentId()?>/<?php echo $id_job_offer?>">Declinar Postulacion</a></th>
+                                   <th class="user"><?php echo $student->getRecordId()?><br> <?php echo $student->getFirstname() . " " . $student->getLastname()?> <br> <?php echo $careerAux->getDescription()?>  <br> <?php echo $student->getDni()?> <br> <?php echo $student->getEmail()?> <br> <?php echo $jobOffer->getDate()?><a href="<?php echo FRONT_ROOT?>JobOffer/denyApplyByAdmin/<?php echo $student->getRecordId()?>/<?php echo $jobOfferId?>">Declinar Postulacion</a></th>
                                    </tr>
                               <?php
                               }
@@ -46,7 +46,7 @@ Autoload::Start();
                               }
                               }
                               ?>
-                              <a class="pdf-btn" href="<?php echo FRONT_ROOT?>JobOffer/PDFStudents/<?php echo $id_job_offer?>">PDF</a>
+                              <a class="pdf-btn" href="<?php echo FRONT_ROOT?>JobOffer/PDFStudents/<?php echo $jobOfferId?>">PDF</a>
                          </tbody>
                     </table>
                </div>

@@ -1,0 +1,25 @@
+{
+  "students":
+    [  
+        { "recordId":1, "firstName": "Julian", "lastName": "EstudianteJSON",
+            "careerId": 2, "dni": "4345554", "fileNumber": "333", "gender": "Masculino",
+            "birthDate": 20030503, "email": "json@example.com", "phoneNumber": "223", 
+            "active": true    
+        },
+        { "recordId":33, "firstName": "ws", "lastName": "sss",
+        "careerId": 4, "dni": "43455542", "fileNumber": "333", "gender": "Masculino",
+        "birthDate": 20030503, "email": "json2@example.com", "phoneNumber": "223", 
+        "active": true    
+        },
+        { "recordId":34, "firstName": "attorney", "lastName": "sss",
+        "careerId": 4, "dni": "43455542", "fileNumber": "333", "gender": "Masculino",
+        "birthDate": 20030503, "email": "gianatiempoattorney@gmail.com", "phoneNumber": "223", 
+        "active": true    
+        },
+        { "recordId":345, "firstName": "romita", "lastName": "querido",
+        "careerId": 1, "dni": "43455542", "fileNumber": "333", "gender": "Masculino",
+        "birthDate": 20030503, "email": "romitaquerido@querido.com", "phoneNumber": "223", 
+        "active": true    
+        }
+    ]
+}  

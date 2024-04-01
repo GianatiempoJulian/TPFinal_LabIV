@@ -8,16 +8,16 @@
     <div id="root vh90">
         <form action="<?php echo FRONT_ROOT ?>Company/remove" method= "post">
         <section class="container vh90">
-            <div class="altabaja-company-container">
+            <div class="remove-company-container">
             <table class="company-table">
-                <h1>Dar de baja una empresa</h1>
-                <input class="input input-altabaja" type="number" name="comp_id" placeholder="Ingresar ID para dar de baja" required>
+                <h1>Eliminar una empresa</h1>
+                <input class="input input-remove" type="number" name="ud" placeholder="Ingresar ID para eliminar" required>
                     <tbody class="company-table-body">
                          <tr>
                          <?php 
                              foreach($companyList as $company){
                         ?>
-                             <th class="company company-altabaja"><?php echo $company->getComp_id()?><br><?php echo $company->getComp_name()?> <br> <?php echo $company->getComp_type()?> <a href="<?php echo FRONT_ROOT ?>Company/remove/<?php echo $company->getComp_id()?>">Eliminar</a></th>
+                             <th class="company company-remove"><?php echo $company->getId()?><br><?php echo $company->getName()?> <br> <?php echo $company->getType()?> <a href="<?php echo FRONT_ROOT ?>Company/remove/<?php echo $company->getId()?>">Eliminar</a></th>
                          </tr>
                          <?php
                          }

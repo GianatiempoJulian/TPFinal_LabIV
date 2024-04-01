@@ -10,14 +10,14 @@
      <div id="root vh90">
           <section class="container vh90">
                <div class="modify-joboffer-container">
-               <h1>Modificando <?php echo $jo_aux->getDescription() . " de la empresa " . $comp_aux->getComp_name()?></h1>
+               <h1>Modificando <?php echo $jobOfferAux->getDescription() . " de la empresa " . $companyAux->getName()?></h1>
                <form class="modify-joboffer-form" action="<?php echo FRONT_ROOT ?>JobOffer/modify" method= "post">
-                    <input class="input" type="text" name="o_id" style="display:none" value="<?php echo $jo_aux->getId()?>" readonly>
-                    <input class="input" type="text" name="o_idCompany" style="display:none" value="<?php echo $comp_aux->getComp_id()?>" placeholder="<?php echo $comp_aux->getComp_name()?>" readonly>
-                    <input class="input" type="text" name="o_idJobPosition" style="display:none" value="<?php echo $jp_aux->getId()?>" readonly>   
-                    <input class="input" type="date" name="o_fecha" style="display:none" value="<?php echo $jo_aux->getFecha()?>" readonly>
-                    <input class="input" type="text" name="o_description" value="<?php echo $jo_aux->getDescription()?>">
-                    <input style="display:none" type="text" name="o_image" value="<?php echo $jo_aux->getImage()?>">
+                    <input class="input" type="text" name="id" style="display:none" value="<?php echo $jobOfferAux->getId()?>" readonly>
+                    <input class="input" type="text" name="idCompany" style="display:none" value="<?php echo $companyAux->getId()?>" placeholder="<?php echo $companyAux->getName()?>" readonly>
+                    <input class="input" type="text" name="idJobPosition" style="display:none" value="<?php echo $jobPositionAux->getId()?>" readonly>   
+                    <input class="input" type="date" name="fecha" style="display:none" value="<?php echo $jobOfferAux->getDate()?>" readonly>
+                    <input class="input" type="text" name="description" value="<?php echo $jobOfferAux->getDescription()?>">
+                    <input style="display:none" type="text" name="image" value="<?php echo $jobOfferAux->getImage()?>">
                     <button class="btn-submit" type="submit">Modificar</button>
              </form>
           </div>

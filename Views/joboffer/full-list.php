@@ -27,28 +27,27 @@ Autoload::Start();
                                    {
                                         foreach ($companyList as $comp)
                                         {
-                                             if ($jobOffer->getIdCompany() == $comp->getComp_id() && $jobOffer->getActive() == true)
+                                             if ($jobOffer->getCompanyId() == $comp->getId() && $jobOffer->getActive() == true)
                                              {
                                                   $companyAux = $comp;
-                                                  if ($jobOffer->getIdJobPosition() == $jobPosition->getId())
+                                                  if ($jobOffer->getJobPositionId() == $jobPosition->getId())
                                                   {         
                                                        $jobPositionAux = $jobPosition;
                                                        $idJobOffer = $jobOffer->getId();    
                                                        if ($_SESSION['type'] == 0)
                                                        {
-                                                            if($jobPosition->getCarrerId() == $studentAux->getCareerId())
+                                                            if($jobPosition->getCareerId() == $studentAux->getCareerId())
                                                             {
                          ?>                                 
-                                                                 <th class="joboffer admin"  style="background-image: url('<?php echo $jobOffer->getImage()?>')" ><p><?php echo $jobPositionAux->getDescription(); ?></p><p><?php  echo $jobOffer->getDescription()?></p><p><?php echo $companyAux->getComp_name()?></p><p><?php echo $jobOffer->getFecha()?></p><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/applyForJob/<?php echo $idJobOffer?>">Postularse</a></th>
+                                                                 <th class="joboffer admin"  style="background-image: url('<?php echo $jobOffer->getImage()?>')" ><p><?php echo $jobPositionAux->getDescription(); ?></p><p><?php  echo $jobOffer->getDescription()?></p><p><?php echo $companyAux->getName()?></p><p><?php echo $jobOffer->getDate()?></p><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/applyForJob/<?php echo $idJobOffer?>">Postularse</a></th>
                               </tr>
                          <?php
                                                             }
                                                        } 
                                                        else if ($_SESSION['type'] == 1)
                                                        {
-                                                  
                          ?>        
-                                                  <th class="joboffer admin"  style="background-image: url('<?php echo $jobOffer->getImage()?>')" ><p><?php echo $jobPositionAux->getDescription(); ?></p><p><?php  echo $jobOffer->getDescription()?></p><p><?php echo $companyAux->getComp_name()?></p><p><?php echo $jobOffer->getFecha()?></p><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/showModifyView/<?php echo $idJobOffer?>">Modificar</a><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/showStudents/<?php echo $idJobOffer?>">Ver Postulados</a></th>
+                                                  <th class="joboffer admin"  style="background-image: url('<?php echo $jobOffer->getImage()?>')" ><p><?php echo $jobPositionAux->getDescription(); ?></p><p><?php  echo $jobOffer->getDescription()?></p><p><?php echo $companyAux->getName()?></p><p><?php echo $jobOffer->getDate()?></p><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/showModifyView/<?php echo $idJobOffer?>">Modificar</a><a class="jobList_btn" name ="comp_select" href="<?php echo FRONT_ROOT?>JobOffer/showStudents/<?php echo $idJobOffer?>">Ver Postulados</a></th>
                          <?php
                                                   }}}}}}
                          ?>

@@ -37,10 +37,10 @@
 				
 				$ctx = stream_context_create($opt);
 				
-				$json_student = file_get_contents("https://utn-students-api.herokuapp.com/api/Student", false, $ctx);
-				
+				//$json_student = file_get_contents("https://utn-students-api.herokuapp.com/api/Student", false, $ctx);
+				$json_student = file_get_contents("students.json");
 				$student_list = ($json_student) ? json_decode($json_student, true) : array();
-
+				
 				return $student_list;
 
 		}

@@ -31,8 +31,8 @@ $cc = new CompanyController();
      <form action="" method="post"></form>
      <section class="container vh90">
           <div class="company-list-container">
-               <form action="<?php echo FRONT_ROOT?>Company/searchCompany" method="post" >
-               <input class="input" type="search" id="comp_name" name="comp_name" placeholder="Ingrese Empresa" required>
+               <form action="<?php echo FRONT_ROOT?>Company/getByName" method="post" >
+               <input class="input" type="search" id="name" name="name" placeholder="Ingrese Empresa" required>
                <button class="btn-submit" type="submit">Buscar</button>
                </form>
                <table class="company-table">
@@ -40,15 +40,12 @@ $cc = new CompanyController();
                          <tr class="companies">
                          <?php 
                               foreach($comp_list as $company){
-                              if ($company->getComp_active() == true)
-                              {
-                                   $id=$company->getComp_id();
                          ?>
-                             <th class="company"><?php echo $company->getComp_name()?><br><?php echo $company->getComp_type()?><a name ="comp_select" href="<?php echo FRONT_ROOT?>Company/ShowCompanyById/<?php echo $id?>">Ver Info Completa</a></th>
+                             <th class="company"><?php echo $company->getName()?><br><?php echo $company->getType()?><a name ="comp_select" href="<?php echo FRONT_ROOT?>Company/ShowCompanyById/<?php echo $company->getId()?>">Ver Info Completa</a></th>
                          </tr>
                         
                          <?php
-                         }}
+                         }
                          ?>
                         
                     </tbody>

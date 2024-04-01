@@ -5,13 +5,12 @@
     class JobOffer
     {
         private $id;
-        private $idJobPosition;
-        private $idCompany;
-        private $fecha;
+        private $jobPositionId;
+        private $companyId;
+        private $date;
         private $description;
         private $active;
         private $image;
-//        private $users = array();
 
         public function __construct(){}
 
@@ -38,61 +37,61 @@
         }
 
         /**
-         * Get the value of idJobPosition
+         * Get the value of jobPositionId
          */ 
-        public function getIdJobPosition()
+        public function getJobPositionId()
         {
-                return $this->idJobPosition;
+                return $this->jobPositionId;
         }
 
         /**
-         * Set the value of idJobPosition
+         * Set the value of jobPositionId
          *
          * @return  self
          */ 
-        public function setIdJobPosition($idJobPosition)
+        public function setJobPositionId($jobPositionId)
         {
-                $this->idJobPosition = $idJobPosition;
+                $this->jobPositionId = $jobPositionId;
 
                 return $this;
         }
 
         /**
-         * Get the value of idCompany
+         * Get the value of companyId
          */ 
-        public function getIdCompany()
+        public function getCompanyId()
         {
-                return $this->idCompany;
+                return $this->companyId;
         }
 
         /**
-         * Set the value of idCompany
+         * Set the value of companyId
          *
          * @return  self
          */ 
-        public function setIdCompany($idCompany)
+        public function setCompanyId($companyId)
         {
-                $this->idCompany = $idCompany;
+                $this->companyId = $companyId;
 
                 return $this;
         }
 
         /**
-         * Get the value of fecha
+         * Get the value of date
          */ 
-        public function getFecha()
+        public function getDate()
         {
-                return $this->fecha;
+                return $this->date;
         }
 
         /**
-         * Set the value of fecha
+         * Set the value of date
          *
          * @return  self
          */ 
-        public function setFecha($fecha)
+        public function setDate($date)
         {
-                $this->fecha = $fecha;
+                $this->date = $date;
 
                 return $this;
         }

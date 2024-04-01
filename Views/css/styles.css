@@ -40,7 +40,7 @@ body {
     border-bottom: 2px solid #1ed760;
 }
 
-.input-altabaja {
+.input-remove {
     width: 200px;
 }
 
@@ -565,7 +565,7 @@ nav ul li a:hover {
 
 /*? ALTA & BAJA */
 
-.altabaja-company-container {
+.remove-company-container {
     display: flex;
     flex-direction: column;
     background-color: black;
@@ -581,7 +581,7 @@ nav ul li a:hover {
     box-sizing: border-box;
 }
 
-.company-altabaja {
+.company-remove {
     height: 100px;
 }
 
@@ -659,8 +659,15 @@ nav ul li a:hover {
 
 .expired {
     background-color: red;
+    border-style: solid;
+    border-color: red;
 }
-
+.expired div{
+    background-color: red;
+    opacity: 0.7;
+    margin: 0;
+    padding: 0;
+}
 
 /*? ADD */
 
@@ -693,9 +700,9 @@ nav ul li a:hover {
 }
 
 
-/*? ALTA & BAJA */
+/*? ELIMINAR */
 
-.altabaja-joboffer-container {
+.remove-joboffer-container {
     display: flex;
     flex-direction: column;
     background-color: black;
@@ -711,7 +718,7 @@ nav ul li a:hover {
     box-sizing: border-box;
 }
 
-.joboffer-altabaja {
+.joboffer-remove {
     height: 100px;
 }
 

@@ -7,15 +7,13 @@ namespace Models;
 
 Class Company{
 
-    private $comp_id;
-    private $comp_name;
-    private $comp_type;
-    private $comp_active;
-    private $comp_email;
-    private $comp_pass;
-    private $comp_type_int;
-
-
+    private $id;
+    private $name;
+    private $type;
+    private $active;
+    private $email;
+    private $password;
+  
 
     ///CONSTRUCTOR
     
@@ -26,124 +24,107 @@ Class Company{
     ///GETTERS & SETTERS
 
     /**
-     * Get the value of comp_name
+     * Get the value of name
      */ 
-    public function getComp_name()
+    public function getName()
     {
-        return $this->comp_name;
+        return $this->name;
     }
 
     /**
-     * Set the value of comp_name
+     * Set the value of name
      *
      * @return  self
      */ 
-    public function setComp_name($comp_name)
+    public function setName($name)
     {
-        $this->comp_name = $comp_name;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get the value of comp_id
+     * Get the value of id
      */ 
-    public function getComp_id()
+    public function getId()
     {
-        return $this->comp_id;
+        return $this->id;
     }
 
     /**
-     * Set the value of comp_id
+     * Set the value of id
      *
      * @return  self
      */ 
-    public function setComp_id($comp_id)
+    public function setId($id)
     {
-        $this->comp_id = $comp_id;
+        $this->id = $id;
 
         return $this;
     }
 
     /**
-     * Get the value of comp_type
+     * Get the value of type
      */ 
-    public function getComp_type()
+    public function getType()
     {
-        return $this->comp_type;
+        return $this->type;
     }
 
     /**
-     * Set the value of comp_type
+     * Set the value of type
      *
      * @return  self
      */ 
-    public function setComp_type($comp_type)
+    public function setType($type)
     {
-        $this->comp_type = $comp_type;
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * Get the value of comp_active
+     * Get the value of active
      */ 
-    public function getComp_active()
+    public function getActive()
     {
-        return $this->comp_active;
+        return $this->active;
     }
 
     /**
-     * Set the value of comp_active
+     * Set the value of active
      *
      * @return  self
      */ 
-    public function setComp_active($comp_active)
+    public function setActive($active)
     {
-        $this->comp_active = $comp_active;
+        $this->active = $active;
 
         return $this;
     }
 
-    public function getComp_email(){
-        return $this->comp_email;
+    public function getEmail(){
+        return $this->email;
     }
 
-    public function getComp_pass(){
-        return $this->comp_pass;
-    }
-    public function setComp_email($comp_email)
+    public function setEmail($email)
     {
-        $this->comp_email = $comp_email;
-
-        return $this;
-    }
-    public function setComp_pass($comp_pass)
-    {
-        $this->comp_pass = $comp_pass;
+        $this->email = $email;
 
         return $this;
     }
 
-    /**
-     * Get the value of comp_type_int
-     */ 
-    public function getComp_type_int()
-    {
-        return $this->comp_type_int;
+    public function getPassword(){
+        return $this->password;
     }
-
-    /**
-     * Set the value of comp_type_int
-     *
-     * @return  self
-     */ 
-    public function setComp_type_int($comp_type_int)
+    
+    public function setPassword($password)
     {
-        $this->comp_type_int = $comp_type_int;
+        $this->password = $password;
 
         return $this;
     }
+
 }
 
 ?>

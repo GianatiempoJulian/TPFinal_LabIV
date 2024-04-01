@@ -2,38 +2,105 @@
 
 namespace Models;
 
-require_once ("Config/Autoload.php");
 
-use Config\Autoload as Autoload;
-use Models\User as User;
-
-Autoload::Start();
-
-Class Administrator extends User{
-
-    private $idAdministrator;
-
+class Administrator extends User
+{
+    
     public function __construct(){}
 
-    /**
-     * Get the value of idAdministrator
-     */ 
-    public function getIdAdministrator()
+    public function getId()
     {
-        return $this->idAdministrator;
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+   /**
+     * Get the value of firstName
+     */ 
+    public function getFirstname()
+    {
+        return $this->firstname;
     }
 
     /**
-     * Set the value of idAdministrator
+     * Set the value of firstName
      *
      * @return  self
      */ 
-    public function setIdAdministrator($idAdministrator)
+    public function setFirstname($firstname)
     {
-        $this->idAdministrator = $idAdministrator;
+        $this->firstname = $firstname;
+        return $this;
+    }
+
+    /**
+     * Get the value of lastName
+     */ 
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Set the value of lastName
+     *
+     * @return  self
+     */ 
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
 
         return $this;
     }
+
+    /**
+     * Get the value of mail
+     */ 
+   
+    /**
+     * Get the value of password
+     */ 
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @return  self
+     */ 
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of email
+     */ 
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set the value of email
+     *
+     * @return  self
+     */ 
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
 }
 
 

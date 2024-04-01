@@ -23,7 +23,7 @@ Autoload::Start();
                                    <?php
                                         foreach($studentXJobOfferList as $studentXJobOffer)
                                         {
-                                             if ($studentXJobOffer->getStudentId() == $student->getStudentId())
+                                             if ($studentXJobOffer->getStudentId() == $student->getRecordId())
                                              {
                                                   foreach($jobOfferList as $jobOffer)
                                                   {
@@ -31,20 +31,28 @@ Autoload::Start();
                                                        {
                                                        foreach($jobPositionList as $jobPosition)
                                                        {
-                                                            if($jobOffer->getIdJobPosition() == $jobPosition->getId())
+                                                            if($jobOffer->getJobPositionId() == $jobPosition->getId())
                                                             {
                                                                  $jobPositionAux = $jobPosition;
                                                                  $idJobOffer = $jobOffer->getId();
                                                                       if($jobOffer->getActive() == true){
                                    ?>
-                                   <th class="joboffer postulated " style="background-image: url('<?php echo $jobOffer->getImage()?>')" > <?php echo $jobOffer->getId()?><br> <?php $jobPositionAux->getDescription(); ?> <?php  echo $jobOffer->getDescription()?> <br> <?php echo $jobOffer->getFecha()?></th>
+                                   <th class="joboffer postulated " style="background-image: url('<?php echo $jobOffer->getImage()?>')" > <?php echo $jobOffer->getId()?><br> <?php $jobPositionAux->getDescription(); ?> <?php  echo $jobOffer->getDescription()?> <br> <?php echo $jobOffer->getDate()?></th>
                                    
                                    <?php
                                         }
                                         else
                                         {
                                    ?>
-                                   <th class="joboffer expired" style="background-image: url('<?php echo $jobOffer->getImage()?>')" > <?php echo $jobOffer->getId()?><br> <?php $jobPositionAux->getDescription(); ?> <?php  echo $jobOffer->getDescription()?> <br> <?php echo $jobOffer->getFecha()?> <br> Expirada</th>
+                                   <th class="joboffer expired" style="background-image: url('<?php echo $jobOffer->getImage()?>');" > 
+                                   <div>
+                                        <p><?php echo $jobOffer->getId()?></p>
+                                        <p><?php $jobPositionAux->getDescription()?></p>
+                                        <p><?php  echo $jobOffer->getDescription()?></p>
+                                        <p><?php echo $jobOffer->getDate()?></p>
+                                        <p style="color:red">EXPIRADA</p>
+                                   </div>
+                                   </th>
                                   
                               <?php
                               }

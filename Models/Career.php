@@ -5,26 +5,26 @@ namespace Models;
 
 
 Class Career {
-    private $careerId;
-    private $carrer_description;
+    private $id;
+    private $description;
     private $active;
 
     /**
-     * Get the value of careerId
+     * Get the value of id
      */ 
-    public function getCareerId()
+    public function getid()
     {
-        return $this->careerId;
+        return $this->id;
     }
 
     /**
-     * Set the value of careerId
+     * Set the value of id
      *
      * @return  self
      */ 
-    public function setCareerId($careerId)
+    public function setid($id)
     {
-        $this->careerId = $careerId;
+        $this->id = $id;
 
         return $this;
     }
@@ -52,21 +52,21 @@ Class Career {
     }
 
     /**
-     * Get the value of carrer_description
+     * Get the value of description
      */ 
-    public function getCarrer_description()
+    public function getDescription()
     {
-        return $this->carrer_description;
+        return $this->description;
     }
 
     /**
-     * Set the value of carrer_description
+     * Set the value of description
      *
      * @return  self
      */ 
-    public function setCarrer_description($carrer_description)
+    public function setDescription($description)
     {
-        $this->carrer_description = $carrer_description;
+        $this->description = $description;
 
         return $this;
     }

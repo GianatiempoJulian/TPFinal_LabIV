@@ -58,16 +58,16 @@ class PDF extends FPDF
     }
     }
 
-    $conexion = mysqli_connect("localhost","root","root43456672","University");
+    $conexion = mysqli_connect("localhost","root","","utnjobs");
     $consulta = 
-    'SELECT students.recordId, students.firstName, students.lastName, students.email, students.dni,
+    'SELECT students.recordId, students.firstname, students.lastname, students.email, students.dni,
     students.gender, students.birthDate, students.phoneNumber
     FROM students 
     INNER JOIN student_x_job_offer 
-    ON student_x_job_offer.recordId = students.recordId
-    INNER JOIN job_offer 
-    ON student_x_job_offer.o_id = job_offer.o_id
-    WHERE student_x_job_offer.o_id = ' . $GLOBALS['offerId'];
+    ON student_x_job_offer.studentId = students.recordId
+    INNER JOIN job_offers 
+    ON student_x_job_offer.jobOfferId = job_offers.id
+    WHERE student_x_job_offer.jobOfferId = ' . $GLOBALS['offerId'];
      ;
     $resultado = mysqli_query($conexion, $consulta);
     ob_start ();
@@ -81,8 +81,8 @@ class PDF extends FPDF
 
         $pdf->SetX(5);
         $pdf->Cell(10,10,$row['recordId'],1,0,'C',0);
-        $pdf->Cell(25,10,$row['firstName'],1,0,'C',0);
-        $pdf->Cell(25,10,$row['lastName'],1,0,'C',0);
+        $pdf->Cell(25,10,$row['firstname'],1,0,'C',0);
+        $pdf->Cell(25,10,$row['lastname'],1,0,'C',0);
         $pdf->Cell(70,10,$row['email'],1,0,'C',0);
         $pdf->Cell(20,10,$row['dni'],1,0,'C',0);
         $pdf->Cell(20,10,$row['gender'],1,0,'C',0);

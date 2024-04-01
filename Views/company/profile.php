@@ -24,27 +24,23 @@ Autoload::Start();
                 <img src="<?php echo IMG_PATH ?>/pp/company.png" alt="profile_picture">
             </div>
             <div>
-                <h2><?php echo $comp->getComp_name(); ?></h2>
-                <h5><?php echo $comp->getComp_type(); ?></h5>
+                <h2><?php echo $company->getName(); ?></h2>
+                <h5><?php echo $company->getType(); ?></h5>
              </div>
             <div class="company-profile-options">
                 <?php 
-                if ($_SESSION['type'] == 1)
+                if ($_SESSION['type'] != 0)
                 {?>
-                    <a href="<?php echo FRONT_ROOT?>Company/showModifyView/<?php echo $companyId?>">Editar Empresa</a>
+                    <a href="<?php echo FRONT_ROOT?>Company/showModifyView/<?php echo $company->getId()?>">Editar Empresa</a>
                     <?php
                 }
                 ?>
-                <a href="<?php echo FRONT_ROOT?>Company/showOffers/<?php echo $companyId?>">Empleos Publicados</a>
+                <a href="<?php echo FRONT_ROOT?>Company/showOffers/<?php echo $company->getId()?>">Empleos Publicados</a>
                 <?php
                 
-                if ($_SESSION['type'] == 1 && $comp->getComp_active() == true){
+                if ($_SESSION['type'] == 1){
                 ?>
-                <a class="company-baja" href="<?php echo FRONT_ROOT?>Company/remove/<?php echo $companyId?>">Dar de baja Empresa</a>
-                <?php
-                }else if ($_SESSION['type'] == 1 && $comp->getComp_active() != true){
-                    ?>
-                <a href="<?php echo FRONT_ROOT?>Company/alta/<?php echo $companyId?>">Dar de alta Empresa</a>
+                <a class="company-baja" href="<?php echo FRONT_ROOT?>Company/remove/<?php echo $company->getId()?>">Dar de baja Empresa</a>
                 <?php
                 }
                 ?>

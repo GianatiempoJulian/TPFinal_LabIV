@@ -3,7 +3,7 @@ namespace DAO;
 
 use Models\User as User;
 
-interface IUserDAO{
+interface IAdministratorDAO{
    // function exist($email,$pass);
 }
 

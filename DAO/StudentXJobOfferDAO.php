@@ -8,15 +8,15 @@
     class StudentXJobOfferDAO
     {
         private $connection;
-        private $tableName = "STUDENT_X_JOB_OFFER";
+        private $tableName = "student_x_job_offer";
 
         public function add(StudentXJobOffer $studentXJob)
         {
             try
             {
-                $query = "INSERT INTO ".$this->tableName." (recordId, o_id) VALUES (:recordId, :o_id)";
-                $parameters["recordId"] = $studentXJob->getStudentId();
-                $parameters["o_id"] = $studentXJob->getJobOfferId();
+                $query = "INSERT INTO ".$this->tableName." (studentId, jobOfferId) VALUES (:studentId, :jobOfferId)";
+                $parameters["studentId"] = $studentXJob->getStudentId();
+                $parameters["jobOfferId"] = $studentXJob->getJobOfferId();
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parameters);
             }
@@ -38,8 +38,8 @@
                 foreach($resultSet as $row)
                 {                
                     $studentXJob = new StudentXJobOffer();
-                    $studentXJob->setStudentId($row["recordId"]);
-                    $studentXJob->setJobOfferId($row["o_id"]);
+                    $studentXJob->setStudentId($row["studentId"]);
+                    $studentXJob->setJobOfferId($row["jobOfferId"]);
                     array_push($sxjlist, $studentXJob);
                 }
                 return $sxjlist;
@@ -56,15 +56,15 @@
             try
             {
                 $sxjlist = array();
-                $query = "SELECT * FROM $this->tableName WHERE o_id = $id";
+                $query = "SELECT * FROM $this->tableName WHERE jobOfferId = $id";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
                 
                 foreach($resultSet as $row)
                 {                
                     $studentXJob = new StudentXJobOffer();
-                    $studentXJob->setStudentId($row["recordId"]);
-                    $studentXJob->setJobOfferId($row["o_id"]);
+                    $studentXJob->setStudentId($row["studentId"]);
+                    $studentXJob->setJobOfferId($row["jobOfferId"]);
                     array_push($sxjlist, $studentXJob);
                 }
                 return $sxjlist;
@@ -80,15 +80,15 @@
             try
             {
                 $sxjlist = array();
-                $query = "SELECT * FROM $this->tableName WHERE recordId = $id";
+                $query = "SELECT * FROM $this->tableName WHERE studentId = $id";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
                 
                 foreach($resultSet as $row)
                 {                
                     $studentXJob = new StudentXJobOffer();
-                    $studentXJob->setStudentId($row["recordId"]);
-                    $studentXJob->setJobOfferId($row["o_id"]);
+                    $studentXJob->setStudentId($row["studentId"]);
+                    $studentXJob->setJobOfferId($row["jobOfferId"]);
                     array_push($sxjlist, $studentXJob);
                 }
                 return $sxjlist;
@@ -103,7 +103,7 @@
         {
             try
             {
-                $query = "SELECT * FROM $this->tableName WHERE recordId = $studentId AND o_id = $joId";
+                $query = "SELECT * FROM $this->tableName WHERE studentId = $studentId AND jobOfferId = $joId";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
 
@@ -122,7 +122,7 @@
             {
                 try
                 {
-                    $query = "DELETE from $this->tableName WHERE recordId = $studentId AND o_id = $joId";
+                    $query = "DELETE FROM "  .$this->tableName. " WHERE studentId=" .$studentId. " AND jobOfferId=" .$joId;
                     $this->connection = Connection::GetInstance();
                     $this->connection->ExecuteNonQuery($query);
                 }

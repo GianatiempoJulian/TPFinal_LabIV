@@ -8,17 +8,17 @@
      <div id="root vh90">
           <form action="<?php echo FRONT_ROOT ?>JobOffer/remove" method= "post">
           <section class="container vh90">
-               <div class="altabaja-joboffer-container">
+               <div class="remove-joboffer-container">
                <table class="joboffer-table">
-                    <h1>Dar de baja una oferta laboral</h1>
-                    <input class="input input-altabaja" type="number" name="job_offer_id" placeholder="Ingresar ID para dar de baja" required>
+                    <h1>Eliminar oferta laboral</h1>
+                    <input class="input input-remove" type="number" name="job_offer_id" placeholder="Ingresar ID para dar de baja" required>
                     <tbody class="joboffer-table-body">
                          <tr class="joboffers">
                          <?php 
-                             foreach($jo_list as $jo){
-                                   if ($jo->getIdCompany() == $c->getComp_id()){
+                             foreach($jobOfferList as $jobOffer){
+                                   if ($jobOffer->getCompanyId() == $c->getId() && $jobOffer->getActive() == true){
                         ?>
-                             <th class="joboffer joboffer-altabaja"><?php echo $jo->getId()?><br><?php echo $jo->getDescription()?><br> <a href="<?php echo FRONT_ROOT ?>JobOffer/remove/<?php echo $jo->getId()?>">Eliminar</a></th>
+                             <th class="joboffer joboffer-remove" style="background-image: url('<?php echo $jobOffer->getImage()?>')"><?php echo $jobOffer->getId()?><br><?php echo $jobOffer->getDescription()?><br> <a style="color:red" href="<?php echo FRONT_ROOT ?>JobOffer/remove/<?php echo $jobOffer->getId()?>">Eliminar</a></th>
                          </tr>
                          <?php
                          }}

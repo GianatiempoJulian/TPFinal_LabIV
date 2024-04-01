@@ -83,7 +83,7 @@
         public function showModifyView($companyId)
         {
             if($_SESSION) {
-                if($_SESSION['type'] == 1) {
+                if($_SESSION['type'] != 0) {
                     $companyAux = new Company();
                     $companyAux = $this->companyDAO->getById($companyId);
                     require_once(VIEWS_PATH."/company/modify.php");
@@ -115,22 +115,17 @@
 
         //? Agregar empresa.
 
-        public function add($comp_name, $comp_type, $comp_email, $comp_pass)
+        public function add($name, $type, $email, $password)
         {
             if(isset($_POST)) {
-                if($this->companyDAO->searchCompanyByName($comp_name) == NULL && $this->companyDAO->searchCompanyByEmail($comp_email) == NULL) {
-
-                    $comp_list = $this->companyDAO->getAll();
-                    $id = $this->companyDAO->countCompanies()+1;
-
+                if($this->companyDAO->getByName($name) == NULL && $this->companyDAO->getByEmail($email) == NULL) {
+                    $list = $this->companyDAO->getAll();
                     $company = new Company();
-                    $company->setComp_Id($id);
-                    $company->setComp_name($comp_name);
-                    $company->setComp_type($comp_type);
-                    $company->setComp_active(true);
-                    $company->setComp_email($comp_email);
-                    $company->setComp_pass($comp_pass);
-                    $company->setComp_type_int(2);
+                    $company->setName($name);
+                    $company->setType($type);
+                    $company->setActive(true);
+                    $company->setEmail($email);
+                    $company->setPassword($password);
                     $this->companyDAO->add($company);
                     echo "<script>alert('Empresa agregada con exito');</script>";
 
@@ -143,7 +138,7 @@
                     } 
                 }
                 else {
-                    echo "<script>alert('El nombre de esa empresa ya se encuentra en uso');</script>";
+                    echo "<script>alert('El nombre o correo de esa empresa ya se encuentra en uso');</script>";
                     $this->showAddView();
                 }
             }
@@ -164,27 +159,19 @@
             }
         }
 
-        //? Dar de alta empresa.
-
-        public function alta($companyId)
-        {
-            $this->companyDAO->alta($companyId);
-            echo "<script>alert('La empresa ha sido dada de alta');</script>";
-            $this->showListView();
-        }
 
         //? Modificar empresa.
 
-        public function modify($companyId,$companyName,$companyType)
+        public function modify($id,$name,$type)
         {
             $companyModify = new Company();
-            $companyModify->setComp_id($companyId);
-            $companyModify->setComp_name($companyName);
-            $companyModify->setComp_type($companyType);
-            $companyModify->setComp_active(true);
+            $companyModify->setid($id);
+            $companyModify->setName($name);
+            $companyModify->setType($type);
+            $companyModify->setActive(true);
             
             $this->companyDAO->modify($companyModify);
-            $this->showCompanyById($companyId);
+            $this->showCompanyById($id);
         }
 
         //! =================================================================================================
@@ -224,23 +211,23 @@
 
         //? Buscar empresa por ID.
 
-        public function showCompanyById($companyId)
+        public function ShowCompanyById($companyId)
         {
-            $comp = $this->companyDAO->getById($companyId);
+            $company = $this->companyDAO->getById($companyId);
             require_once(VIEWS_PATH. "/company/profile.php");
         }
 
         //? Buscar empresa por nombre.
 
-        public function searchCompany($companyName){
+        public function getByName($name){
 
-            $comp = $this->companyDAO->searchCompanyByName($companyName);
+            $comp = $this->companyDAO->getByName($name);
            
             if($comp == null){
                 echo "<script>alert('Empresa inexistente');</script>";
                 $this->showListView();
             } else {
-                $this->showCompanyById($comp->getComp_Id());
+                $this->showCompanyById($comp->getId());
             }
         }
 

@@ -18,21 +18,21 @@
     class JobOfferDAO implements IJobOfferDAO{
 
         private $connection;
-        private $tableName = "job_offer";
+        private $tableName = "job_offers";
       
 
         public function add(JobOffer $jobOffer)
         {
             try {
-                $query = "INSERT INTO ".$this->tableName." (o_id,o_idJobPosition, o_idCompany, o_fecha, o_description, o_active, o_image) VALUES ( :o_id,:o_idJobPosition, :o_idCompany, :o_fecha, :o_description, :o_active, :o_image);";
+                $query = "INSERT INTO ".$this->tableName." (id,jobPositionId, companyId, date, description, active, image) VALUES ( :id,:jobPositionId, :companyId, :date, :description, :active, :image);";
 
-                $parameters["o_id"] = $jobOffer->getId();
-                $parameters["o_idJobPosition"] = $jobOffer->getIdJobPosition();
-                $parameters["o_idCompany"] = $jobOffer->getIdCompany();
-                $parameters["o_fecha"] = $jobOffer->getFecha();
-                $parameters["o_description"] = $jobOffer->getDescription();
-                $parameters["o_active"] = $jobOffer->getActive();
-                $parameters["o_image"] = $jobOffer->getImage();
+                $parameters["id"] = $jobOffer->getId();
+                $parameters["jobPositionId"] = $jobOffer->getJobPositionId();
+                $parameters["companyId"] = $jobOffer->getCompanyId();
+                $parameters["date"] = $jobOffer->getDate();
+                $parameters["description"] = $jobOffer->getDescription();
+                $parameters["active"] = $jobOffer->getActive();
+                $parameters["image"] = $jobOffer->getImage();
                
 
                 $this->connection = Connection::GetInstance();
@@ -64,20 +64,20 @@
                     $userInJobList = array();
                     foreach($studentXJobList as $uxj)
                     {
-                        if($uxj->getJobOfferId() == $row["o_id"])
+                        if($uxj->getJobOfferId() == $row["id"])
                         {
                             array_push($userInJobList,$uxj->getStudentId());
                         }
                     }
 
                     $jobOffer = new JobOffer();
-                    $jobOffer->setId($row["o_id"]);
-                    $jobOffer->setIdJobPosition($row["o_idJobPosition"]);
-                    $jobOffer->setIdCompany($row["o_idCompany"]);
-                    $jobOffer->setFecha($row["o_fecha"]);
-                    $jobOffer->setDescription($row["o_description"]);
-                    $jobOffer->setActive($row["o_active"]);
-                    $jobOffer->setImage($row["o_image"]);
+                    $jobOffer->setId($row["id"]);
+                    $jobOffer->setjobPositionId($row["jobPositionId"]);
+                    $jobOffer->setCompanyId($row["companyId"]);
+                    $jobOffer->setDate($row["date"]);
+                    $jobOffer->setDescription($row["description"]);
+                    $jobOffer->setActive($row["active"]);
+                    $jobOffer->setImage($row["image"]);
                     $userInJobList = null;
                     array_push($jobOfferList, $jobOffer);
                 }
@@ -91,7 +91,7 @@
         public function remove($id)
         {
             try{
-                $query = "UPDATE $this->tableName SET o_active = 0 WHERE o_id = $id;";
+                $query = "UPDATE $this->tableName SET active = 0 WHERE id = $id;";
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query);
             }
@@ -100,29 +100,15 @@
                 throw $ex;
             }  
         }
-        
-        public function alta($id)
-        {
-            try
-            {
-                $query = "UPDATE $this->tableName SET o_active = 1 WHERE o_id = $id;";
-                $this->connection = Connection::GetInstance();
-                $this->connection->ExecuteNonQuery($query);
-            }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }
-        }
 
         public function last()
         {
             try
             {
-                $query = "SELECT last_insert_id() from $this->tableName";
+                $query = "SELECT MAX(id) FROM JOB_OFFERS";
                 $this->connection = Connection::GetInstance();
-                $last =  $this->connection->ExecuteNonQuery($query);
-                return $last;
+                $last =  $this->connection->Execute($query);
+                return $last[0]["MAX(id)"];
             }
             catch(Exception $ex)
             {
@@ -134,14 +120,14 @@
         {
             try
             {
-                $query = "UPDATE $this->tableName SET o_idJobPosition = :o_idJobPosition , o_idCompany = :o_idCompany, o_fecha = :o_fecha, o_description = :o_description, o_active = :o_active, o_image = :o_image   WHERE o_id = :o_id";
-                $parameters["o_id"] = $jobOffer->getId();
-                $parameters["o_idJobPosition"] = $jobOffer->getIdJobPosition();
-                $parameters["o_idCompany"] = $jobOffer->getIdCompany();
-                $parameters["o_fecha"] = $jobOffer->getFecha();
-                $parameters["o_description"] = $jobOffer->getDescription();
-                $parameters["o_active"] = $jobOffer->getActive();
-                $parameters["o_image"] = $jobOffer->getImage();
+                $query = "UPDATE $this->tableName SET jobPositionId = :jobPositionId , companyId = :companyId, date = :date, description = :description, active = :active, image = :image  WHERE id = :id";
+                $parameters["id"] = $jobOffer->getId();
+                $parameters["jobPositionId"] = $jobOffer->getJobPositionId();
+                $parameters["companyId"] = $jobOffer->getCompanyId();
+                $parameters["date"] = $jobOffer->getDate();
+                $parameters["description"] = $jobOffer->getDescription();
+                $parameters["active"] = $jobOffer->getActive();
+                $parameters["image"] = $jobOffer->getImage();
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parameters);
 
@@ -152,29 +138,23 @@
             }
         }
 
-        public function countOffers()
-        {
-            $list = $this->GetAll();
-            return count($list);
-        }
-
-        public function searchOfferById ($o_id)
+        public function getByID ($id)
         {
             try
             {
                 $jobOffer = new JobOffer();
-                $query = " SELECT * FROM ".$this->tableName . " WHERE o_id = " .$o_id;
+                $query = " SELECT * FROM ".$this->tableName . " WHERE id = " .$id;
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
                 foreach ($resultSet as $row)
                 {
-                    $jobOffer->setId($row["o_id"]);
-                    $jobOffer->setIdJobPosition($row["o_idJobPosition"]);
-                    $jobOffer->setIdCompany($row["o_idCompany"]);
-                    $jobOffer->setFecha($row["o_fecha"]);
-                    $jobOffer->setDescription($row["o_description"]);
-                    $jobOffer->setActive($row["o_active"]);
-                    $jobOffer->setImage($row["o_image"]);
+                    $jobOffer->setId($row["id"]);
+                    $jobOffer->setJobPositionId($row["jobPositionId"]);
+                    $jobOffer->setCompanyId($row["companyId"]);
+                    $jobOffer->setDate($row["date"]);
+                    $jobOffer->setDescription($row["description"]);
+                    $jobOffer->setActive($row["active"]);
+                    $jobOffer->setImage($row["image"]);
 
                 }
                 return $jobOffer;
@@ -190,20 +170,20 @@
         {
             try {
                 $jobOfferList = array();
-                $query = " SELECT * FROM ".$this->tableName . " WHERE o_active = " .$status;
+                $query = " SELECT * FROM ".$this->tableName . " WHERE active = " .$status;
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
 
                 foreach ($resultSet as $row)
                 {
                     $jobOffer = new JobOffer();
-                    $jobOffer->setId($row["o_id"]);
-                    $jobOffer->setIdJobPosition($row["o_idJobPosition"]);
-                    $jobOffer->setIdCompany($row["o_idCompany"]);
-                    $jobOffer->setFecha($row["o_fecha"]);
-                    $jobOffer->setDescription($row["o_description"]);
-                    $jobOffer->setActive($row["o_active"]);
-                    $jobOffer->setImage($row["o_image"]);
+                    $jobOffer->setId($row["id"]);
+                    $jobOffer->setJobPositionId($row["jobPositionId"]);
+                    $jobOffer->setCompanyId($row["companyId"]);
+                    $jobOffer->setdate($row["date"]);
+                    $jobOffer->setDescription($row["description"]);
+                    $jobOffer->setActive($row["active"]);
+                    $jobOffer->setImage($row["image"]);
                     array_push($jobOfferList, $jobOffer);
                 }
                 return $jobOfferList;

@@ -16,7 +16,7 @@ class MailDAO{
 
     public function __construct(){}
 
-    public function sendNewMail($email, $msg)
+    public function sendNewMail($email, $msg, $subject)
     {
         $mail = new PHPMailer(true);
         try {
@@ -42,7 +42,7 @@ class MailDAO{
 
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Oferta expirada';
+            $mail->Subject = $subject;
             $mail->Body    = $msg;
             $mail->AltBody = 'alt';
 

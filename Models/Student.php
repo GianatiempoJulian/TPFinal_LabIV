@@ -5,14 +5,13 @@ namespace Models;
 require_once ("Config/Autoload.php");
 
 use Config\Autoload as Autoload;
-use Models\User as User;
-
 
 Autoload::Start();
 
-Class Student extends User{
+Class Student extends User
+{
 
-    private $studentId;
+    private $recordId;
     private $careerId;
     private $dni;
     private $fileNumber;
@@ -24,17 +23,9 @@ Class Student extends User{
 
     public function __construct(){}
 
-    /**
-     * Get the value of studentId
-     */ 
-   
-
-    /**
-     * Get the value of studentId
-     */ 
-    public function getStudentId()
+    public function getId()
     {
-        return $this->studentId;
+        return $this->id;
     }
 
     /**
@@ -42,9 +33,27 @@ Class Student extends User{
      *
      * @return  self
      */ 
-    public function setStudentId($studentId)
+    public function setId($id)
     {
-        $this->studentId = $studentId;
+        $this->id = $id;
+
+        return $this;
+    }
+
+    
+    public function getRecordId()
+    {
+        return $this->recordId;
+    }
+
+    /**
+     * Set the value of studentId
+     *
+     * @return  self
+     */ 
+    public function setRecordId($recordId)
+    {
+        $this->recordId = $recordId;
 
         return $this;
     }
@@ -153,25 +162,6 @@ Class Student extends User{
 
     
     /**
-     * Get the value of email
-     */ 
-    /*
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-  
-    /*
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-*/
-    /**
      * Get the value of phoneNumber
      */ 
     public function getPhoneNumber()
@@ -207,6 +197,86 @@ Class Student extends User{
     public function setActive($active)
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of lastname
+     */ 
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Set the value of lastname
+     *
+     * @return  self
+     */ 
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of firstname
+     */ 
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * Set the value of firstname
+     *
+     * @return  self
+     */ 
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of email
+     */ 
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set the value of email
+     *
+     * @return  self
+     */ 
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of password
+     */ 
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @return  self
+     */ 
+    public function setPassword($password)
+    {
+        $this->password = $password;
 
         return $this;
     }

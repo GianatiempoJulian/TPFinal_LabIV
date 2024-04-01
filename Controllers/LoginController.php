@@ -4,7 +4,7 @@ namespace Controllers;
 
     //! DAO's:
     use DAO\CompanyDAO as CompanyDAO;
-    use DAO\UserDao as UserDAO;
+    use DAO\AdministratorDAO as AdministratorDAO;
     use DAO\StudentDAO as StudentDAO;   
 
 
@@ -36,55 +36,60 @@ namespace Controllers;
 
         public function toType($type){
 
-            if ($type == 0)
+            if($type != NULL)
             {
-                header("location:". FRONT_ROOT . "Student/ShowAddView");
+                switch($type){
+                    case 0:
+                        header("location:". FRONT_ROOT . "Student/ShowAddView");
+                    case 1:
+                        header("location:". FRONT_ROOT . "Administrator/ShowAddView");
+                    case 2:
+                        header("location:". FRONT_ROOT . "Company/ShowAddView");
+                }
             }
-            if($type == 1)
+            else
             {
-                header("location:". FRONT_ROOT . "User/ShowAddView");
-            
-            }
-            if($type == 2){
-                header("location:". FRONT_ROOT . "Company/ShowAddView");
+                echo "<script>alert('Tipo de usuario no indicado.');</script>";
+                $this->showRegisterView();
             }
         }
         
         //? Verificación de datos.
 
-        public function verify($user_mail,$password)
+        public function verify($email,$password)
         {
-            $users = new UserDAO();
+            $admins = new AdministratorDAO();
             $students = new StudentDAO();
             $company = new CompanyDAO();
 
-            $flag = $users->exist($user_mail,$password);
-            $user_in_session = null;
+            $flag = $admins->exist($email,$password);
+           
                 
             if($flag == 0)
             {    
-                $student_in_session = $students->searchStudent($user_mail);
-                $_SESSION['id_student'] = $student_in_session->getStudentId();
-                $_SESSION['type'] = $student_in_session->getType_user();
-                $_SESSION['email'] = $student_in_session->getEmail();
+                $studentInSession = $students->getByEmail($email);
+                session_start();
+                $_SESSION['id'] = $studentInSession->getRecordId();
+                $_SESSION['type'] = $flag;
+                $_SESSION['email'] = $studentInSession->getEmail();
                 header("location:". FRONT_ROOT . "JobOffer/RemoveDate");
             }
             else if($flag == 1)
             { 
-                $user_in_session = $users->searchUser($user_mail);
-                $_SESSION['email'] = $user_mail;
-                $_SESSION['type'] = $user_in_session->getType_user();
-                header("location:". FRONT_ROOT . "JobOffer/RemoveDate");
-
-                
+                $adminInSession = $admins->searchByEmail($email);
+                session_start();
+                $_SESSION['email'] = $email;
+                $_SESSION['type'] = $flag;
+                header("location:". FRONT_ROOT . "JobOffer/RemoveDate");                
             }
             else if ($flag == 2)
             {
-                $company_in_session = $company->searchCompanyByEmail($user_mail);
-                $_SESSION['id_comp'] = $company_in_session->getComp_id();
-                $_SESSION['email'] = $user_mail;
-                $_SESSION['type'] = $company_in_session->getComp_type_int();
-                $id = $_SESSION['id_comp'];
+                $companyInSession = $company->getByEmail($email);
+                session_start();
+                $_SESSION['id'] = $companyInSession->getId();
+                $_SESSION['email'] = $email;
+                $_SESSION['type'] = $flag;
+                $id = $_SESSION['id'];
                 header("location:". FRONT_ROOT . "JobOffer/RemoveDate");
 
             }

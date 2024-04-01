@@ -18,7 +18,7 @@ use DAO\ICompanyDAO as ICompanyDAO;
 $comp_repository = new CompanyDAO();
 $comp_list = $comp_repository->getAll();
 
-$texto =$_POST['comp_search']; 
+$texto = $_POST['comp_search']; 
  ?>
 
 <main>
@@ -29,10 +29,10 @@ $texto =$_POST['comp_search'];
                          <tr>
                          <?php 
                               foreach($comp_list as  $company){
-                                   $x=$company->getComp_id();
-                                  if(strcmp($company->getComp_name(),$texto) == 0) { 
+                                   $x=$company->getId();
+                                  if(strcmp($company->getName(),$texto) == 0) { 
                                     ?>
-                                    <th><?php echo $company->getComp_name()?> <br> <?php echo $company->getComp_type()?><a name ="comp_select" <?php echo "<a href='company_profile.php?comp_id=$x'>Ver info. completa</a>"?></a></th>
+                                    <th><?php echo $company->getName()?> <br> <?php echo $company->getType()?><a name ="comp_select" <?php echo "<a href='company_profile.php?comp_id=$x'>Ver info. completa</a>"?></a></th>
                                <?php
                                 }
                         

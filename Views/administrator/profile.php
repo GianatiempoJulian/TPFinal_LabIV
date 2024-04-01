@@ -28,7 +28,7 @@ require_once("Config/Autoload.php");
                 <img src="<?php echo IMG_PATH ?>/pp/admin.png" alt="profile_picture">
             </div>
              <div>
-                <h2><?php echo $user->getFirstName() . " " .  $user->getLastName()?></h2>
+                <h2><?php echo $administrator->getFirstName() . " " .  $administrator->getLastName()?></h2>
                 <h5>Administrador</h5>
              </div>
              <div class="user-profile-options">
@@ -37,8 +37,7 @@ require_once("Config/Autoload.php");
              <div>
              </div>
              <ul class="user-profile-data">
-                <li><?php echo "Tipo: ".$user->getType_user() ?></li>
-                <li><?php echo"Email: ". $user->getEmail() ?></li>
+                <li><?php echo"Email: ". $administrator->getEmail() ?></li>
             </ul>
         </div>
     </section>

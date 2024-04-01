@@ -60,7 +60,7 @@
 		
 		//? Vista agregar foto a oferta laboral.
 		
-		public function showAddImageView($id)
+		public function showAddImageView()
 		{
 			if($_SESSION) {
 				if($_SESSION['type'] == 1 || $_SESSION['type'] == 2) {
@@ -79,14 +79,14 @@
 		{
 			if ($_SESSION) {
 				if ($_SESSION['type'] != 0) {
-					$jo_list = $this->jobOfferDAO->getByStatus(1);
+					$jobOfferList = $this->jobOfferDAO->getAll();
 					$companyDAO = new CompanyDAO();
 
 					if ($_SESSION['type'] == 1) {
 						$companies = $companyDAO->getAll();
 						require_once(VIEWS_PATH . "/joboffer/remove.php");
 					} else {
-						$c = $companyDAO->getById($_SESSION['id_comp']);
+						$c = $companyDAO->getById($_SESSION['id']);
 						require_once(VIEWS_PATH . "/joboffer/remove-from-company.php");
 					}
 				} else {
@@ -111,35 +111,11 @@
 				$messageDAO = (new MessageDAO())->notLoggedMessage();
 			}	
 		 }
- 
-		//? Vista dar de alta oferta laboral.
- 
-		public function showAltaView()
-		{
-			$jo_list = $this->jobOfferDAO->getByStatus(0);
-			$companyDAO = new CompanyDAO();
-
-			if ($_SESSION) {
-				if ($_SESSION['type'] != 0) {
-					if ($_SESSION['type'] == 1) {
-						$companies = $companyDAO->getAll();
-						require_once(VIEWS_PATH . "/joboffer/alta.php");
-					} else {
-						$c = $companyDAO->getById($_SESSION['id_comp']);
-						require_once(VIEWS_PATH . "/joboffer/alta-from-company.php");
-					}
-				} else {
-					$messageDAO = (new MessageDAO())->studentAccessDeniedMessage();
-				}
-			} else {
-				$messageDAO = (new MessageDAO())->notLoggedMessage();
-			}
-		}
 
 		
 		//? Vista modificar oferta laboral.
 
-		public function showModifyView($id_job_offer)
+		public function showModifyView($jobOfferId)
         {
 			if($_SESSION)
             {
@@ -158,21 +134,21 @@
 
 					foreach ($jobOfferList as $jo)
 					{
-						if ($jo->getId() == $id_job_offer)
+						if ($jo->getId() == $jobOfferId)
 						{
 							$jobOfferAux = $jo;
 						}
 					}
 					foreach($companyList as $co)
 					{
-						if ($jobOfferAux->getIdCompany() == $co->getComp_id())
+						if ($jobOfferAux->getCompanyId() == $co->getId())
 						{
 							$companyAux = $co;
 						}
 					}
 					foreach ($jobPositionList as $jp)
 					{
-						if ($jo->getIdJobPosition() == $jp->getId())
+						if ($jo->getJobPositionId() == $jp->getId())
 						{
 							$jobPositionAux = $jp;
 						}
@@ -209,7 +185,7 @@
 				$companyAux = new Company();
 
 				$studentDAO = new StudentDAO();
-				$studentAux = $studentDAO->searchStudent($_SESSION['email']);
+				$studentAux = $studentDAO->getByEmail($_SESSION['email']);
 
 				require_once(VIEWS_PATH . "joboffer/full-list.php");
 			} else {
@@ -233,7 +209,7 @@
 				$company = $companyDAO->getById($id);
 
 				$studentDAO = new StudentDAO();
-				$student = $studentDAO->searchStudent($_SESSION['email']);
+				$student = $studentDAO->getByEmail($_SESSION['email']);
 
 				require_once(VIEWS_PATH . "/joboffer/list.php");
 			} else {
@@ -250,9 +226,9 @@
 
 		public function remove($jobOfferId)
 		{
-			$jobOffer = $this->jobOfferDAO->searchOfferById($jobOfferId);
+			$jobOffer = $this->jobOfferDAO->getById($jobOfferId);
 			$companyDAO = new CompanyDAO();
-			$company = $companyDAO->getById($jobOffer->getIdCompany());
+			$company = $companyDAO->getById($jobOffer->getCompanyId());
 
 			$studentXJobDAO = new StudentXJobOfferDAO(); 
 			$studentJobList = $studentXJobDAO->getByJobOfferId($jobOfferId); /// Obtengo la oferta a remover en la tabla intermedia, para desvincularla del usuario y notificar al estudiante.
@@ -260,65 +236,34 @@
 			$studentDAO = new StudentDAO();
 			$mailRepository = new MailDAO();
 
+			$studentIds = array();
+
+			$msg = 'La oferta [' . $jobOffer->getDescription(). '] de la empresa ['. $company->getName() .'] en la que estabas postulado fue dada de baja o ha expirado. Gracias por participar en nuestra busqueda!</b>';
+			$subject = "Oferta expirada";
+			
 			foreach ($studentJobList as $studentJob) {  //Recorro la lista de student_x_jobOffer
-				$student = $studentDAO->searchStudentById($studentJob->getStudentId()); //Obtenemos el id del estudiante que se postulo al jobOffer
-				$mailRepository->sendNewMail($student->getEmail(), $jobOffer->getDescription(), $company->getComp_name());
+				$student = $studentDAO->getById($studentJob->getStudentId()); //Obtenemos el id del estudiante que se postulo al jobOffer
+				$mailRepository->sendNewMail($student->getEmail(),$msg, $subject);
+				$studentIds[] = $student->getRecordId();
 			}
 
+			/*
+			foreach ($studentIds as $studentId)
+			{
+				$studentXJobDAO->remove($studentId, $jobOfferId);
+			}
+			*/
 			$this->jobOfferDAO->remove($jobOfferId);
 			
 			echo "<script>alert('Oferta eliminada con éxito');</script>";
 
 			if ($_SESSION['type'] == 2) {
-				$this->showOffers($_SESSION['id_comp']);
+				$this->showOffers($_SESSION['id']);
 			}
 
 			$this->showListView();
 		}
 
-		
-
-		//? Dar de baja oferta laboral con email.
-
-		public function removeDateWithEmail()
-        {
-			$JOlist= $this->jobOfferDAO->getAll();
-			$id_busqueda = null;
-
-			$student_job =  new StudentXJobOfferDAO();
-			$student_job_list = $student_job->getAll(); /// Obtengo toda la lista de student_x_jobOffer
-
-			$student = new StudentDAO();
-			$studentList = $student->getAll();
-
-			$companyDAO = new CompanyDAO();
-
-			foreach ($JOlist as $jo){
-				if ($jo->getFecha() <= date("Y-m-d") && $jo->getActive() == 1)
-				{	
-					$id_busqueda = $jo->getId(); // Obtengo la id del job offer que se va a eliminar
-					$JOcompany = $companyDAO->getById($jo->getIdCompany());
-
-					foreach ($student_job_list as $list2)  //Recorro la lista de student_x_jobOffer
-					{  
-						if ($list2->getJobOfferId() == $id_busqueda) //busco en la lista de student_x_jobOffer, cuando el id del offer sea =
-						{ 	
-							$student_id = $list2->getStudentId();  //Obtenemos el id del estudiante que se postulo al jobOffer
-							foreach ($studentList as $list3) //Recorremos la lista de estudiantes
-							{  
-								if ($list3->getStudentId() == $student_id){  //busco en la lista de student, cuando el id del student sea =
-										$email = $list3->getEmail();
-										$mailrepository = new MailDAO();
-										$mailrepository->sendNewMail($email, $jo->getDescription(),$JOcompany->getComp_name());
-									}
-								}
-							}
-						}
-						$this->jobOfferDAO->remove($jo->getId());
-					}
-			}
-            $this->showListView();
-        }
 
 		//? Dar de baja oferta laboral expirada.
 
@@ -327,7 +272,7 @@
 			$jobOfferList = $this->jobOfferDAO->getAll();
 
 			foreach ($jobOfferList as $jobOffer) {
-				if ($jobOffer->getFecha() <= date("Y-m-d")) {
+				if ($jobOffer->getDate() <= date("Y-m-d")) {
 					$this->jobOfferDAO->remove($jobOffer->getId());
 				}
 			}
@@ -339,10 +284,10 @@
 					header("location:" . FRONT_ROOT . "Student/ShowStudentProfile");
 					break;
 				case 1:
-					header("location:" . FRONT_ROOT . "User/ShowUserProfile");
+					header("location:" . FRONT_ROOT . "Administrator/ShowAdministratorProfile");
 					break;
 				case 2:
-					header("location:" . FRONT_ROOT . "Company/ShowCompanyById/{$_SESSION['id_comp']}");
+					header("location:" . FRONT_ROOT . "Company/ShowCompanyById/{$_SESSION['id']}");
 					break;
 				default:
 					echo "<script>window.history.go(-1);</script>";
@@ -369,7 +314,7 @@
 					{  
 						foreach ($JOlist as $jo) 
 						{
-							if ($jo->getFecha() <= date("Y-m-d") && $student_job->getJobOfferId() == $jo->getId()) 
+							if ($jo->getDate() <= date("Y-m-d") && $student_job->getJobOfferId() == $jo->getId()) 
 							{ 	
 								$student_id = $student_job->getStudentId();  //Obtenemos el id del estudiante que se postulo al jobOffer
 								foreach ($studentList as $student) //Recorremos la lista de estudiantes
@@ -377,11 +322,12 @@
 									if ($student->getStudentId() == $student_id) //busco en la lista de student, cuando el id del student sea =
 									{  
 										$joAux = $this->jobOfferDAO->searchOfferById($jo->getId());
-										$JOcompany = $companyDAO->getById($joAux->getIdCompany());
+										$JOcompany = $companyDAO->getById($joAux->getCompanyId());
 										$email = $student->getEmail();
 										$mailrepository = new MailDAO();
-										$msg = 'La oferta [' . $jo->getDescription(). '] de la empresa ['. $JOcompany->getComp_name() .'] en la que estabas postulado fue dada de baja o ha expirado. Gracias por participar en nuestra busqueda!</b>';
-										$mailrepository->sendNewMail($email,$msg);
+										$subject = "Oferta expirada";
+										$msg = 'La oferta [' . $jo->getDescription(). '] de la empresa ['. $JOcompany->getName() .'] en la que estabas postulado fue dada de baja o ha expirado. Gracias por participar en nuestra busqueda!</b>';
+										$mailrepository->sendNewMail($email,$msg, $subject);
 										$this->jobOfferDAO->remove($jo->getId());
 									}
 								}
@@ -395,7 +341,7 @@
 					}
 					else if($_SESSION['type'] == 1)
 					{
-						header("location:". FRONT_ROOT . "User/ShowUserProfile");
+						header("location:". FRONT_ROOT . "Administrator/ShowUserProfile");
 					}
 					else if ($_SESSION['type'] == 2)
 					{
@@ -404,38 +350,24 @@
 					}
         }
 
-	
-
-		//? Dar de alta oferta laboral.
-
-		public function alta($jobOfferId)
-        {
-            $this->jobOfferDAO->alta($jobOfferId);
-			echo "<script>alert('Oferta dada de alta con exito');</script>";
-            if($_SESSION['type'] == 2){
-				$this->showOffers($_SESSION['id_comp']);
-			}
-            $this->showListView();
-        }
-
 
 		//? Modificar oferta laboral.
 
-		public function modify($o_id,$o_idCompany,$o_idJobPosition,$o_fecha,$o_description,$o_image)
+		public function modify($id,$idCompany,$idJobPosition,$fecha,$description,$image)
         {
-            $jo_modify = new JobOffer();
-            $jo_modify->setId($o_id);
-            $jo_modify->setIdJobPosition($o_idJobPosition);
-            $jo_modify->setIdCompany($o_idCompany);
-            $jo_modify->setFecha($o_fecha);
-            $jo_modify->setDescription($o_description);
-			$jo_modify->setActive(true);
-			$jo_modify->setImage($o_image);
+            $jobOffer = new JobOffer();
+            $jobOffer->setId($id);
+            $jobOffer->setJobPositionId($idJobPosition);
+            $jobOffer->setCompanyId($idCompany);
+            $jobOffer->setDate($fecha);
+            $jobOffer->setDescription($description);
+			$jobOffer->setActive(true);
+			$jobOffer->setImage($image);
 
-            $this->jobOfferDAO->modify($jo_modify);
+            $this->jobOfferDAO->modify($jobOffer);
 
 			if($_SESSION['type'] == 2){
-				$this->showOffers($_SESSION['id_comp']);
+				$this->showOffers($_SESSION['id']);
 			} else {
 				$this->showListView();
 			}
@@ -443,21 +375,20 @@
 
 		//? Agregar oferta laboral.
 
-		public function add($id_jp, $id_com,$fecha,$description)
+		public function add($jobPositionId, $companyId,$date,$description)
         {
             if(isset($_POST))
             {
-                $id = $this->jobOfferDAO->countOffers()+1;
 				$offer = new JobOffer();
-                $offer->setId($id);
-                $offer->setIdJobPosition($id_jp);
-                $offer->setIdCompany($id_com);
-				$offer->setFecha($fecha);
+                $offer->setJobPositionId($jobPositionId);
+                $offer->setCompanyId($companyId);
+				$offer->setDate($date);
 				$offer->setDescription($description);
                 $offer->setActive(true);
 				$offer->setImage(' ');
                 $this->jobOfferDAO->Add($offer);
-				$this->showAddImageView($id); 
+				$id = $this->jobOfferDAO->last();
+				$this->showAddImageView(); 
             }
 			else
 			{
@@ -472,10 +403,10 @@
 		public function addImage()
         {
 			if(!empty($_FILES)){
-				$jo_id = $this->jobOfferDAO->last();
+				$jobOfferId = $this->jobOfferDAO->last();
 				$jo = new JobOffer();
-				$jo = $this->jobOfferDAO->searchOfferById($jo_id);
-				$file = $_FILES['o_image'];
+				$jo = $this->jobOfferDAO->getByID($jobOfferId);
+				$file = $_FILES['image'];
 				$fileName = $file['name'];
 				$fileTmpRoute = $file['tmp_name'];
 				$folderToSaveImg = $_SERVER['DOCUMENT_ROOT'].'/UTN/TPFinal_LabIV/Views/img/joboffer-flyers/';
@@ -502,10 +433,10 @@
 			$studentXJobOffer = new StudentXJobOffer();
 			$studentXJobOfferDAO = new StudentXJobOfferDAO();
 
-			$isPostuled = $studentXJobOfferDAO->isPostuled($_SESSION['id_student'], $idJob);
+			$isPostuled = $studentXJobOfferDAO->isPostuled($_SESSION['id'], $idJob);
 
 			if($isPostuled != true) {
-				$studentXJobOffer->setStudentId($_SESSION['id_student']);
+				$studentXJobOffer->setStudentId($_SESSION['id']);
 				$studentXJobOffer->setJobOfferId($idJob);
 				$studentXJobOfferList = $studentXJobOfferDAO->getAll();
 				$flag = 0;
@@ -523,26 +454,26 @@
 		{
 			if($_SESSION) {
 				//Job Offer
-				$student_repository = new StudentDAO();
-				$student_list = $student_repository->getAll();
+				$studentDAO = new StudentDAO();
+				$studentList = $studentDAO->getAll();
 				 
 				//Job Position para printear nombre posicion
-				$jobPosition_repository = new JobPositionDAO();
-				$jobPosition_list = $jobPosition_repository->getAll();
+				$jobPositionDAO = new JobPositionDAO();
+				$jobPositionList = $jobPositionDAO->getAll();
  
 				//SxJO para buscar ID estudiante vinculado a una oferta
-				$student_x_offer = new StudentXJobOfferDAO();
-				$student_x_offer_list = $student_x_offer->getAll();
+				$studentOfferDAO = new StudentXJobOfferDAO();
+				$studentOfferList = $studentOfferDAO->getAll();
 
 				//Career para mostrar carrera del estudiante.
-				$career_repository = new CareerDAO();
-				$career_list = $career_repository->getAll();
+				$careerDAO = new CareerDAO();
+				$careerList = $careerDAO->getAll();
  
 				//Career para guardar el nombre
-				$career_aux = new Career();
+				$careerAux = new Career();
  
 				//JO para buscar la oferta con la ID que nos enviaron
-				$jo = $this->jobOfferDAO->searchOfferById($id);
+				$jobOffer = $this->jobOfferDAO->getById($id);
 				require_once(VIEWS_PATH. "/joboffer/students-postulated.php");
 			 } else {
 				$messageDAO = (new MessageDAO())->notLoggedMessage();
@@ -554,11 +485,11 @@
 		public function PDFStudents($offerId)
 		{
 			if($_SESSION) {
-				$offer = $this->jobOfferDAO->searchOfferById($offerId);
+				$offer = $this->jobOfferDAO->getByID($offerId);
 				$companyDAO = new CompanyDAO();
-				$company = $companyDAO->getById($offer->getIdCompany());
+				$company = $companyDAO->getById($offer->getCompanyId());
 				$offerName = $offer->getDescription();
-				$companyName = $company->getComp_name();
+				$companyName = $company->getName();
 				require_once(VIEWS_PATH. "/joboffer/pdf-report.php");
 			 } else {
 				$messageDAO = (new MessageDAO())->notLoggedMessage();
@@ -574,16 +505,16 @@
 				$studentDAO = new StudentDAO();
 				$companyDAO = new CompanyDAO();
 
-				$student = $studentDAO->searchStudentById($studentId);
-				$JO = $this->jobOfferDAO->SearchOfferById($jobOfferId);
-				$company = $companyDAO->getById($JO->getIdCompany());
+				$student = $studentDAO->getById($studentId);
+				$jobOffer = $this->jobOfferDAO->getById($jobOfferId);
+				$company = $companyDAO->getById($jobOffer->getCompanyId());
 
 				$sxjDAO->remove($studentId, $jobOfferId);
-				$msg = 'Tu postulacion hacia la oferta [' . $JO->getDescription(). '] de la empresa ['. $company->getComp_name() .'] fue declinada por un administrador. Gracias por participar en nuestra busqueda!</b>';
-
+				$msg = 'Tu postulacion hacia la oferta [' . $jobOffer->getDescription(). '] de la empresa ['. $company->getName() .'] fue declinada por un administrador. Gracias por participar en nuestra busqueda!</b>';
+				$subject = "Oferta declinada";
 				$email = $student->getEmail();
 				$mailrepository = new MailDAO();
-				$mailrepository->sendNewMail($email,$msg);
+				$mailrepository->sendNewMail($email,$msg,$subject);
 				echo "<script>alert('Postulación declinada con exito');</script>";
             	$this->showListView();
 			} else {

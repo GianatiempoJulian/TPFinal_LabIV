@@ -28,7 +28,7 @@ Autoload::Start();
             <div class="add-user-container vh90">
             <h1>Agrega una oferta</h1>
             <form method="POST" class="add-joboffer-form" action="<?php echo FRONT_ROOT ?>JobOffer/add" >
-               <select class="input"  name="id_jp" id="id_jp">
+               <select class="input"  name="jobPositionId" id="jobPositionId">
                     <?php  foreach($jobPositionList as $jobPosition){
                     ?>
                <option value=<?php echo $jobPosition->getId() ?>><?php echo $jobPosition->getDescription() ?></option> 
@@ -39,10 +39,10 @@ Autoload::Start();
              {
                ?>
                <div>
-               <select class="input" name="id_com" id="id_com">
+               <select class="input" name="companyId" id="companyId">
                     <?php  foreach($companyList as $company){
                     ?>
-                         <option value=<?php echo $company->getComp_Id() ?>><?php echo $company->getComp_name() ?></option> 
+                         <option value=<?php echo $company->getId() ?>><?php echo $company->getName() ?></option> 
                     <?php 
                     } 
                     ?>
@@ -53,14 +53,14 @@ Autoload::Start();
              else
              {
                ?>
-                    <input style="display:none" name="id_com" id="id_com" readonly value=<?php echo $_SESSION['id_comp']?>>
+                    <input style="display:none" name="companyId" id="companyId" readonly value=<?php echo $_SESSION['id']?>>
                <?php
              }
              ?>
                
-                    <input class="input" type="date" name="fecha" placeholder="Ingresar Fecha" required>
+                    <input class="input" type="date" name="date" placeholder="Ingresar Fecha" required>
                     <input class="input" type="text" name="description" placeholder="Ingresar descripción" required>
-                    <button class="btn-submit" type="submit"">Siguiente</button>
+                    <button class="btn-submit" type="submit">Siguiente</button>
              </form>
             </div>
         </section>

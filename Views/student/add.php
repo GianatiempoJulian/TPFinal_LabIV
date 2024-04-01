@@ -16,7 +16,7 @@
                     <input type="email" name="email" placeholder="Ingresar email" required>
                </div>
                <div>
-                    <input type="password" name="pass" placeholder="Ingresar contraseña" required>
+                    <input type="password" name="password" placeholder="Ingresar contraseña" required>
                </div>
                <button type="submit">Verificar</button>
              </form>
