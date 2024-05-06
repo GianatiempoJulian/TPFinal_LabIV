@@ -20,6 +20,11 @@
         "careerId": 1, "dni": "43455542", "fileNumber": "333", "gender": "Masculino",
         "birthDate": 20030503, "email": "romitaquerido@querido.com", "phoneNumber": "223", 
         "active": true    
+        },
+        { "recordId":31, "firstName": "loberia", "lastName": "gonzalez",
+        "careerId": 3, "dni": "48123123", "fileNumber": "334", "gender": "Masculino",
+        "birthDate": 20030503, "email": "loberia@querido.com", "phoneNumber": "2235489999", 
+        "active": true    
         }
     ]
 }  

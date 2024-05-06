@@ -41,10 +41,13 @@ namespace Controllers;
                 switch($type){
                     case 0:
                         header("location:". FRONT_ROOT . "Student/ShowAddView");
+                        break;
                     case 1:
                         header("location:". FRONT_ROOT . "Administrator/ShowAddView");
+                        break;
                     case 2:
                         header("location:". FRONT_ROOT . "Company/ShowAddView");
+                        break;
                 }
             }
             else
