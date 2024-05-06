@@ -115,7 +115,7 @@ CREATE TABLE  JOB_OFFERS(
         
         CONSTRAINT PK_JOBOFFER primary key (id),
         CONSTRAINT FK_JOBOFFER_JOBPOSITION foreign key (jobPositionId) references JOB_POSITION (id),
-        CONSTRAINT FK_JOBOFFER_COMPANY foreign key (companyId) references COMPANIES (id)
+        CONSTRAINT FK_JOBOFFER_COMPANY foreign key (companyId) references COMPANIES (id),
 );
 
 

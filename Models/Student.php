@@ -25,7 +25,7 @@ Class Student extends User
 
     public function getId()
     {
-        return $this->id;
+        return $this->recordId;
     }
 
     /**
@@ -35,7 +35,7 @@ Class Student extends User
      */ 
     public function setId($id)
     {
-        $this->id = $id;
+        $this->recordId = $id;
 
         return $this;
     }

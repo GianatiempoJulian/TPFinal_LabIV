@@ -300,54 +300,56 @@
 
 		public function removeWithDate()
         {
-			$JOlist= $this->jobOfferDAO->getAll();
+			$jobOfferList= $this->jobOfferDAO->getAll();
 			$companyDAO = new CompanyDAO();
 			
-			$student_job =  new StudentXJobOfferDAO();
-			$student_job_list = $student_job->getAll(); /// Obtengo toda la lista de student_x_jobOffer
+			$studentXJobDAO =  new StudentXJobOfferDAO();
+			$studentJobList = $studentXJobDAO->getAll(); /// Obtengo toda la lista de student_x_jobOffer
 
-			$student = new StudentDAO();
-			$studentList = $student->getAll();
+			$studentDAO = new StudentDAO();
+			$studentList = $studentDAO->getAll();
 
-
-			foreach ($student_job_list as $student_job)  //Recorro la lista de student_x_jobOffer
+			foreach ($studentJobList as $studentJob)  //Recorro la lista de student_x_jobOffer
 					{  
-						foreach ($JOlist as $jo) 
+						foreach ($jobOfferList as $jobOffer) 
 						{
-							if ($jo->getDate() <= date("Y-m-d") && $student_job->getJobOfferId() == $jo->getId()) 
+							if ($jobOffer->getDate() <= date("Y-m-d") && $studentJob->getJobOfferId() == $jobOffer->getId()) 
 							{ 	
-								$student_id = $student_job->getStudentId();  //Obtenemos el id del estudiante que se postulo al jobOffer
+								$studentId = $studentJob->getStudentId();  //Obtenemos el id del estudiante que se postulo al jobOffer
 								foreach ($studentList as $student) //Recorremos la lista de estudiantes
 								{  
-									if ($student->getStudentId() == $student_id) //busco en la lista de student, cuando el id del student sea =
+									if ($student->getRecordId() == $studentId) //busco en la lista de student, cuando el id del student sea =
 									{  
-										$joAux = $this->jobOfferDAO->searchOfferById($jo->getId());
-										$JOcompany = $companyDAO->getById($joAux->getCompanyId());
+										
+										$jobOfferCompany = $companyDAO->getById($jobOffer->getCompanyId());
 										$email = $student->getEmail();
-										$mailrepository = new MailDAO();
+										$mailDAO = new MailDAO();
 										$subject = "Oferta expirada";
-										$msg = 'La oferta [' . $jo->getDescription(). '] de la empresa ['. $JOcompany->getName() .'] en la que estabas postulado fue dada de baja o ha expirado. Gracias por participar en nuestra busqueda!</b>';
-										$mailrepository->sendNewMail($email,$msg, $subject);
-										$this->jobOfferDAO->remove($jo->getId());
+										$msg = 'La oferta [' . $jobOffer->getDescription(). '] de la empresa ['. $jobOfferCompany->getName() .'] en la que estabas postulado fue dada de baja o ha expirado. Gracias por participar en nuestra busqueda!</b>';
+										$mailDAO->sendNewMail($email,$msg, $subject);
+										$this->jobOfferDAO->remove($jobOffer->getId());
 									}
 								}
 							}
 						}
 					}
-					
-					if($_SESSION['type'] == 0)
-					{
-						header("location:". FRONT_ROOT . "Student/ShowStudentProfile");
-					}
-					else if($_SESSION['type'] == 1)
-					{
-						header("location:". FRONT_ROOT . "Administrator/ShowUserProfile");
-					}
-					else if ($_SESSION['type'] == 2)
-					{
-						header("location:". FRONT_ROOT . "Company/ShowCompanyProfile");
+					$userType = $_SESSION['type'];
 
-					}
+			switch ($userType) {
+				case 0:
+					header("location:" . FRONT_ROOT . "Student/ShowStudentProfile");
+					break;
+				case 1:
+					header("location:" . FRONT_ROOT . "Administrator/ShowAdministratorProfile");
+					break;
+				case 2:
+					header("location:" . FRONT_ROOT . "Company/ShowCompanyById/{$_SESSION['id']}");
+					break;
+				default:
+					echo "<script>window.history.go(-1);</script>";
+					break;
+			}
+					
         }
 
 

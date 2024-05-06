@@ -72,7 +72,7 @@ namespace Controllers;
                 $_SESSION['id'] = $studentInSession->getRecordId();
                 $_SESSION['type'] = $flag;
                 $_SESSION['email'] = $studentInSession->getEmail();
-                header("location:". FRONT_ROOT . "JobOffer/RemoveDate");
+                header("location:". FRONT_ROOT . "JobOffer/removeWithDate");
             }
             else if($flag == 1)
             { 
@@ -80,7 +80,7 @@ namespace Controllers;
                 session_start();
                 $_SESSION['email'] = $email;
                 $_SESSION['type'] = $flag;
-                header("location:". FRONT_ROOT . "JobOffer/RemoveDate");                
+                header("location:". FRONT_ROOT . "JobOffer/removeWithDate");                
             }
             else if ($flag == 2)
             {
@@ -90,7 +90,7 @@ namespace Controllers;
                 $_SESSION['email'] = $email;
                 $_SESSION['type'] = $flag;
                 $id = $_SESSION['id'];
-                header("location:". FRONT_ROOT . "JobOffer/RemoveDate");
+                header("location:". FRONT_ROOT . "JobOffer/removeWithDate");
 
             }
             else
